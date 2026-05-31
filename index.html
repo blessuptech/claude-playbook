@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Playbook — NaXum</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+    :root {
+        --bg: #0d1117;
+        --bg-2: #161b22;
+        --bg-3: #1c2128;
+        --border: #30363d;
+        --text: #c9d1d9;
+        --text-dim: #8b949e;
+        --text-bright: #f0f6fc;
+        --accent: #2dd4bf;
+        --warn: #f59e0b;
+        --bad: #ef4444;
+        --good: #22c55e;
+        --purple: #a78bfa;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 15px;
+        line-height: 1.6;
+    }
+    code, pre, .mono { font-family: "SF Mono", Menlo, Monaco, Consolas, monospace; }
+    h1 { font-size: 2rem; letter-spacing: -0.02em; color: var(--text-bright); font-weight: 600; }
+    h2 {
+        font-size: 1.4rem;
+        margin-top: 3rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--border);
+        color: var(--text-bright);
+        font-weight: 600;
+    }
+    h2 .part-num {
+        color: var(--accent);
+        font-family: "SF Mono", Menlo, monospace;
+        font-size: 0.85em;
+        margin-right: 0.6rem;
+        font-weight: 700;
+    }
+    h3 {
+        font-size: 1rem;
+        margin-top: 2rem;
+        margin-bottom: 0.5rem;
+        color: var(--accent);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-size: 0.85rem;
+    }
+    h4 { font-size: 0.95rem; margin-top: 1.25rem; margin-bottom: 0.4rem; color: var(--text-bright); font-weight: 600; }
+    p { margin-bottom: 0.75rem; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code {
+        background: var(--bg-3);
+        padding: 1px 6px;
+        border-radius: 4px;
+        font-size: 0.88em;
+        color: #e6edf3;
+        border: 1px solid var(--border);
+    }
+    pre {
+        background: var(--bg-2);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 12px 16px;
+        overflow-x: auto;
+        font-size: 13px;
+        line-height: 1.5;
+        margin: 0.6rem 0;
+    }
+    pre code { background: none; padding: 0; border: 0; font-size: inherit; }
+
+    .rule {
+        display: grid;
+        grid-template-columns: 80px 1fr;
+        gap: 16px;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(48, 54, 61, 0.5);
+        align-items: start;
+    }
+    .rule:last-child { border-bottom: 0; }
+    .rule-id {
+        font-family: "SF Mono", Menlo, monospace;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--accent);
+        padding-top: 2px;
+        letter-spacing: 0.02em;
+    }
+    .rule-id.data { color: var(--bad); }
+    .rule-id.code { color: var(--good); }
+    .rule-id.comm { color: var(--purple); }
+    .rule-id.prompt { color: var(--accent); }
+    .rule-id.ap { color: var(--warn); }
+    .rule-body { font-size: 14.5px; }
+    .rule-body strong { color: var(--text-bright); }
+
+    .sidebar {
+        background: var(--bg-2);
+        border-right: 1px solid var(--border);
+    }
+    .sidebar a {
+        display: block;
+        padding: 4px 14px;
+        color: var(--text-dim);
+        font-size: 13px;
+        border-left: 2px solid transparent;
+    }
+    .sidebar a:hover { color: var(--text-bright); text-decoration: none; background: rgba(255,255,255,0.02); }
+    .sidebar a.section {
+        color: var(--text-bright);
+        font-weight: 700;
+        font-size: 10.5px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        padding-top: 16px;
+        padding-bottom: 4px;
+    }
+    .sidebar a.section:hover { background: none; }
+
+    .callout {
+        border-left: 3px solid var(--accent);
+        background: rgba(45, 212, 191, 0.06);
+        padding: 10px 14px;
+        margin: 0.85rem 0;
+        border-radius: 0 6px 6px 0;
+        font-size: 14px;
+    }
+    .callout-warn { border-left-color: var(--warn); background: rgba(245, 158, 11, 0.06); }
+    .callout-bad { border-left-color: var(--bad); background: rgba(239, 68, 68, 0.06); }
+    .callout-good { border-left-color: var(--good); background: rgba(34, 197, 94, 0.06); }
+    .callout-label {
+        font-size: 10.5px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-weight: 700;
+        margin-bottom: 5px;
+        display: block;
+    }
+    .callout-label.warn { color: var(--warn); }
+    .callout-label.bad { color: var(--bad); }
+    .callout-label.good { color: var(--good); }
+    .callout-label.tip { color: var(--accent); }
+
+    table { border-collapse: collapse; margin: 0.85rem 0; width: 100%; font-size: 14px; }
+    th, td { border: 1px solid var(--border); padding: 7px 11px; text-align: left; vertical-align: top; }
+    th { background: var(--bg-2); color: var(--text-bright); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
+    td code { font-size: 12.5px; }
+
+    ul { padding-left: 1.3rem; margin-bottom: 0.75rem; }
+    li { margin-bottom: 0.25rem; }
+
+    .placeholder {
+        background: var(--bg-3);
+        border: 1px dashed var(--border);
+        padding: 20px;
+        text-align: center;
+        color: var(--text-dim);
+        font-size: 12.5px;
+        border-radius: 6px;
+        margin: 0.85rem 0;
+    }
+    .placeholder strong { color: var(--warn); }
+
+    .prompt-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0.85rem 0; }
+    @media (max-width: 768px) { .prompt-compare { grid-template-columns: 1fr; } }
+    .prompt-box { background: var(--bg-2); border: 1px solid var(--border); border-radius: 6px; padding: 11px 13px; font-size: 13.5px; line-height: 1.55; }
+    .prompt-box.bad { border-color: rgba(239, 68, 68, 0.4); }
+    .prompt-box.good { border-color: rgba(34, 197, 94, 0.4); }
+    .prompt-tag {
+        display: inline-block;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 2px 8px;
+        border-radius: 3px;
+        margin-bottom: 6px;
+    }
+    .tag-bad { background: rgba(239, 68, 68, 0.15); color: var(--bad); }
+    .tag-good { background: rgba(34, 197, 94, 0.15); color: var(--good); }
+
+    .topbar { background: var(--bg-2); border-bottom: 1px solid var(--border); }
+
+    .meta-pill {
+        display: inline-block;
+        background: var(--bg-3);
+        padding: 3px 10px;
+        border-radius: 99px;
+        font-size: 12px;
+        color: var(--text-dim);
+        margin-right: 6px;
+        border: 1px solid var(--border);
+    }
+
+    .role-card {
+        background: var(--bg-2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 18px 22px;
+        margin: 1rem 0;
+    }
+    .role-card h4 {
+        margin-top: 0;
+        color: var(--accent);
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 0.4rem;
+    }
+    .role-card .role-stack {
+        font-size: 12px;
+        color: var(--text-dim);
+        margin-bottom: 0.75rem;
+        font-family: "SF Mono", Menlo, monospace;
+    }
+    .role-card h5 {
+        font-size: 13px;
+        color: var(--text-bright);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-top: 1rem;
+        margin-bottom: 0.3rem;
+        font-weight: 600;
+    }
+    .role-card ol, .role-card ul {
+        font-size: 13.5px;
+    }
+
+    .kbd {
+        display: inline-block;
+        background: var(--bg-3);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 1px 7px;
+        font-family: "SF Mono", Menlo, monospace;
+        font-size: 12px;
+        color: var(--text-bright);
+    }
+</style>
+</head>
+<body>
+
+<div class="topbar px-6 py-3 sticky top-0 z-20 flex items-center justify-between">
+    <div>
+        <div class="text-sm font-semibold" style="color: var(--text-bright);">NaXum · Claude Playbook</div>
+        <div class="text-xs" style="color: var(--text-dim);">Internal reference · v0.1 · May 29, 2026</div>
+    </div>
+    <div class="text-xs hidden md:block" style="color: var(--text-dim);">
+        Read time: ~12 min · Pair with: <code style="font-size: 11px;">CLAUDE.md</code>, <code style="font-size: 11px;">audit-rules.md</code>
+    </div>
+</div>
+
+<div class="flex">
+
+    <nav class="sidebar w-60 min-h-screen sticky top-[57px] hidden md:block overflow-y-auto" style="height: calc(100vh - 57px);">
+        <div class="py-3">
+            <a class="section" href="#part-1">I · Ground Rules</a>
+            <a href="#purpose">1.1 Purpose</a>
+            <a href="#harness">1.2 The harness</a>
+            <a href="#commands">1.3 Commands</a>
+
+            <a class="section" href="#part-2">II · The Three Rule Sets</a>
+            <a href="#data-rules">2.1 DATA — security</a>
+            <a href="#code-rules">2.2 CODE — engineering</a>
+            <a href="#comm-rules">2.3 COMM — communication</a>
+
+            <a class="section" href="#part-3">III · Prompting</a>
+            <a href="#prompt-pattern">3.1 The CCO pattern</a>
+            <a href="#prompt-rules">3.2 Prompt rules</a>
+            <a href="#prompt-examples">3.3 NaXum examples</a>
+
+            <a class="section" href="#part-4">IV · Role Playbooks</a>
+            <a href="#role-fe">4.1 Frontend</a>
+            <a href="#role-be">4.2 Backend</a>
+            <a href="#role-mobile">4.3 Mobile</a>
+            <a href="#role-product">4.4 Product / Coord</a>
+            <a href="#role-qa">4.5 QA / Review</a>
+
+            <a class="section" href="#part-5">V · Anti-patterns</a>
+            <a href="#ap-list">5.1 The five common traps</a>
+
+            <a class="section" href="#part-6">VI · Limits</a>
+            <a href="#limits">6.1 What Claude won't do</a>
+            <a href="#escalation">6.2 Escalation path</a>
+        </div>
+    </nav>
+
+    <main class="flex-1 px-6 md:px-12 py-8 max-w-4xl">
+
+        <h1>NaXum · Claude Playbook</h1>
+        <p style="color: var(--text-dim); font-size: 15px; margin-top: 8px;">
+            Conventions and rules for using Claude on NaXum products. Reference doc, not a tutorial.
+            For tool installation see Anthropic docs. For our specific stack and code rules see <code>CLAUDE.md</code> and <code>audit-rules.md</code> in the relevant repo.
+        </p>
+        <div class="mt-3">
+            <span class="meta-pill">VO migration</span>
+            <span class="meta-pill">APF</span>
+            <span class="meta-pill">BlessUP / ACT.X</span>
+            <span class="meta-pill">Mobile app</span>
+        </div>
+
+        <h2 id="part-1"><span class="part-num">I.</span>Ground Rules</h2>
+
+        <h3 id="purpose">1.1 Purpose &amp; Scope</h3>
+        <p>
+            This playbook defines <em>how</em> Claude is used inside NaXum. It does not define what Claude is or how it works generally — that is documented elsewhere.
+            It assumes the reader already has Claude Code installed and access to <code>claude.ai</code>.
+        </p>
+        <p>
+            Applies to: VO migration (<code>laravel12_vo</code>), the new mobile app, the APF / BuilderPro client project, and BlessUP / ACT.X smart contracts.
+        </p>
+
+        <h3 id="harness">1.2 The Harness</h3>
+        <p>
+            Every NaXum repo ships with a Claude harness. Currently in production for the VO. Being rolled out in waves to mobile, APF, and BlessUP.
+        </p>
+        <p>The harness consists of:</p>
+        <table>
+            <thead>
+                <tr><th style="width: 30%;">File</th><th>Purpose</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><code>CLAUDE.md</code></td><td>Project context — stack, conventions, where things live, what tests must pass. Loaded automatically on every Claude Code session.</td></tr>
+                <tr><td><code>audit-rules.md</code></td><td>95 enforceable rules across 14 categories (<code>PCG-*</code>, <code>VSG-*</code>, <code>TEST-*</code>, <code>PERF-*</code>). Checked by the <code>/audit</code> command.</td></tr>
+                <tr><td><code>skills/</code></td><td>Custom commands (currently 3: <code>/audit</code>, <code>/commit</code>, <code>/sail-up</code>). New skills get added here.</td></tr>
+                <tr><td><code>refs/</code></td><td>Reference files — code style guide, conventions, troubleshooting log.</td></tr>
+            </tbody>
+        </table>
+
+        <h3 id="commands">1.3 Standard Commands</h3>
+        <table>
+            <thead>
+                <tr><th style="width: 22%;">Command</th><th>When to run</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><code>/audit</code></td><td>Before every commit. Mandatory on any behavior-changing diff.</td></tr>
+                <tr><td><code>/commit</code></td><td>After <code>/audit</code> passes. Writes the commit message in our format.</td></tr>
+                <tr><td><code>/sail-up</code></td><td>When stuck. Catch-all "help me figure out where to start" command.</td></tr>
+                <tr><td><code>/audit-sol</code></td><td><em>(coming)</em> BlessUP smart contract audit. Same idea, Solidity rules.</td></tr>
+                <tr><td><code>/audit-light</code></td><td><em>(coming)</em> Faster audit on changed files only, for partial-diff work.</td></tr>
+            </tbody>
+        </table>
+
+        <h2 id="part-2"><span class="part-num">II.</span>The Three Rule Sets</h2>
+        <p>
+            Three categories of non-negotiable rules. Breaking any of them is a stop-everything moment.
+        </p>
+
+        <h3 id="data-rules">2.1 DATA — Security &amp; Confidentiality</h3>
+
+        <div class="rule">
+            <div class="rule-id data">DATA-01</div>
+            <div class="rule-body"><strong>No production customer data in Claude.</strong> Names, emails, phone numbers, addresses, payment info, member IDs. Not in claude.ai, not in Claude Code, not in screenshots. Anonymize before pasting.</div>
+        </div>
+        <div class="rule">
+            <div class="rule-id data">DATA-02</div>
+            <div class="rule-body"><strong>No secrets in any prompt.</strong> API keys, JWT secrets, DB credentials, Stripe keys, Apple/Google merchant keys, IPN tokens. Paste the variable <em>name</em> and the error, never the value.</div>
+        </div>
+        <div class="rule">
+            <div class="rule-id data">DATA-03</div>
+            <div class="rule-body"><strong>No full <code>.env</code> dumps.</strong> Even when debugging env issues. Share schema and error, not values.</div>
+        </div>
+        <div class="rule">
+            <div class="rule-id data">DATA-04</div>
+            <div class="rule-body"><strong>The harness is internal.</strong> Do not share the contents of <code>audit-rules.md</code>, <code>CLAUDE.md</code>, or custom skills outside NaXum.</div>
+        </div>
+        <div class="rule">
+            <div class="rule-id data">DATA-05</div>
+            <div class="rule-body"><strong>Client codebase boundaries.</strong> APF / BuilderPro work stays in its repos. BlessUP work stays in its repos. Don't paste BlessUP smart contract code into a session focused on APF, or vice versa.</div>
+        </div>
+        <div class="rule">
+            <div class="rule-id data">DATA-06</div>
+            <div class="rule-body"><strong>Staging or seed data only for examples.</strong> If you need realistic data shapes, use factory output or anonymized staging dumps.</div>
+        </div>
+
+        <h3 id="code-rules">2.2 CODE — Engineering Rules</h3>
+
+        <div class="rule">
+            <div class="rule-id code">CODE-01</div>
+            <div class="rule-body"><strong>Every MR goes through human review.</strong> Claude-written code follows the same approval chain as hand-written: frontend → frontend lead, backend → backend lead, infra → infra/architecture leads. Claude does not bypass review.</div>
+        </div>
+        <div class="rule">
+            <div class="rule-id code">CODE-02</div>
+            <div class="rule-body"><strong><code>/audit</code> is required before every commit.</strong> Even small changes. Especially Claude-written changes.</div>
+        </div>
+        <div class="rule">
+            <div class="rule-id code">CODE-03</div>
+            <div class="rule-body"><strong>The test suite is the source of truth.</strong> Current baseline is 888 passing, 0 failing on the VO. If your work drops that, stop and investigate before committing. Don't suppress, skip, or delete failing tests to make the count match.</div>
+        </div>
+        <div class="rule">
+            <div class="rule-id code">CODE-04</div>
+            <div class="rule-body"><strong>No silent dependency additions.</strong> If Claude suggests installing a new package, the human decides. Justify the add in the MR description.</div>
+        </div>
+        <div class="rule">
+            <div class="rule-id code">CODE-05</div>
+            <div class="rule-body"><strong>Stick to the stack.</strong> VO is Laravel 12 + Vue 3 + PrimeVue + Tailwind + MySQL 8.4 + JWT. Mobile is Expo + React Native + NativeWind + Zustand + TanStack Query. Don't let Claude introduce Nuxt, Next.js, Redux, styled-components, or alternate ORMs.</div>
+        </div>
+        <div class="rule">
+            <div class="rule-id code">CODE-06</div>
+            <div class="rule-body"><strong>Verify before trusting.</strong> Confirm file paths, function names, and package versions Claude references actually exist before acting on them. <code>/audit</code> catches most hallucinations but not all.</div>
+        </div>
+        <div class="rule">
+            <div class="rule-id code">CODE-07</div>
+            <div class="rule-body"><strong>No protected branch pushes from Claude.</strong> Feature branches only. Merge to <code>main</code> / <code>develop</code> is a human action.</div>
+        </div>
+        <div class="rule">
+            <div class="rule-id code">CODE-08</div>
+            <div class="rule-body"><strong>Behavior changes need a test.</strong> If Claude is changing logic that affects user-visible behavior or money flow (commissions, payouts, billing), it must add or update a test.</div>
+        </div>
+
+        <h3 id="comm-rules">2.3 COMM — Client &amp; Team Communication</h3>
+
+        <div class="rule">
+            <div class="rule-id comm">COMM-01</div>
+            <div class="rule-body"><strong>Claude does not post on your behalf.</strong> Drafts only. Basecamp posts, Slack messages, client emails, MR descriptions — all reviewed and sent by a human.</div>
+        </div>
+        <div class="rule">
+            <div class="rule-id comm">COMM-02</div>
+            <div class="rule-body"><strong>Match the existing voice for the channel.</strong> Task specs follow the TASK / NOTES / DONE DONE format. Basecamp posts get a TLDR at top, no em dashes, simple language. Client communication is warmer. Claude defaults toward verbose corporate tone; cut hard.</div>
+        </div>
+        <div class="rule">
+            <div class="rule-id comm">COMM-03</div>
+            <div class="rule-body"><strong>No fabricated attributions.</strong> Don't let Claude write quotes, decisions, or commitments attributed to team members or clients. If Claude generates these in a draft, strip them.</div>
+        </div>
+        <div class="rule">
+            <div class="rule-id comm">COMM-04</div>
+            <div class="rule-body"><strong>Client-facing content gets a second pass.</strong> Anything going to an external stakeholder (APF, BlessUP investors, client champions on the NaXum side) is reviewed before sending.</div>
+        </div>
+
+        <h2 id="part-3"><span class="part-num">III.</span>Prompting Conventions</h2>
+
+        <h3 id="prompt-pattern">3.1 The CCO Pattern</h3>
+        <p>
+            Every prompt for NaXum work should specify three things. Skip personas, skip "you are a senior engineer," skip chain-of-thought tricks.
+        </p>
+        <table>
+            <thead>
+                <tr><th style="width: 18%;">Element</th><th>What to include</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Context</strong></td><td>Repo, file path, what the codebase calls things, any naming convention Claude wouldn't infer.</td></tr>
+                <tr><td><strong>Constraint</strong></td><td>What it must not change. Which patterns to match. Which tests must still pass.</td></tr>
+                <tr><td><strong>Outcome</strong></td><td>What "done" looks like. A passing <code>/audit</code>? A green test? A reviewed MR description?</td></tr>
+            </tbody>
+        </table>
+
+        <h3 id="prompt-rules">3.2 Prompt Rules</h3>
+
+        <div class="rule">
+            <div class="rule-id prompt">PROMPT-01</div>
+            <div class="rule-body"><strong>Lead with the file path.</strong> Almost every coding prompt should name the file Claude is working in. Vague "fix the bug" wastes a turn.</div>
+        </div>
+        <div class="rule">
+            <div class="rule-id prompt">PROMPT-02</div>
+            <div class="rule-body"><strong>Specify what NOT to touch.</strong> Claude will refactor adjacent code if not constrained. State the blast radius.</div>
+        </div>
+        <div class="rule">
+            <div class="rule-id prompt">PROMPT-03</div>
+            <div class="rule-body"><strong>Ask for the smallest diff that satisfies the requirement.</strong> Default Claude output is over-engineered. "Smallest diff" is a magic phrase.</div>
+        </div>
+        <div class="rule">
+            <div class="rule-id prompt">PROMPT-04</div>
+            <div class="rule-body"><strong>One task per session.</strong> Long-running sessions accumulate context bloat and burn the conversation budget. Exit and re-enter between tasks.</div>
+        </div>
+        <div class="rule">
+            <div class="rule-id prompt">PROMPT-05</div>
+            <div class="rule-body"><strong>Don't ask Claude to research external docs from scratch.</strong> Point it at the specific docs URL with the question. Don't let it spelunk.</div>
+        </div>
+
+        <h3 id="prompt-examples">3.3 NaXum-specific examples</h3>
+
+        <h4>Bug triage from a reported issue (VO frontend)</h4>
+        <div class="prompt-compare">
+            <div class="prompt-box bad">
+                <span class="prompt-tag tag-bad">Bad</span>
+                <div>"Fix the contact download bug that was reported"</div>
+            </div>
+            <div class="prompt-box good">
+                <span class="prompt-tag tag-good">Good</span>
+                <div>"In <code>app/Http/Controllers/ContactsController.php</code> the <code>downloadCsv()</code> method exports every DB column. We want it to export only the columns currently visible in the frontend table — the frontend sends them as <code>visible_columns[]</code> in the request. Don't change the frontend. Add a feature test in <code>tests/Feature/Contacts/DownloadCsvTest.php</code>. Smallest diff that satisfies this."</div>
+            </div>
+        </div>
+
+        <h4>Adding validation (VO backend)</h4>
+        <div class="prompt-compare">
+            <div class="prompt-box bad">
+                <span class="prompt-tag tag-bad">Bad</span>
+                <div>"Add username with numbers"</div>
+            </div>
+            <div class="prompt-box good">
+                <span class="prompt-tag tag-good">Good</span>
+                <div>"Username field currently rejects digits via the regex in <code>UserStoreRequest.php</code>. Update the regex to accept digits but reject usernames that are ALL digits — we still want at least one letter. Add the test cases to <code>UserStoreRequestTest.php</code>. Don't change the field length limit or any other rule on this request class."</div>
+            </div>
+        </div>
+
+        <h4>Understanding a flow (commission engine QA)</h4>
+        <div class="prompt-compare">
+            <div class="prompt-box bad">
+                <span class="prompt-tag tag-bad">Bad</span>
+                <div>"How does our commission engine work?"</div>
+            </div>
+            <div class="prompt-box good">
+                <span class="prompt-tag tag-good">Good</span>
+                <div>"I'm doing QA on the New VO commission pages. Walk me from <code>CommissionsController</code> down to whichever service or job actually calculates the payout. Files and methods only, no full code. Compare against <code>/reference/phoenix-vo/</code> if anything differs."</div>
+            </div>
+        </div>
+
+        <h4>Mobile screen build (Expo + Figma reference)</h4>
+        <div class="prompt-compare">
+            <div class="prompt-box bad">
+                <span class="prompt-tag tag-bad">Bad</span>
+                <div>"Build the contacts screen from Figma"</div>
+            </div>
+            <div class="prompt-box good">
+                <span class="prompt-tag tag-good">Good</span>
+                <div>"Build <code>app/(tabs)/contacts.tsx</code> matching the Figma node at <code>{nodeId}</code>. Use Expo Router file-based nav, NativeWind for styling, Zustand for the local filter state, TanStack Query for the contacts list fetch. The endpoint is <code>GET /api/contacts</code>. No Redux, no styled-components. Pattern-match the existing <code>(tabs)/training.tsx</code> for screen scaffolding."</div>
+            </div>
+        </div>
+
+        <div class="callout">
+            <span class="callout-label tip">The Pattern</span>
+            Bad prompts ask Claude to figure out what you mean. Good prompts tell Claude what you've already figured out, and ask only for the remaining piece.
+        </div>
+
+        <h2 id="part-4"><span class="part-num">IV.</span>Role Playbooks</h2>
+
+        <div class="role-card" id="role-fe">
+            <h4>4.1 Frontend Engineer</h4>
+            <div class="role-stack">Vue 3 · Inertia · PrimeVue · Tailwind · Vite</div>
+
+            <h5>Default workflow — slice port</h5>
+            <ol>
+                <li>Open the target slice folder in Claude Code.</li>
+                <li>Tell Claude which slice and which mockup section.</li>
+                <li>Let Claude read the equivalent Phoenix component for behavior reference.</li>
+                <li>Generate the Vue 3 + PrimeVue version, smallest diff.</li>
+                <li><code>/audit</code>.</li>
+                <li>Manually test in browser (Claude can't see pixels).</li>
+                <li><code>/commit</code>, push, MR.</li>
+            </ol>
+
+            <h5>Default workflow — MR review</h5>
+            <pre><code>git fetch &amp;&amp; git checkout origin/&lt;mr-branch&gt;
+claude
+&gt; review the diff vs main. flag anything that breaks an audit rule,
+&gt; doesn't match our patterns, or looks risky. files + line numbers only.</code></pre>
+
+            <h5>Avoid</h5>
+            <ul>
+                <li>Letting Claude introduce new state management beyond what's already in use.</li>
+                <li>Asking Claude to "improve" a working component — it will refactor freely.</li>
+                <li>Skipping manual visual QA. Claude has zero pixel awareness.</li>
+            </ul>
+        </div>
+
+        <div class="role-card" id="role-be">
+            <h4>4.2 Backend Engineer</h4>
+            <div class="role-stack">Laravel 12 · MySQL 8.4 · JWT · PHPUnit / Pest</div>
+
+            <h5>Default workflow — feature endpoint</h5>
+            <ol>
+                <li>State the route, controller, request class, and expected response shape in the prompt.</li>
+                <li>Specify which existing endpoint to pattern-match.</li>
+                <li>Generate controller + form request + test in one diff.</li>
+                <li><code>/audit</code>. Run the test suite locally.</li>
+                <li><code>/commit</code>.</li>
+            </ol>
+
+            <h5>Default workflow — commission / payout audit</h5>
+            <ol>
+                <li>Pick one page or one calculator at a time. Don't ask Claude to audit "the commission engine."</li>
+                <li>Have Claude diff the new VO logic against <code>/reference/phoenix-vo/</code>.</li>
+                <li>Get a behavior-diff list before opening the actual VO.</li>
+                <li>Execute the test plan against <code>office.phoenix-vo.xyz</code>.</li>
+                <li>Log every issue with: error description, page link, screenshot or video, expected output.</li>
+            </ol>
+
+            <h5>Avoid</h5>
+            <ul>
+                <li>Letting Claude write database migrations without explicit human review of the SQL.</li>
+                <li>Trusting Claude's understanding of complex commission math without spot-checking against the old Phoenix tool.</li>
+                <li>Asking Claude to add a new caching layer or queue mechanism without team discussion.</li>
+            </ul>
+        </div>
+
+        <div class="role-card" id="role-mobile">
+            <h4>4.3 Mobile Engineer</h4>
+            <div class="role-stack">Expo · React Native · NativeWind · Zustand · TanStack Query · EAS Build</div>
+
+            <h5>Default workflow — new screen</h5>
+            <ol>
+                <li>Start from Figma. Provide the screen name and node ID.</li>
+                <li>Specify the existing screen to pattern-match.</li>
+                <li>State the endpoint and response shape, and which Zustand slice (if any) it touches.</li>
+                <li>Generate the screen file plus any new query hook in one diff.</li>
+                <li><code>/audit</code> if the mobile harness is in your repo. Otherwise manual review.</li>
+            </ol>
+
+            <h5>Default workflow — EAS build issues</h5>
+            <p>
+                Don't have Claude explore EAS docs. Point it at the last working build config and ask "what's different here that might be missing." Builds fail on env config and App Store Connect API errors. Both are pattern-match problems, not docs problems.
+            </p>
+
+            <h5>Avoid</h5>
+            <ul>
+                <li>Letting Claude pick native module versions silently — Expo plugin versions matter.</li>
+                <li>Adding Redux, MobX, or styled-components. Stack is fixed.</li>
+                <li>Generating Detox or Jest tests without verifying they actually run in our CI.</li>
+            </ul>
+        </div>
+
+        <div class="role-card" id="role-product">
+            <h4>4.4 Product Lead / Coordinator</h4>
+            <div class="role-stack">claude.ai · Basecamp connector · web search</div>
+
+            <h5>Default workflow — Basecamp thread summary</h5>
+            <ol>
+                <li>In claude.ai with the Basecamp connector connected, paste the thread URL.</li>
+                <li>Ask for: current status, who owes what, decisions made, decisions still open.</li>
+                <li>Verify any extracted commitments against the actual thread before relying on them.</li>
+            </ol>
+
+            <h5>Default workflow — task spec drafting</h5>
+            <ol>
+                <li>Give Claude the format: TASK / NOTES / Page sections with labeled sub-sections / DONE DONE.</li>
+                <li>State the actual scope, repo, and any prerequisites.</li>
+                <li>Reject the first draft. Cut by 30%. Ship the second.</li>
+            </ol>
+
+            <h5>Avoid</h5>
+            <ul>
+                <li>Letting Claude post to Basecamp directly (see <code>COMM-01</code>).</li>
+                <li>Letting Claude estimate hours. Time estimates require human context.</li>
+                <li>Trusting Claude's summary of a long thread without checking the latest comment.</li>
+            </ul>
+        </div>
+
+        <div class="role-card" id="role-qa">
+            <h4>4.5 QA / Reviewer</h4>
+            <div class="role-stack">claude.ai · Claude Code · Detox / Browser DevTools</div>
+
+            <h5>Default workflow — test plan generation</h5>
+            <ol>
+                <li>Open the feature in Claude Code.</li>
+                <li>Ask for a test plan with edge cases: empty state, max length, special characters, concurrent users, network failure.</li>
+                <li>Filter the plan to what's actually testable in our environment.</li>
+                <li>Execute manually. Log issues per the standard format.</li>
+            </ol>
+
+            <h5>Avoid</h5>
+            <ul>
+                <li>Trusting that a Claude-suggested test case actually catches the intended bug. Run the test against a known-bad version to verify.</li>
+                <li>Letting Claude declare a feature "done" without your manual verification.</li>
+            </ul>
+        </div>
+
+        <h2 id="part-5"><span class="part-num">V.</span>Anti-patterns</h2>
+
+        <h3 id="ap-list">5.1 The Five Common Traps</h3>
+
+        <div class="rule">
+            <div class="rule-id ap">AP-01</div>
+            <div class="rule-body">
+                <strong>The runaway <code>/audit</code>.</strong>
+                One audit run on a 30-file diff can consume 20% of a session.
+                Fix: batch audits by 5-10 files. Reset the session between unrelated tasks. Skip <code>/audit</code> on whitespace-only and comment-only changes.
+            </div>
+        </div>
+        <div class="rule">
+            <div class="rule-id ap">AP-02</div>
+            <div class="rule-body">
+                <strong>Docs spelunking.</strong>
+                Reading official API docs for hours before writing any code. Worst-case observed: 24 hours on StoreKit + Google Billing docs before starting implementation.
+                Fix: when external docs are needed, point Claude at the docs URL with the specific question. 5-10 minutes, not days.
+            </div>
+        </div>
+        <div class="rule">
+            <div class="rule-id ap">AP-03</div>
+            <div class="rule-body">
+                <strong>Confident hallucination.</strong>
+                Claude will invent function names, package versions, and blog post citations with full confidence.
+                Fix: verify file paths and function names exist before acting. Spot-check version numbers. Treat all citations as suspect until proven.
+            </div>
+        </div>
+        <div class="rule">
+            <div class="rule-id ap">AP-04</div>
+            <div class="rule-body">
+                <strong>The kitchen-sink prompt.</strong>
+                Asking Claude to do four things at once. Result is four half-done things.
+                Fix: one task per prompt, one task per session. See <code>PROMPT-04</code>.
+            </div>
+        </div>
+        <div class="rule">
+            <div class="rule-id ap">AP-05</div>
+            <div class="rule-body">
+                <strong>Skipping <code>/audit</code> on Claude-written code "because Claude wrote it."</strong>
+                The audit catches Claude-specific failure modes more often than human-written ones. It is not optional. See <code>CODE-02</code>.
+            </div>
+        </div>
+
+        <div class="placeholder">
+            <strong>[Placeholder]</strong> Loom demo: <code>/audit</code> running on a VO frontend MR. Will add tomorrow.
+        </div>
+
+        <div class="placeholder">
+            <strong>[Placeholder]</strong> Loom demo: Basecamp thread summary via claude.ai with connector. Will add tomorrow.
+        </div>
+
+        <h2 id="part-6"><span class="part-num">VI.</span>Limits &amp; Escalation</h2>
+
+        <h3 id="limits">6.1 What Claude won't do (May 2026)</h3>
+        <ul>
+            <li>See your screen — screenshots must be pasted</li>
+            <li>Access production environments — only your local repo</li>
+            <li>Approve MRs, push to protected branches, or merge</li>
+            <li>Post to Basecamp / Slack / email on your behalf — drafts only</li>
+            <li>Access client production data (and shouldn't try)</li>
+            <li>Replace human review for client-facing decisions</li>
+            <li>Estimate hours reliably</li>
+            <li>Pixel-test UI</li>
+        </ul>
+
+        <h3 id="escalation">6.2 Escalation Path</h3>
+        <table>
+            <thead>
+                <tr><th style="width: 38%;">Situation</th><th>Where to go</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Harness question (audit rules, CLAUDE.md, custom skills)</td><td>Harness maintainer thread on Basecamp</td></tr>
+                <tr><td>Claude Code install / login issue</td><td>Anthropic docs first, then internal thread</td></tr>
+                <tr><td>"Should I use Claude for this?"</td><td>If you have to ask, try it once. If it fails twice, escalate.</td></tr>
+                <tr><td>Suspected DATA-rule violation</td><td>Stop, do not commit, raise immediately</td></tr>
+                <tr><td>Claude generated something weird and confident</td><td>Screenshot + post in the team thread. Weird cases become future guardrails.</td></tr>
+            </tbody>
+        </table>
+
+        <div class="callout">
+            <span class="callout-label tip">Feedback</span>
+            This playbook is v0.1. If a rule saved you time, flag it so it gets expanded.
+            If a rule is wrong, contradictory, or useless to your role, flag it so it gets cut or fixed.
+            The goal is fewer rules, sharper rules.
+        </div>
+
+        <div style="margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--border); color: var(--text-dim); font-size: 12.5px;">
+            v0.1 · last updated {{LAST_UPDATED}} · commit {{COMMIT_HASH}} · <a href="https://github.com/blessuptech/claude-playbook/commits/main" style="color: inherit;">view history</a>
+        </div>
+
+    </main>
+</div>
+
+</body>
+</html>
