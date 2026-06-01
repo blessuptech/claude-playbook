@@ -507,11 +507,11 @@
         </p>
 
         <div class="demo">
-            <div class="demo-head"><span>▶ Demo slot</span><span class="kind">Loom · ~2 min</span></div>
+            <div class="demo-head"><span>▶ Real demo · ACT.X</span><span class="kind">Loom · ~2 min</span></div>
             <div class="demo-body">
-                <div class="demo-title">"Tool vs Agent" — the 2-minute cold open</div>
-                <div class="demo-cap">Record: same task done twice. First as a tool (you typing, one function at a time). Then as an agent (hand Claude the whole slice, it plans then builds, you review). Show the wall-clock difference. This is the hook for the whole rollout.</div>
-                <div class="demo-slot"><strong>[ Record &amp; drop in ]</strong> &nbsp; replace this block with the embed</div>
+                <div class="demo-title">Tool vs Agent — the ACTXToken sync</div>
+                <div class="demo-cap">Real session from BlessUP / ACT.X: instead of hand-editing the token across repos, the agent syncs <code>ACTXToken.sol</code> and generates the cross-contract integration suite — 41 integration tests, 544 passing. Minutes, not hours. The same move applies to a VO or app change.</div>
+                <div class="demo-slot"><strong>[ Record &amp; drop in ]</strong> &nbsp; replace this block with the Loom embed</div>
             </div>
         </div>
 
@@ -774,11 +774,11 @@ git worktree add ../vo-slice-5a feat/slice-5a
         </div>
 
         <div class="demo">
-            <div class="demo-head"><span>▶ Demo slot</span><span class="kind">Loom · ~90 sec</span></div>
+            <div class="demo-head"><span>▶ Real demo · ACT.X</span><span class="kind">Loom · ~90 sec</span></div>
             <div class="demo-body">
-                <div class="demo-title">Parallel worktrees in action</div>
-                <div class="demo-cap">Record: your screen with 3 terminal panes, each running <code>claude</code> on a different VO slice. Show all three drafting at once, then you flipping between them to review. End on the three branches ready for <code>/audit</code>. This is the "agent works while you sleep" proof shot.</div>
-                <div class="demo-slot"><strong>[ Record &amp; drop in ]</strong> &nbsp; 3-pane terminal, slices 4a/4b/5a in parallel</div>
+                <div class="demo-title">Three agents in parallel on the contract monorepo</div>
+                <div class="demo-cap">Real session from BlessUP / ACT.X: 3 Claude Code agents running at once on <code>actx-smart-contracts</code> — one on contract code, one on the test suite, one on the technical doc. One engineer directing three streams. The same move works with VO migration slices.</div>
+                <div class="demo-slot"><strong>[ Record &amp; drop in ]</strong> &nbsp; 3 parallel agents: contract · tests · docs</div>
             </div>
         </div>
 
@@ -822,15 +822,6 @@ claude
 &gt; doesn't match our patterns, or looks risky. Files + line numbers only.
 &gt; Then give me a 5-line summary I can paste into the MR thread.</code></pre></div>
         <p class="lede">Reviewer time on a typical MR drops from ~30–45 min to ~10. The human still makes the call — Claude just clears the underbrush.</p>
-
-        <div class="demo">
-            <div class="demo-head"><span>▶ Demo slot</span><span class="kind">Loom · ~2 min</span></div>
-            <div class="demo-body">
-                <div class="demo-title">AI-assisted MR pre-review</div>
-                <div class="demo-cap">Record: check out a real open MR, run the pre-review prompt above, show Claude flagging a real rule violation with file + line, then you pasting the 5-line summary into the Basecamp/GitLab thread. Show the before/after on review time.</div>
-                <div class="demo-slot"><strong>[ Record &amp; drop in ]</strong> &nbsp; pre-review on a real VO MR</div>
-            </div>
-        </div>
 
         <h3 id="flow-migrate">4.5 The migration loop — Gate A / B / C</h3>
         <p>
@@ -940,6 +931,15 @@ claude
                 <li>Ask for: current status, who owes what, decisions made, decisions still open.</li>
                 <li>Verify any extracted commitment against the actual thread before relying on it.</li>
             </ol>
+
+            <div class="demo">
+                <div class="demo-head"><span>▶ Real demo · ACT.X</span><span class="kind">Loom · ~90 sec</span></div>
+                <div class="demo-body">
+                    <div class="demo-title">Triaging a long thread with the Basecamp Skill</div>
+                    <div class="demo-cap">Real session: pointing the Basecamp Skill at a long ACT.X bug thread inside Claude Code and getting status, who-owes-what, and open decisions in one pass — then verifying against the latest comment before trusting it. Works on any team's threads, not just engineering.</div>
+                    <div class="demo-slot"><strong>[ Record &amp; drop in ]</strong> &nbsp; Basecamp thread summary in Claude Code</div>
+                </div>
+            </div>
 
             <h5>Default workflow — task spec drafting</h5>
             <ol>
