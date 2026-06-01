@@ -509,9 +509,9 @@
         <div class="demo">
             <div class="demo-head"><span>▶ Real demo · ACT.X</span><span class="kind">Loom · ~2 min</span></div>
             <div class="demo-body">
-                <div class="demo-title">Tool vs Agent — the ACTXToken sync</div>
-                <div class="demo-cap">Real session from BlessUP / ACT.X: instead of hand-editing the token across repos, the agent syncs <code>ACTXToken.sol</code> and generates the cross-contract integration suite — 41 integration tests, 544 passing. Minutes, not hours. The same move applies to a VO or app change.</div>
-                <div class="demo-slot"><strong>[ Record &amp; drop in ]</strong> &nbsp; replace this block with the Loom embed</div>
+                <div class="demo-title">Tool vs Agent — close a real bug in actx-contracts</div>
+                <div class="demo-cap">Real session from BlessUP / ACT.X: hand the agent an open bug — presale, vesting, and NFT still point at the old ACTXToken — and have it repoint them to the consolidated token, refresh <code>DEPLOYMENT_REGISTRY.md</code>, then run the suite. <code>npx hardhat test</code> → 717/717 green. A real fix in minutes. The same move applies to any repo.</div>
+                <div class="demo-slot"><strong>[ Record &amp; drop in ]</strong> &nbsp; token-address fix → green test suite</div>
             </div>
         </div>
 
@@ -544,6 +544,15 @@
         <div class="callout">
             <span class="callout-label tip">Don't rewrite the harness — extend it</span>
             The harness is professional grade. The plan is to keep what's there, fix small gaps (hardcoded paths, a shared command set), and add skills on top (<code>/migrate</code>, <code>/audit-sol</code>). If something in the harness feels wrong, flag it — don't route around it.
+        </div>
+
+        <div class="demo">
+            <div class="demo-head"><span>▶ Real demo · ACT.X</span><span class="kind">Loom · ~90 sec</span></div>
+            <div class="demo-body">
+                <div class="demo-title">Get productive in a new repo without reading all of it</div>
+                <div class="demo-cap">Real session in a freshly-migrated GitHub repo (<code>actx-cloud</code>): "Trace the Stripe payment flow from the launchpad request through to where the webhook is verified — files and functions only." Claude maps it across the codebase; you confirm <code>stripe.webhooks.constructEvent</code> and the NOWPayments IPN check. Onboard onto a repo in minutes, not days.</div>
+                <div class="demo-slot"><strong>[ Record &amp; drop in ]</strong> &nbsp; trace a payment flow in actx-cloud</div>
+            </div>
         </div>
 
         <h3 id="commands">1.3 Standard Commands</h3>
@@ -776,9 +785,9 @@ git worktree add ../vo-slice-5a feat/slice-5a
         <div class="demo">
             <div class="demo-head"><span>▶ Real demo · ACT.X</span><span class="kind">Loom · ~90 sec</span></div>
             <div class="demo-body">
-                <div class="demo-title">Three agents in parallel on the contract monorepo</div>
-                <div class="demo-cap">Real session from BlessUP / ACT.X: 3 Claude Code agents running at once on <code>actx-smart-contracts</code> — one on contract code, one on the test suite, one on the technical doc. One engineer directing three streams. The same move works with VO migration slices.</div>
-                <div class="demo-slot"><strong>[ Record &amp; drop in ]</strong> &nbsp; 3 parallel agents: contract · tests · docs</div>
+                <div class="demo-title">Three agents, one change across three repos</div>
+                <div class="demo-cap">Real session from BlessUP / ACT.X: propagate a new token address end-to-end with 3 Claude Code agents at once — one in <code>actx-contracts</code> (deploy + registry), one in <code>actx-cloud</code> (config), one in <code>blessup-launchpad</code> (UI constant). One coordinated cross-stack change, three repos, in parallel. One engineer directing three streams.</div>
+                <div class="demo-slot"><strong>[ Record &amp; drop in ]</strong> &nbsp; 3 agents · contracts · cloud · launchpad</div>
             </div>
         </div>
 
