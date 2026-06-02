@@ -128,6 +128,7 @@
     .rule-id.comm { color: var(--purple); }
     .rule-id.prompt { color: var(--accent); }
     .rule-id.ap { color: var(--warn); }
+    .rule-id.doc { color: #38bdf8; }
     .rule-id.flow { color: var(--purple); }
     .rule-body { font-size: 14.5px; }
     .rule-body strong { color: var(--text-bright); }
@@ -400,6 +401,7 @@
         <div class="py-3">
             <a class="section" href="#start-here">Start Here</a>
             <a href="#the-one-idea">The one idea</a>
+            <a href="#new-to-claude">New to Claude?</a>
             <a href="#how-to-read">How to read this</a>
 
             <a class="section" href="#part-1">I · Ground Rules</a>
@@ -407,10 +409,11 @@
             <a href="#harness">1.2 The harness</a>
             <a href="#commands">1.3 Commands</a>
 
-            <a class="section" href="#part-2">II · The Three Rule Sets</a>
+            <a class="section" href="#part-2">II · The Rule Sets</a>
             <a href="#data-rules">2.1 DATA — security</a>
             <a href="#code-rules">2.2 CODE — engineering</a>
             <a href="#comm-rules">2.3 COMM — communication</a>
+            <a href="#doc-rules">2.4 DOC — AI-generated work</a>
 
             <a class="section" href="#part-3">III · Prompting</a>
             <a href="#prompt-pattern">3.1 The CCO pattern</a>
@@ -503,6 +506,26 @@
             The whole point of this playbook is to make returns rare.
         </div>
 
+        <h3 id="new-to-claude">New to Claude? 60-second orientation</h3>
+        <p>If you've never used Claude here, this is all you need to start. The rest of the page builds on it.</p>
+        <table>
+            <thead>
+                <tr><th style="width: 22%;">Term</th><th>What it is</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Claude</strong></td><td>The AI model. It reads, writes, reasons, and codes. It does not act on its own — you direct it.</td></tr>
+                <tr><td><strong>claude.ai</strong></td><td>The chat website. Best for writing, summarizing, research, drafting Basecamp posts. No access to your code unless you paste it.</td></tr>
+                <tr><td><strong>Claude Code</strong></td><td>The terminal tool that runs <em>inside</em> your repo. It can read your files, run commands, edit code, and use our custom skills (<code>/audit</code> etc.). This is where engineering work happens.</td></tr>
+                <tr><td><strong>Session</strong></td><td>One conversation. You start it by running <code>claude</code> in a repo folder. One task per session keeps it sharp.</td></tr>
+                <tr><td><strong>Skill / command</strong></td><td>A pre-built shortcut like <code>/audit</code> or <code>/commit</code>. Type <code>/</code> to see what's available in the repo.</td></tr>
+                <tr><td><strong>Harness</strong></td><td>The files in each repo (<code>CLAUDE.md</code>, <code>audit-rules.md</code>, skills) that teach Claude our stack and rules automatically. See 1.2.</td></tr>
+            </tbody>
+        </table>
+        <div class="callout">
+            <span class="callout-label tip">Your first session, start to finish</span>
+            <code>cd</code> into a repo → run <code>claude</code> → tell it the file and the change you want (see the prompt examples in Part III) → review what it writes → run <code>/audit</code> → <code>/commit</code>. That's the whole loop. Everything else on this page makes that loop faster or safer.
+        </div>
+
         <h3 id="how-to-read">How to read this</h3>
         <ul>
             <li><strong>New to Claude Code here?</strong> Read Part 0 → Part I → Part IV. That's the 80%.</li>
@@ -578,9 +601,9 @@
         </table>
 
         <!-- ===================== II · THREE RULE SETS ===================== -->
-        <h2 id="part-2"><span class="part-num">II.</span>The Three Rule Sets</h2>
+        <h2 id="part-2"><span class="part-num">II.</span>The Rule Sets</h2>
         <p>
-            Three categories of non-negotiable rules. Breaking a DATA rule is a stop-everything moment.
+            Four categories of non-negotiable rules. Breaking a DATA rule is a stop-everything moment.
         </p>
 
         <h3 id="data-rules">2.1 DATA — Security &amp; Confidentiality</h3>
@@ -662,6 +685,32 @@
         <div class="rule">
             <div class="rule-id comm">COMM-04</div>
             <div class="rule-body"><strong>Client-facing content gets a second pass.</strong> Anything going to an external stakeholder is reviewed before sending.</div>
+        </div>
+
+        <h3 id="doc-rules">2.4 DOC — Documenting AI-Generated Work</h3>
+        <p>
+            Using Claude is encouraged. <em>Hiding</em> that you used it is not. These rules keep AI-generated work reviewable, traceable, and honest — so the next person (and the audit trail) knows what to trust and what to double-check.
+        </p>
+
+        <div class="rule">
+            <div class="rule-id doc">DOC-01</div>
+            <div class="rule-body"><strong>You own what you submit.</strong> Once you put your name on an MR, a Basecamp post, or a doc, it's yours — "Claude wrote it" is never an excuse for a bug, a wrong number, or a bad tone. Read every line before it ships.</div>
+        </div>
+        <div class="rule">
+            <div class="rule-id doc">DOC-02</div>
+            <div class="rule-body"><strong>Note AI-assisted work in the MR description.</strong> A one-line note is enough — e.g. <em>"Slice drafted with Claude Code, reviewed + audited by me."</em> Reviewers calibrate their attention when they know what was machine-drafted.</div>
+        </div>
+        <div class="rule">
+            <div class="rule-id doc">DOC-03</div>
+            <div class="rule-body"><strong>Flag what you couldn't verify.</strong> If Claude produced a number, a citation, a config value, or an external fact you didn't confirm, say so explicitly rather than presenting it as checked. Unverified ≠ wrong, but it must be labeled.</div>
+        </div>
+        <div class="rule">
+            <div class="rule-id doc">DOC-04</div>
+            <div class="rule-body"><strong>Keep AI-generated docs in the same format as human ones.</strong> Task specs still follow TASK / NOTES / DONE DONE; commit messages still go through <code>/commit</code>. AI output gets edited to our standards, not pasted raw.</div>
+        </div>
+        <div class="rule">
+            <div class="rule-id doc">DOC-05</div>
+            <div class="rule-body"><strong>Capture the weird ones.</strong> When Claude does something surprisingly good or confidently wrong, screenshot it and drop it in the team thread. Today's oddity becomes tomorrow's guardrail or example. See <a href="#part-7">Troubleshooting</a>.</div>
         </div>
 
         <!-- ===================== III · PROMPTING ===================== -->
