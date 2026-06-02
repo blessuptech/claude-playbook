@@ -193,6 +193,97 @@
     .war .callout-label { color: var(--purple); }
     .war .war-punch { color: var(--text-bright); font-weight: 600; }
 
+    /* "if you read nothing else" essentials box */
+    .essentials {
+        border: 1px solid var(--accent);
+        border-radius: 10px;
+        background: rgba(45, 212, 191, 0.05);
+        padding: 16px 20px;
+        margin: 1.5rem 0;
+    }
+    .essentials .ess-head {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 10px;
+    }
+    .essentials ol { margin: 0; padding-left: 0; list-style: none; counter-reset: ess; }
+    .essentials li {
+        counter-increment: ess;
+        padding: 6px 0 6px 38px;
+        position: relative;
+        font-size: 14.5px;
+        color: var(--text-bright);
+        border-bottom: 1px solid rgba(48, 54, 61, 0.5);
+    }
+    .essentials li:last-child { border-bottom: 0; }
+    .essentials li::before {
+        content: counter(ess);
+        position: absolute;
+        left: 0;
+        top: 6px;
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+        text-align: center;
+        background: var(--accent);
+        color: #06201d;
+        font-family: "SF Mono", Menlo, monospace;
+        font-weight: 700;
+        font-size: 12px;
+        border-radius: 6px;
+    }
+    .essentials li span { color: var(--text-dim); font-weight: 400; }
+
+    /* section-level collapsibles (rule sets, role playbooks) */
+    details.sec {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--bg-2);
+        margin: 0.55rem 0;
+        overflow: hidden;
+    }
+    details.sec > summary {
+        cursor: pointer;
+        padding: 13px 16px;
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 11px;
+    }
+    details.sec > summary::-webkit-details-marker { display: none; }
+    details.sec > summary::before {
+        content: "▸";
+        color: var(--accent);
+        font-size: 12px;
+        transition: transform 0.15s;
+        flex-shrink: 0;
+    }
+    details.sec[open] > summary::before { transform: rotate(90deg); }
+    details.sec > summary:hover { background: rgba(255,255,255,0.02); }
+    details.sec > summary .sec-t { color: var(--text-bright); font-weight: 600; font-size: 14.5px; }
+    details.sec > summary .sec-meta {
+        margin-left: auto;
+        color: var(--text-dim);
+        font-size: 11.5px;
+        font-family: "SF Mono", Menlo, monospace;
+        text-align: right;
+    }
+    details.sec > .sec-body { padding: 2px 16px 14px; }
+    details.sec > .sec-body > h5:first-child { margin-top: 0.5rem; }
+    .sec-body h5 {
+        font-size: 13px;
+        color: var(--text-bright);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-top: 1rem;
+        margin-bottom: 0.3rem;
+        font-weight: 600;
+    }
+    .sec-body ol, .sec-body ul { font-size: 13.5px; }
+
     table { border-collapse: collapse; margin: 0.85rem 0; width: 100%; font-size: 14px; }
     th, td { border: 1px solid var(--border); padding: 7px 11px; text-align: left; vertical-align: top; }
     th { background: var(--bg-2); color: var(--text-bright); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
@@ -449,9 +540,11 @@
     <main class="flex-1 px-6 md:px-12 py-8 max-w-4xl">
 
         <h1>NaXum · Claude Playbook</h1>
-        <p class="lede" style="margin-top: 8px;">
-            How we use Claude across NaXum — the conventions, workflows, and guardrails that turn Claude from a <strong style="color: var(--text-bright);">tool you poke</strong> into an <strong style="color: var(--text-bright);">agent that does the work</strong>.
-            The field guide, not the manual. Pair it with the harness in your repo.
+        <p class="lede" style="margin-top: 10px; font-size: 16px;">
+            Most people here use Claude like a search box. The ones shipping 3× faster use it like a teammate they hand real work to.
+            <br><br>
+            This page is how you become the second kind — no theory, no AI hype, just what works on our repos, what breaks, and what to do about it.
+            <span style="color: var(--text-dim);">~15 min to read. Bookmark it. Come back when Claude does something weird (it will).</span>
         </p>
         <div class="mt-3">
             <span class="meta-pill">Claude Code</span>
@@ -461,70 +554,46 @@
             <span class="meta-pill">GitLab</span>
         </div>
 
+        <div class="essentials">
+            <div class="ess-head">★ If you read nothing else</div>
+            <ol>
+                <li><code>/audit</code> before every commit <span>— it catches what gets your MR sent back.</span></li>
+                <li>One task per session <span>— start fresh between unrelated jobs.</span></li>
+                <li>Tell it what <em>not</em> to touch <span>— or it'll refactor things you didn't ask about.</span></li>
+                <li>Claude drafts, you review and decide <span>— you own what you ship.</span></li>
+                <li>Never paste secrets or real customer data <span>— variable names and errors only.</span></li>
+            </ol>
+        </div>
+
         <!-- ===================== START HERE ===================== -->
         <h2 id="start-here"><span class="part-num">0.</span>Start Here</h2>
 
         <h3 id="the-one-idea">The one idea</h3>
         <p>
-            If you take one thing from this whole page, take this:
+            If one sentence sticks, make it this one:
         </p>
         <div class="callout">
             <span class="callout-label tip">The shift</span>
-            <span style="font-size: 15px; color: var(--text-bright);">A <strong>tool</strong> waits for you to use it. An <strong>agent</strong> works while you sleep.</span>
-            Most of the team is using Claude Code as a fancy autocomplete. The people moving 2–3× faster are using it as an agent — handing it whole slices, running three at once, and reviewing the output instead of typing it.
+            <span style="font-size: 15px; color: var(--text-bright);">A <strong>tool</strong> waits for you. An <strong>agent</strong> goes and does it.</span>
+            Use Claude as autocomplete and you'll get maybe 10% faster. Hand it whole slices, run a few at once, and review instead of type — that's where 2–3× comes from. Same tool, different job.
         </div>
 
-        <div class="vs">
-            <div class="vs-card tool">
-                <span class="vs-tag">Tool mindset</span>
-                <h4 style="margin-bottom: 0.2rem;">You drive every keystroke</h4>
-                <ul>
-                    <li>"Write this one function for me."</li>
-                    <li>One chat, one task, you watching the whole time.</li>
-                    <li>You write the slice; Claude tidies it.</li>
-                    <li>Review is manual and slow. Returns pile up.</li>
-                    <li>Speed gain: ~10–20%.</li>
-                </ul>
+
+        <details class="faq" id="new-to-claude">
+            <summary>New to Claude? Open this for the 60-second orientation</summary>
+            <div class="faq-body">
+                <table style="margin-top: 0.5rem;">
+                    <tbody>
+                        <tr><td style="width: 24%;"><strong>claude.ai</strong></td><td>The chat website. For writing, summarizing, research, drafting posts. No access to your code unless you paste it.</td></tr>
+                        <tr><td><strong>Claude Code</strong></td><td>The terminal tool that runs <em>inside</em> your repo — reads files, runs commands, edits code, uses our skills (<code>/audit</code> etc.). Where engineering happens.</td></tr>
+                        <tr><td><strong>Session</strong></td><td>One conversation. Start it with <code>claude</code> in a repo folder. One task per session.</td></tr>
+                        <tr><td><strong>Skill</strong></td><td>A shortcut like <code>/audit</code> or <code>/commit</code>. Type <code>/</code> to see what's in the repo.</td></tr>
+                        <tr><td><strong>Harness</strong></td><td>The files in each repo (<code>CLAUDE.md</code>, <code>audit-rules.md</code>, skills) that teach Claude our stack automatically. See 1.2.</td></tr>
+                    </tbody>
+                </table>
+                <p style="margin: 0.6rem 0 0;"><strong style="color: var(--text-bright);">Your first session:</strong> <code>cd</code> into a repo → run <code>claude</code> → name the file and the change → review what it writes → <code>/audit</code> → <code>/commit</code>. That's the whole loop.</p>
             </div>
-            <div class="vs-card agent">
-                <span class="vs-tag">Agent mindset</span>
-                <h4 style="margin-bottom: 0.2rem;">You direct, verify, and decide</h4>
-                <ul>
-                    <li>"Implement slice 4a from the migration plan. Plan first, then build."</li>
-                    <li>Three worktrees, three slices, in parallel.</li>
-                    <li>Claude drafts the slice; you review and correct.</li>
-                    <li><code>/audit</code> runs before every commit, so MRs land clean.</li>
-                    <li>Speed gain: 2–3×.</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="war">
-            <span class="callout-label">War story · why this matters</span>
-            On a recent migration push, several slices came back from review with new issues. Each return burns a full cycle — reviewer time, rework, rebase, re-review.
-            <span class="war-punch">That's not a coding problem. It's a pre-submission quality problem that <code>/audit</code> eliminates entirely.</span>
-            The whole point of this playbook is to make returns rare.
-        </div>
-
-        <h3 id="new-to-claude">New to Claude? 60-second orientation</h3>
-        <p>If you've never used Claude here, this is all you need to start. The rest of the page builds on it.</p>
-        <table>
-            <thead>
-                <tr><th style="width: 22%;">Term</th><th>What it is</th></tr>
-            </thead>
-            <tbody>
-                <tr><td><strong>Claude</strong></td><td>The AI model. It reads, writes, reasons, and codes. It does not act on its own — you direct it.</td></tr>
-                <tr><td><strong>claude.ai</strong></td><td>The chat website. Best for writing, summarizing, research, drafting Basecamp posts. No access to your code unless you paste it.</td></tr>
-                <tr><td><strong>Claude Code</strong></td><td>The terminal tool that runs <em>inside</em> your repo. It can read your files, run commands, edit code, and use our custom skills (<code>/audit</code> etc.). This is where engineering work happens.</td></tr>
-                <tr><td><strong>Session</strong></td><td>One conversation. You start it by running <code>claude</code> in a repo folder. One task per session keeps it sharp.</td></tr>
-                <tr><td><strong>Skill / command</strong></td><td>A pre-built shortcut like <code>/audit</code> or <code>/commit</code>. Type <code>/</code> to see what's available in the repo.</td></tr>
-                <tr><td><strong>Harness</strong></td><td>The files in each repo (<code>CLAUDE.md</code>, <code>audit-rules.md</code>, skills) that teach Claude our stack and rules automatically. See 1.2.</td></tr>
-            </tbody>
-        </table>
-        <div class="callout">
-            <span class="callout-label tip">Your first session, start to finish</span>
-            <code>cd</code> into a repo → run <code>claude</code> → tell it the file and the change you want (see the prompt examples in Part III) → review what it writes → run <code>/audit</code> → <code>/commit</code>. That's the whole loop. Everything else on this page makes that loop faster or safer.
-        </div>
+        </details>
 
         <h3 id="how-to-read">How to read this</h3>
         <ul>
@@ -606,7 +675,9 @@
             Four categories of non-negotiable rules. Breaking a DATA rule is a stop-everything moment.
         </p>
 
-        <h3 id="data-rules">2.1 DATA — Security &amp; Confidentiality</h3>
+        <details class="sec" id="data-rules" open>
+            <summary><span class="sec-t">2.1 DATA — Security &amp; Confidentiality</span><span class="sec-meta">6 rules · never break</span></summary>
+            <div class="sec-body">
 
         <div class="rule">
             <div class="rule-id data">DATA-01</div>
@@ -633,7 +704,12 @@
             <div class="rule-body"><strong>Staging or seed data only for examples.</strong> If you need realistic data shapes, use factory output or anonymized staging dumps.</div>
         </div>
 
-        <h3 id="code-rules">2.2 CODE — Engineering Rules</h3>
+            </div>
+        </details>
+
+        <details class="sec" id="code-rules">
+            <summary><span class="sec-t">2.2 CODE — Engineering Rules</span><span class="sec-meta">8 rules</span></summary>
+            <div class="sec-body">
 
         <div class="rule">
             <div class="rule-id code">CODE-01</div>
@@ -668,7 +744,12 @@
             <div class="rule-body"><strong>Behavior changes need a test.</strong> If Claude changes logic that affects user-visible behavior or money flow (commissions, payouts, billing), it adds or updates a test.</div>
         </div>
 
-        <h3 id="comm-rules">2.3 COMM — Client &amp; Team Communication</h3>
+            </div>
+        </details>
+
+        <details class="sec" id="comm-rules">
+            <summary><span class="sec-t">2.3 COMM — Client &amp; Team Communication</span><span class="sec-meta">4 rules</span></summary>
+            <div class="sec-body">
 
         <div class="rule">
             <div class="rule-id comm">COMM-01</div>
@@ -687,7 +768,12 @@
             <div class="rule-body"><strong>Client-facing content gets a second pass.</strong> Anything going to an external stakeholder is reviewed before sending.</div>
         </div>
 
-        <h3 id="doc-rules">2.4 DOC — Documenting AI-Generated Work</h3>
+            </div>
+        </details>
+
+        <details class="sec" id="doc-rules">
+            <summary><span class="sec-t">2.4 DOC — Documenting AI-Generated Work</span><span class="sec-meta">5 rules</span></summary>
+            <div class="sec-body">
         <p>
             Using Claude is encouraged. <em>Hiding</em> that you used it is not. These rules keep AI-generated work reviewable, traceable, and honest — so the next person (and the audit trail) knows what to trust and what to double-check.
         </p>
@@ -712,6 +798,8 @@
             <div class="rule-id doc">DOC-05</div>
             <div class="rule-body"><strong>Capture the weird ones.</strong> When Claude does something surprisingly good or confidently wrong, screenshot it and drop it in the team thread. Today's oddity becomes tomorrow's guardrail or example. See <a href="#part-7">Troubleshooting</a>.</div>
         </div>
+            </div>
+        </details>
 
         <!-- ===================== III · PROMPTING ===================== -->
         <h2 id="part-3"><span class="part-num">III.</span>Prompting Conventions</h2>
@@ -909,9 +997,9 @@ claude
         <h2 id="part-5"><span class="part-num">V.</span>Role Playbooks</h2>
         <p class="lede">Find your name. Each role gets a default agentic workflow and an explicit Avoid list.</p>
 
-        <div class="role-card" id="role-fe">
-            <h4>5.1 Frontend Engineer</h4>
-            <div class="role-stack">Vue 3 · PrimeVue · Tailwind · Pinia · Vite</div>
+        <details class="sec" id="role-fe">
+            <summary><span class="sec-t">5.1 Frontend Engineer</span><span class="sec-meta">Vue 3 · PrimeVue · Tailwind · Pinia</span></summary>
+            <div class="sec-body">
 
             <h5>Default workflow — slice port (agentic)</h5>
             <ol>
@@ -930,11 +1018,12 @@ claude
                 <li>Letting Claude introduce new state management or skip the VSG button taxonomy.</li>
                 <li>Skipping manual visual QA. Claude has zero pixel awareness.</li>
             </ul>
-        </div>
+            </div>
+        </details>
 
-        <div class="role-card" id="role-be">
-            <h4>5.2 Backend Engineer</h4>
-            <div class="role-stack">Laravel 12 · MySQL 8.4 · JWT · PHPUnit / Pest</div>
+        <details class="sec" id="role-be">
+            <summary><span class="sec-t">5.2 Backend Engineer</span><span class="sec-meta">Laravel 12 · MySQL 8.4 · JWT · Pest</span></summary>
+            <div class="sec-body">
 
             <h5>Default workflow — feature endpoint</h5>
             <ol>
@@ -959,11 +1048,12 @@ claude
                 <li>Trusting Claude's commission math without spot-checking against the old tool.</li>
                 <li>Adding a caching layer or queue mechanism without team discussion.</li>
             </ul>
-        </div>
+            </div>
+        </details>
 
-        <div class="role-card" id="role-mobile">
-            <h4>5.3 Mobile Engineer</h4>
-            <div class="role-stack">Expo · React Native · NativeWind · Zustand · TanStack Query · EAS Build</div>
+        <details class="sec" id="role-mobile">
+            <summary><span class="sec-t">5.3 Mobile Engineer</span><span class="sec-meta">Expo · React Native · NativeWind · Zustand</span></summary>
+            <div class="sec-body">
 
             <h5>Default workflow — new screen</h5>
             <ol>
@@ -985,11 +1075,12 @@ claude
                 <li>Letting Claude pick native module versions silently — Expo plugin versions matter.</li>
                 <li>Adding Redux, MobX, or styled-components. Stack is fixed.</li>
             </ul>
-        </div>
+            </div>
+        </details>
 
-        <div class="role-card" id="role-product">
-            <h4>5.4 Product Lead / Coordinator</h4>
-            <div class="role-stack">claude.ai · Basecamp CLI + Skill · web search</div>
+        <details class="sec" id="role-product">
+            <summary><span class="sec-t">5.4 Product Lead / Coordinator</span><span class="sec-meta">claude.ai · Basecamp Skill</span></summary>
+            <div class="sec-body">
 
             <h5>Default workflow — Basecamp thread summary</h5>
             <ol>
@@ -1020,11 +1111,12 @@ claude
                 <li>Letting Claude estimate hours. Time estimates need human context.</li>
                 <li>Trusting a thread summary without checking the latest comment.</li>
             </ul>
-        </div>
+            </div>
+        </details>
 
-        <div class="role-card" id="role-qa">
-            <h4>5.5 QA / Reviewer</h4>
-            <div class="role-stack">claude.ai · Claude Code · Browser DevTools</div>
+        <details class="sec" id="role-qa">
+            <summary><span class="sec-t">5.5 QA / Reviewer</span><span class="sec-meta">claude.ai · Claude Code · DevTools</span></summary>
+            <div class="sec-body">
 
             <h5>Default workflow — AI-assisted review</h5>
             <ol>
@@ -1039,7 +1131,8 @@ claude
                 <li>Trusting that a Claude-suggested test actually catches the bug. Run it against a known-bad version to verify.</li>
                 <li>Letting Claude declare a feature "done" without your manual verification.</li>
             </ul>
-        </div>
+            </div>
+        </details>
 
         <!-- ===================== VI · ANTI-PATTERNS ===================== -->
         <h2 id="part-6"><span class="part-num">VI.</span>Anti-patterns</h2>
