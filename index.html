@@ -420,7 +420,72 @@
         .stage-foot { padding: 16px 18px 28px; }
         .prompt-compare, .vs { grid-template-columns: 1fr; }
         .topbar .right { display: none; }
+        .update-banner { padding: 9px 18px; }
     }
+
+    /* ============ v0.4: north star, NEW badges, banner, changelog ============ */
+    .northstar {
+        border: 1px solid var(--purple);
+        background: linear-gradient(180deg, rgba(167,139,250,0.10), rgba(167,139,250,0.03));
+        border-radius: 10px;
+        padding: 15px 19px;
+        margin: 0 0 1.4rem;
+    }
+    .northstar .ns-label {
+        font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.12em;
+        font-weight: 700; color: var(--purple); margin-bottom: 6px;
+    }
+    .northstar .ns-line { font-size: 16px; color: var(--text-bright); font-weight: 600; line-height: 1.5; }
+    .northstar .ns-line em { color: var(--purple); font-style: normal; }
+
+    .newpill {
+        display: inline-block;
+        font-family: "SF Mono", Menlo, monospace;
+        font-size: 9px; font-weight: 700; letter-spacing: 0.09em;
+        color: #06201d; background: var(--accent);
+        padding: 1px 5px; border-radius: 4px; vertical-align: middle;
+        line-height: 1.5;
+    }
+    .tab .newpill { margin-left: 1px; }
+    .rail-item .newpill { margin-left: 6px; }
+    .card-kicker .newpill { margin-left: 8px; }
+
+    .update-banner {
+        display: none;
+        align-items: center; gap: 12px;
+        background: rgba(45, 212, 191, 0.08);
+        border-bottom: 1px solid var(--border);
+        color: var(--text-bright);
+        font-size: 13px;
+        padding: 9px 22px;
+        position: sticky; top: var(--topbar-h); z-index: 38;
+    }
+    .update-banner.show { display: flex; }
+    .update-banner .ub-text strong { color: var(--accent); }
+    .update-banner .ub-actions { margin-left: auto; display: flex; gap: 8px; flex-shrink: 0; }
+    .update-banner button {
+        font-family: inherit; font-size: 12px; cursor: pointer;
+        border: 1px solid var(--border); background: var(--bg-2); color: var(--text);
+        padding: 4px 11px; border-radius: 6px; transition: border-color 0.1s, color 0.1s;
+    }
+    .update-banner button:hover { border-color: var(--accent); color: var(--accent); }
+    .update-banner button.primary { border-color: var(--accent); color: var(--accent); }
+    /* when banner is visible, the tabs sit below it */
+    body.has-banner .tabs { top: calc(var(--topbar-h) + 39px); }
+    body.has-banner .rail { top: calc(var(--topbar-h) + var(--tabs-h) + 39px); height: calc(100vh - var(--topbar-h) - var(--tabs-h) - 39px); }
+
+    .changelog { margin: 1rem 0; }
+    .changelog .cl-entry { border-left: 2px solid var(--border); padding: 0 0 0 16px; margin: 0 0 1.4rem; }
+    .changelog .cl-ver {
+        font-family: "SF Mono", Menlo, monospace; font-weight: 700; color: var(--accent);
+        font-size: 13px; margin-bottom: 2px;
+    }
+    .changelog .cl-date { color: var(--text-dim); font-size: 11.5px; margin-bottom: 8px; }
+    .changelog ul { margin: 0; }
+    .changelog li { font-size: 13.5px; }
+    .changelog li a { color: var(--accent); }
+
+    .reps td:first-child { text-align: center; font-family: "SF Mono", Menlo, monospace; color: var(--accent); font-weight: 700; }
 </style>
 </head>
 <body>
@@ -428,13 +493,21 @@
 <header class="topbar">
     <div>
         <div class="brand">NaXum <span class="dot">·</span> Claude Playbook</div>
-        <div class="sub">Internal reference · v0.3</div>
+        <div class="sub">Internal reference · v0.4</div>
     </div>
     <div class="right">
         <div class="kbd-hint">Navigate with <span class="kbd">←</span> <span class="kbd">→</span> · jump parts with <span class="kbd">1</span>–<span class="kbd">9</span></div>
         <div style="margin-top:3px;">Pair with <code style="font-size:11px;">CLAUDE.md</code> · <code style="font-size:11px;">audit-rules.md</code></div>
     </div>
 </header>
+
+<div class="update-banner" id="updateBanner">
+    <div class="ub-text" id="ubText"></div>
+    <div class="ub-actions">
+        <button class="primary" id="ubSee">See what's new</button>
+        <button id="ubDismiss">Dismiss</button>
+    </div>
+</div>
 
 <nav class="tabs" id="tabs"></nav>
 
@@ -460,6 +533,10 @@
 <!-- ===================== 0 · START ===================== -->
 <article class="card" data-part="start" data-title="The one idea">
     <div class="card-kicker">Start here</div>
+    <div class="northstar">
+        <div class="ns-label">★ North Star</div>
+        <div class="ns-line">Every AI thing we do must move a real number, <em>or we stop</em>.</div>
+    </div>
     <h2>The one idea</h2>
     <p class="lede">Most people here use Claude like a search box. The people shipping noticeably faster use it like a teammate they hand real work to. Everything below is about becoming the second kind, on our actual repos.</p>
     <div class="vs">
@@ -542,10 +619,61 @@
     </table>
     <p class="lede">This is a living document. It is thin in places and will be wrong in others; that is expected. If a rule helped, or a rule is useless to your role, say so and it changes. The goal is fewer rules, sharper rules.</p>
     <div class="stat-row">
-        <div class="stat"><div class="n">23</div><div class="l">Coded rules</div></div>
+        <div class="stat"><div class="n">40</div><div class="l">Coded rules</div></div>
         <div class="stat"><div class="n">5</div><div class="l">Role playbooks</div></div>
         <div class="stat"><div class="n">4</div><div class="l">Real demos</div></div>
-        <div class="stat"><div class="n">~15</div><div class="l">Min to read</div></div>
+        <div class="stat"><div class="n">~20</div><div class="l">Min to read</div></div>
+    </div>
+</article>
+
+<article class="card" data-part="start" data-title="Day one: five reps" data-added="0.4">
+    <div class="card-kicker">Start here</div>
+    <h2>Day one: five reps</h2>
+    <p>Reading this playbook does not make you faster. Doing these five things on a real repo does. Budget 2 to 3 hours. Tick them off in order.</p>
+    <table class="reps">
+        <thead><tr><th style="width: 4%;">#</th><th style="width: 52%;">Rep</th><th style="width: 12%;">Time</th><th>What it teaches</th></tr></thead>
+        <tbody>
+            <tr><td>1</td><td><code>cd</code> into a repo, run <code>claude</code>, ask: "Explain what <code>&lt;file&gt;</code> does — files and functions only."</td><td>10 min</td><td>The read loop. Claude maps code faster than you scroll.</td></tr>
+            <tr><td>2</td><td>Pick the smallest open bug you have. Prompt it CCO style: context, constraint, outcome. Add "plan first" and "smallest diff."</td><td>45 min</td><td>The build loop. Your first real handoff.</td></tr>
+            <tr><td>3</td><td><code>/audit</code> → fix what it flags → <code>/commit</code></td><td>10 min</td><td>The loop that kills MR returns.</td></tr>
+            <tr><td>4</td><td>Start two sessions with <code>claude --worktree</code> on two trivial tasks. Keep both moving.</td><td>30 min</td><td>The moment you stop typing and start reviewing. This is the tool→agent line.</td></tr>
+            <tr><td>5</td><td>Run the MR pre-review prompt (part IV) on a teammate's open diff. Verify one flagged risk yourself.</td><td>15 min</td><td>Claude clears the underbrush; you make the call.</td></tr>
+        </tbody>
+    </table>
+    <div class="callout callout-good">
+        <span class="callout-label good">Done all five?</span>
+        You have crossed the tool→agent line. Everything else in this playbook is refinement. Come back when Claude does something odd (part VII) or when you want your role's defaults (part V).
+    </div>
+</article>
+
+<article class="card" data-part="start" data-title="Make Claude explain itself" data-added="0.4">
+    <div class="card-kicker">Start here</div>
+    <h2>Make Claude explain itself</h2>
+    <p>If you are new to Claude, new to the codebase, or both: run <code>/config</code> and set the output style to <strong>Explanatory</strong> or <strong>Learning</strong>.</p>
+    <table>
+        <thead><tr><th style="width: 24%;">Style</th><th>What changes</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Explanatory</strong></td><td>Claude explains the <em>why</em> behind every change as it works: patterns, framework choices, what it avoided.</td></tr>
+            <tr><td><strong>Learning</strong></td><td>Claude coaches you through making the change yourself instead of doing it for you.</td></tr>
+        </tbody>
+    </table>
+    <div class="callout">
+        <span class="callout-label tip">Who this is for</span>
+        Every first-wave teammate who has felt "it did something and I do not know why." Turn it on for two weeks, learn the codebase faster than any onboarding doc, turn it off when the narration gets old.
+    </div>
+</article>
+
+<article class="card" data-part="start" data-title="Wins wall" data-added="0.4">
+    <div class="card-kicker">Start here</div>
+    <h2>Wins wall</h2>
+    <p class="lede">Real results from the team, with numbers. Rules convince no one; a number from someone next to you does. This is the North Star in practice: measured wins, not claims.</p>
+    <div class="war">
+        <span class="callout-label">Sample</span>
+        Slice 4b: drafted, audited, and MR'd in 2.5 hours. <span class="war-punch">Previous average for a slice this size was a full day.</span>
+    </div>
+    <div class="callout">
+        <span class="callout-label tip">Add yours</span>
+        Shipped something measurably faster with Claude? Post it in the team thread with the number and it lands here. One real before/after converts more skeptics than the whole rule set.
     </div>
 </article>
 
@@ -586,6 +714,17 @@
             <video class="demo-video" controls preload="none" playsinline poster="assets/demo-2-onboard.jpg" src="assets/demo-2-onboard.mp4"></video>
         </div>
     </div>
+</article>
+
+<article class="card" data-part="ground" data-title="Teach the harness back" data-added="0.4">
+    <div class="card-kicker">I · Ground rules</div>
+    <h2>Teach the harness back</h2>
+    <p>The harness gets smarter the same way this playbook does: every confident mistake becomes a rule.</p>
+    <div class="callout">
+        <span class="callout-label tip">The habit</span>
+        Any time you correct Claude, end the session with one more line: <em>"Update CLAUDE.md so you don't make that mistake again."</em> Claude is eerily good at writing rules for itself. Review the diff like any other — CLAUDE.md changes go through MR like everything else.
+    </div>
+    <p><strong>The compounding.</strong> Ten engineers each adding one correction a week is a harness that gets measurably sharper every month. This pairs with <code>DOC-05</code>: the screenshot goes to the thread, the rule goes to the harness.</p>
 </article>
 
 <article class="card" data-part="ground" data-title="Standard commands">
@@ -714,23 +853,37 @@
 </article>
 
 <!-- ===================== IV · AGENTIC ===================== -->
+<article class="card" data-part="agentic" data-title="Plan mode: pour energy into the plan" data-added="0.4">
+    <div class="card-kicker">IV · Agentic workflows</div>
+    <h2>Plan mode — pour the energy into the plan</h2>
+    <p>For anything bigger than a one-liner, start in plan mode: hit <span class="kbd">shift</span>+<span class="kbd">tab</span> twice. Claude proposes a plan, you iterate on it until it is right, then switch to auto-accept and let it one-shot the implementation.</p>
+    <div class="callout">
+        <span class="callout-label tip">The workflow</span>
+        plan mode → refine the plan → auto-accept → Claude one-shots it.
+    </div>
+    <p><strong>The recovery move.</strong> The moment a session goes sideways, do not keep pushing and paying for corrections. Switch back to plan mode and re-plan. Two minutes of planning beats twenty minutes of "no, not like that."</p>
+    <div class="callout callout-good">
+        <span class="callout-label good">Team trick worth stealing</span>
+        Have one Claude write the plan, then open a second session and ask it to review the plan as a staff engineer. Cheap insurance on big slices.
+    </div>
+</article>
+
 <article class="card" data-part="agentic" data-title="Parallel worktrees">
     <div class="card-kicker">IV · Agentic workflows</div>
     <h2>Parallel worktrees — three slices at once</h2>
     <p>The single biggest unlock, popularized by Boris Cherny: run multiple Claude Code sessions at the same time, each in its own git worktree, each on a different slice. One engineer, three slices, same wall-clock.</p>
-    <p>Instead of working slices 4a → 4b → 5a one after another, spin up three worktrees and let Claude draft all three in parallel while you review:</p>
-    <div class="codewrap"><pre><code>git worktree add ../vo-slice-4a feat/slice-4a
-git worktree add ../vo-slice-4b feat/slice-4b
-git worktree add ../vo-slice-5a feat/slice-5a
-
-# Open 3 terminals. Run `claude` in each.
-# Give each one its slice from the migration plan:
-#   "Implement slice 4a — manage simple — following the exact
-#    patterns in CLAUDE.md. Show me a plan first, then implement."
-# Claude Code drafts. You review and correct.</code></pre></div>
+    <p>Worktrees are now built in. One flag, no manual git setup:</p>
+    <div class="codewrap"><pre><code>claude --worktree slice-4a     # opens an isolated worktree + session
+claude --worktree slice-4b     # second terminal, second slice
+claude --worktree slice-5a     # third</code></pre></div>
+    <p>Prefer clicking? The Claude Desktop app's Code tab has a worktree checkbox that does the same thing.</p>
     <div class="callout callout-good">
         <span class="callout-label good">Why it works</span>
         The slices are independent, so they do not conflict. Your job stops being "type the code" and becomes "keep three drafts moving and review each one." That is the agent mindset in one command.
+    </div>
+    <div class="callout">
+        <span class="callout-label tip">Going bigger</span>
+        Subagents can use worktree isolation too. For a large batched change you can ask Claude to "batch the changes and launch parallel agents with worktree isolation, each testing its changes end to end." Use with judgment; the review load is still on you.
     </div>
     <div class="demo">
         <div class="demo-head"><span>▶ Real demo · ACT.X</span><span class="kind">~90 sec</span></div>
@@ -738,6 +891,26 @@ git worktree add ../vo-slice-5a feat/slice-5a
             <div class="demo-title">Three agents, one change across three repos</div>
             <div class="demo-cap">A real session: 3 Claude Code agents at once across <code>actx-contracts</code>, <code>actx-cloud</code>, and <code>blessup-launchpad</code> — exploring backend architecture, reviewing contracts for mergeability, and checking UI/backend integration after the GitHub migration. One engineer directing three streams in parallel.</div>
             <video class="demo-video" controls preload="none" playsinline poster="assets/demo-3-parallel-agents.jpg" src="assets/demo-3-parallel-agents.mp4"></video>
+        </div>
+    </div>
+</article>
+
+<article class="card" data-part="agentic" data-title="Subagents: throw more compute at it" data-added="0.4">
+    <div class="card-kicker">IV · Agentic workflows</div>
+    <h2>Subagents — throw more compute at it</h2>
+    <p>Append "use subagents" to any request where the work fans out: exploring a codebase, checking a change across many files, researching three options at once. Claude spins up parallel workers and keeps your main session's context clean.</p>
+    <div class="codewrap"><pre><code>&gt; use 3 subagents to explore the commission engine —
+&gt; controllers, services, and jobs. Files and methods only.</code></pre></div>
+    <div class="vs">
+        <div class="vs-card agent">
+            <div class="vs-tag">Earns its cost</div>
+            <h4>Fan-out work</h4>
+            <ul><li>Exploration and verification across many files</li><li>Researching several options at once</li></ul>
+        </div>
+        <div class="vs-card tool">
+            <div class="vs-tag">Doesn't</div>
+            <h4>A single focused edit</h4>
+            <ul><li>One worker is cheaper than five</li><li>No fan-out, no benefit</li></ul>
         </div>
     </div>
 </article>
@@ -793,6 +966,18 @@ claude
         </tbody>
     </table>
     <p class="lede">The <code>/migrate</code> skill (coming) automates Gate A's trace-doc step so each slice starts faster than the last.</p>
+</article>
+
+<article class="card" data-part="agentic" data-title="One hook, fewer audit flags" data-added="0.4">
+    <div class="card-kicker">IV · Agentic workflows</div>
+    <h2>One hook, fewer audit flags</h2>
+    <p>A PostToolUse hook auto-formats every file Claude writes, so formatting never reaches <code>/audit</code> in the first place:</p>
+    <div class="codewrap"><pre><code>"PostToolUse": [
+  { "matcher": "Write|Edit", "hooks": [
+    { "type": "command", "command": "npm run format || true" }
+  ]}
+]</code></pre></div>
+    <p>Check it into the repo's <code>.claude/settings.json</code> once; the whole team benefits. Swap the command per repo (Pint for Laravel, Prettier for the frontend and mobile).</p>
 </article>
 
 <!-- ===================== V · ROLES ===================== -->
@@ -980,15 +1165,143 @@ claude
     </table>
 </article>
 
+<article class="card" data-part="limits" data-title="Make it yours" data-added="0.4">
+    <div class="card-kicker">VIII · Limits</div>
+    <h2>Make it yours</h2>
+    <p class="lede">Five minutes of setup that makes the terminal feel like your desk, not a borrowed one.</p>
+    <ul>
+        <li><code>/statusline</code> — model, branch, remaining context, cost, always visible.</li>
+        <li><code>/config</code> — theme, and the output styles from the start-here card.</li>
+        <li><code>/terminal-setup</code> — shift+enter for newlines if you are in an IDE terminal or Apple Terminal.</li>
+        <li><code>/vim</code> — if you know, you know.</li>
+        <li>Spinner verbs — ask Claude to theme its "thinking…" verbs however you like. Yes, really. One teammate runs Star Trek. It changes nothing and somehow changes everything.</li>
+    </ul>
+    <div class="callout">
+        <span class="callout-label tip">Why this card exists</span>
+        People take care of tools that feel like theirs.
+    </div>
+</article>
+
 <article class="card" data-part="limits" data-title="This is a living document">
     <div class="card-kicker">VIII · Limits</div>
     <h2>This is a living document</h2>
-    <p>v0.3, and still evolving. The point of a playbook is that it gets better as the team uses it.</p>
+    <p>v0.4, and still evolving. The point of a playbook is that it gets better as the team uses it.</p>
     <div class="callout">
         <span class="callout-label tip">Feedback</span>
         If a rule saved you time, flag it so it gets expanded. If a rule is wrong, contradictory, or useless to your role, flag it so it gets cut or fixed. Fewer rules, sharper rules.
     </div>
-    <p class="lede" style="margin-top: 1.4rem;">That is the whole playbook. Use <span class="kbd">←</span> to page back through anything, or click a part above to jump. Bookmark the page and come back to <b>Troubleshooting</b> when Claude does something odd, because it will.</p>
+    <p class="lede" style="margin-top: 1.4rem;">Bookmark the page and come back to <b>Troubleshooting</b> when Claude does something odd, because it will. Two more parts follow: <b>IX · Models &amp; budget</b> for getting the most per credit, and <b>What's new</b> for anything that changed since your last visit.</p>
+</article>
+
+<!-- ===================== IX · MODELS & BUDGET ===================== -->
+<article class="card" data-part="models" data-title="Which model, when" data-added="0.4">
+    <div class="card-kicker">IX · Models &amp; budget</div>
+    <h2>Which model, when</h2>
+    <p>Claude Code lets you pick the model with <code>/model</code>. Picking right is the single biggest lever on both quality and credits — bigger is not always better, and smaller is not always cheaper.</p>
+    <table>
+        <thead><tr><th style="width: 40%;">Work</th><th style="width: 22%;">Model</th><th>Why</th></tr></thead>
+        <tbody>
+            <tr><td>Migration slices, debugging, architecture, money pages, contract code</td><td>The strongest your plan offers (Fable 5 / Opus-class)</td><td>Less steering. It gets the intent in one turn instead of three. A bigger model that one-shots the task is usually <strong>cheaper in total</strong> than a smaller one you babysit.</td></tr>
+            <tr><td>Bulk mechanical work: renames, translations, formatting, boilerplate tests, commit messages</td><td>Sonnet-class</td><td>Plenty smart for pattern work at a fraction of the burn.</td></tr>
+            <tr><td>Quick lookups, "what does this regex do", summaries of short files</td><td>Haiku-class</td><td>Do not spend Opus money on questions a fast model answers identically.</td></tr>
+        </tbody>
+    </table>
+    <div class="callout">
+        <span class="callout-label tip">The logic, from the creator of Claude Code</span>
+        "It's the best coding model I've ever used, and even though it's bigger and slower, since you have to steer it less and it's better at tool use, it is almost always faster than using a smaller model in the end." Steering cost is real cost.
+    </div>
+    <p><strong>Lineup moves. This card follows.</strong> As of June 2026 the family is Fable 5 (newest, most capable), Opus 4.8, Sonnet 4.6, Haiku 4.5. When Anthropic ships a new model, this card gets updated and tagged NEW. Day to day, trust <code>/model</code> over memory.</p>
+</article>
+
+<article class="card" data-part="models" data-title="Effort: the dial nobody uses" data-added="0.4">
+    <div class="card-kicker">IX · Models &amp; budget</div>
+    <h2>Effort — the dial nobody uses</h2>
+    <p><code>/model</code> also sets an effort level: low, medium, high. It is a second, quieter lever on burn.</p>
+    <table>
+        <thead><tr><th style="width: 18%;">Effort</th><th>Use for</th></tr></thead>
+        <tbody>
+            <tr><td><strong>High</strong></td><td>Real engineering: slices, debugging, anything touching money flow.</td></tr>
+            <tr><td><strong>Medium</strong></td><td>Routine edits in a codebase Claude already knows from the harness.</td></tr>
+            <tr><td><strong>Low</strong></td><td>Mechanical bulk where the pattern is obvious and volume is high.</td></tr>
+        </tbody>
+    </table>
+    <div class="callout callout-warn">
+        <span class="callout-label warn">Calibrate to our budget, not Boris's</span>
+        The Claude Code team runs high effort on everything — they also do not share a team plan. Default high for real work, drop deliberately for bulk, and never debug commissions on low.
+    </div>
+</article>
+
+<article class="card" data-part="models" data-title="/compact vs /clear" data-added="0.4">
+    <div class="card-kicker">IX · Models &amp; budget</div>
+    <h2><code>/compact</code> vs <code>/clear</code></h2>
+    <p>The two context commands everyone confuses. Wrong choice burns credits or loses your thread.</p>
+    <table>
+        <thead><tr><th style="width: 18%;">Command</th><th>What it does</th><th>Use when</th></tr></thead>
+        <tbody>
+            <tr><td><code>/clear</code></td><td>Wipes the session. Blank slate.</td><td>Between <strong>unrelated</strong> tasks. Pairs with <code>PROMPT-05</code>.</td></tr>
+            <tr><td><code>/compact</code></td><td>Squeezes the history into a summary, keeps the thread, frees context.</td><td><strong>Mid-task</strong> when the session is getting long but you still need what happened.</td></tr>
+        </tbody>
+    </table>
+    <p><strong>Compact at a natural pause,</strong> not mid-edit. Auto-compact exists as a safety net; do not lean on it during critical work — pick the moment yourself, right after a commit is a good one.</p>
+    <div class="callout">
+        <span class="callout-label tip">See the meter</span>
+        Run <code>/statusline</code> once and have it show remaining context and cost. You cannot manage what you cannot see; half the team discovers they were at 90% context only when Claude starts forgetting.
+    </div>
+</article>
+
+<article class="card" data-part="models" data-title="COST rules" data-added="0.4">
+    <div class="card-kicker">IX · Models &amp; budget</div>
+    <h2>COST rules</h2>
+    <p class="lede">Six rules. Every one of these is a real credit leak we have already paid for.</p>
+    <div class="rule"><div class="rule-id ap">COST-01</div><div class="rule-body"><strong>One task per session.</strong> Context bloat is the silent burner. Long mixed sessions cost more per answer and the answers get worse. (Same rule as <code>PROMPT-05</code>, promoted to a money rule.)</div></div>
+    <div class="rule"><div class="rule-id ap">COST-02</div><div class="rule-body"><strong>Match the model to the job.</strong> Bulk renames on the biggest model wastes credits; money-math debugging on the smallest wastes a day. See the table on the first card of this part.</div></div>
+    <div class="rule"><div class="rule-id ap">COST-03</div><div class="rule-body"><strong>Plan first on anything non-trivial.</strong> A wrong implementation paid for twice costs more than a plan paid for once. Plan mode exists for this (part IV).</div></div>
+    <div class="rule"><div class="rule-id ap">COST-04</div><div class="rule-body"><strong>Batch the audits.</strong> 5 to 10 files per <code>/audit</code> run. One audit on a 30-file diff can eat 20% of a session. (See <code>AP-01</code>.)</div></div>
+    <div class="rule"><div class="rule-id ap">COST-05</div><div class="rule-body"><strong>Point, don't spelunk.</strong> Docs URL plus the specific question. Never "go research X." (See <code>AP-02</code> — the 24-hour StoreKit story.)</div></div>
+    <div class="rule"><div class="rule-id ap">COST-06</div><div class="rule-body"><strong>Reuse, don't re-derive.</strong> Anything you prompt more than once a day becomes a skill or slash command, checked into the repo. Repeated prompting is repeated spend.</div></div>
+</article>
+
+<!-- ===================== WHAT'S NEW ===================== -->
+<article class="card" data-part="whatsnew" data-title="What's new">
+    <div class="card-kicker">✦ What's new</div>
+    <h2>What's new</h2>
+    <p class="lede">Anything added since your last visit is tagged <span class="newpill">NEW</span> on its tab and in the tip list. Newest first.</p>
+    <div class="changelog">
+        <div class="cl-entry">
+            <div class="cl-ver">v0.4</div>
+            <div class="cl-date">June 2026</div>
+            <ul>
+                <li>New part <a href="#which-model-when">IX · Models &amp; budget</a>: which model when, effort levels, <code>/compact</code> vs <code>/clear</code>, and six COST rules.</li>
+                <li>Start here: the <a href="#day-one-five-reps">Day One track</a> — five reps that cross the tool→agent line.</li>
+                <li>Part IV: <a href="#plan-mode-pour-energy-into-the-plan">plan mode</a>; worktrees updated to the built-in <code>--worktree</code> flag; <a href="#subagents-throw-more-compute-at-it">subagents</a>.</li>
+                <li>New cards: output styles (<a href="#make-claude-explain-itself">Explanatory / Learning</a>), <a href="#make-it-yours">Make it yours</a>, <a href="#teach-the-harness-back">Teach the harness back</a>, and a PostToolUse format hook.</li>
+                <li>NEW badges and this changelog: cards added since your last visit are now marked.</li>
+                <li>Rodd's North Star added as the first line of the playbook.</li>
+            </ul>
+        </div>
+        <div class="cl-entry">
+            <div class="cl-ver">v0.3</div>
+            <div class="cl-date">June 2026</div>
+            <ul>
+                <li>Reworked the playbook into a tabbed card explorer: part tabs, a numbered tip rail, one tip per screen, arrow-key paging, number-key part jumps, and per-tip deep links.</li>
+                <li>Dropped the external styling dependency; the page is now one self-contained file.</li>
+            </ul>
+        </div>
+        <div class="cl-entry">
+            <div class="cl-ver">v0.2</div>
+            <div class="cl-date">June 2026</div>
+            <ul>
+                <li>The agentic edition: tool-vs-agent framing, the agentic workflows, troubleshooting, copy buttons, and 4 embedded demo videos.</li>
+            </ul>
+        </div>
+        <div class="cl-entry">
+            <div class="cl-ver">v0.1</div>
+            <div class="cl-date">May 2026</div>
+            <ul>
+                <li>First version: the coded rule sets, prompting conventions, and role playbooks as a single page.</li>
+            </ul>
+        </div>
+    </div>
 </article>
 
             </div><!-- /#cards -->
@@ -1006,7 +1319,7 @@ claude
         </div><!-- /.stage-inner -->
 
         <footer class="stage-foot">
-            v0.3 · last updated {{LAST_UPDATED}} · commit {{COMMIT_HASH}} · <a href="https://github.com/blessuptech/claude-playbook/commits/main" style="color: inherit;">view history</a>
+            v0.4 · last updated {{LAST_UPDATED}} · commit {{COMMIT_HASH}} · <a href="https://github.com/blessuptech/claude-playbook/commits/main" style="color: inherit;">view history</a>
         </footer>
     </main>
 </div>
@@ -1022,10 +1335,26 @@ claude
         { id: 'roles',     label: 'Roles',          roman: 'V'    },
         { id: 'anti',      label: 'Anti-patterns',  roman: 'VI'   },
         { id: 'fix',       label: 'Troubleshooting', roman: 'VII' },
-        { id: 'limits',    label: 'Limits',         roman: 'VIII' }
+        { id: 'limits',    label: 'Limits',         roman: 'VIII' },
+        { id: 'models',    label: 'Models & budget', roman: 'IX'  },
+        { id: 'whatsnew',  label: "What's new",     roman: '✦'    }
     ];
     var PART = {};
     PARTS.forEach(function (p) { PART[p.id] = p; });
+
+    // ---- freshness: version + NEW badges ----
+    var SITE_VERSION = '0.4';
+    var LS_KEY = 'cpb_lastSeenVersion';
+    function verNum(v) { var m = String(v).split('.'); return (parseInt(m[0], 10) || 0) * 1000 + (parseInt(m[1], 10) || 0); }
+    var lastSeen = null;
+    try { lastSeen = localStorage.getItem(LS_KEY); } catch (e) {}
+    // a returning reader with no flag is presumed to have seen the prior version,
+    // so this rollout's cards light up as NEW; brand-new readers see them once too.
+    if (!lastSeen) lastSeen = '0.3';
+    function isNewCard(card) {
+        var a = card.getAttribute('data-added');
+        return a && verNum(a) > verNum(lastSeen);
+    }
 
     var cards = [].slice.call(document.querySelectorAll('.card'));
     // assign a stable slug id + part-local index to each card
@@ -1047,6 +1376,22 @@ claude
     });
     cards.forEach(function (card) { card._localTotal = counters[card.getAttribute('data-part')]; });
 
+    // tag new cards: count, per-part flag, and a NEW pill on the kicker
+    var newCount = 0;
+    var partHasNew = {};
+    cards.forEach(function (card) {
+        if (!isNewCard(card)) return;
+        newCount++;
+        partHasNew[card.getAttribute('data-part')] = true;
+        var kicker = card.querySelector('.card-kicker');
+        if (kicker && kicker.querySelector('.newpill') === null) {
+            var pill = document.createElement('span');
+            pill.className = 'newpill';
+            pill.textContent = 'NEW';
+            kicker.appendChild(pill);
+        }
+    });
+
     var current = 0;
 
     // ---- build tabs ----
@@ -1055,7 +1400,7 @@ claude
         var b = document.createElement('button');
         b.className = 'tab';
         b.dataset.part = p.id;
-        b.innerHTML = '<span class="tab-roman">' + p.roman + '</span>' + p.label;
+        b.innerHTML = '<span class="tab-roman">' + p.roman + '</span>' + p.label + (partHasNew[p.id] ? ' <span class="newpill">NEW</span>' : '');
         b.addEventListener('click', function () { goToPart(p.id); });
         tabsEl.appendChild(b);
     });
@@ -1077,7 +1422,7 @@ claude
             if (card.getAttribute('data-part') !== partId) return;
             var item = document.createElement('div');
             item.className = 'rail-item' + (card._idx === current ? ' active' : '');
-            item.innerHTML = '<span class="rn">' + String(card._localNum).padStart(2, '0') + '</span><span>' + card.getAttribute('data-title') + '</span>';
+            item.innerHTML = '<span class="rn">' + String(card._localNum).padStart(2, '0') + '</span><span>' + card.getAttribute('data-title') + (isNewCard(card) ? ' <span class="newpill">NEW</span>' : '') + '</span>';
             item.addEventListener('click', function () { show(card._idx); railEl.classList.remove('open'); });
             railEl.appendChild(item);
         });
@@ -1188,6 +1533,24 @@ claude
         var content = box.querySelector('div:last-of-type');
         attach(box, function () { return (content || box).innerText.trim(); });
     });
+
+    // ---- update banner ----
+    var banner = document.getElementById('updateBanner');
+    var ubText = document.getElementById('ubText');
+    function clearBadges() {
+        lastSeen = SITE_VERSION;
+        try { localStorage.setItem(LS_KEY, SITE_VERSION); } catch (e) {}
+        document.body.classList.remove('has-banner');
+        banner.classList.remove('show');
+        [].slice.call(document.querySelectorAll('.tab .newpill, .rail-item .newpill, .card-kicker .newpill')).forEach(function (p) { p.remove(); });
+    }
+    if (newCount > 0) {
+        ubText.innerHTML = '<strong>' + newCount + ' new ' + (newCount === 1 ? 'card' : 'cards') + '</strong> since your last visit — updated for Fable 5.';
+        banner.classList.add('show');
+        document.body.classList.add('has-banner');
+    }
+    document.getElementById('ubDismiss').addEventListener('click', clearBadges);
+    document.getElementById('ubSee').addEventListener('click', function () { goToPart('whatsnew'); clearBadges(); });
 
     // ---- initial card from hash ----
     var startIdx = 0;
