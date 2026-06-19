@@ -615,6 +615,7 @@
             <tr><td><strong>Already coding with it</strong></td><td>Go to <b>IV · Agentic</b>. That is where the speed lives.</td></tr>
             <tr><td><strong>Claude just did something odd</strong></td><td>Go to <b>VII · Troubleshooting</b> and bookmark it.</td></tr>
             <tr><td><strong>Want your role's defaults</strong></td><td>Go to <b>V · Roles</b> and find your title.</td></tr>
+            <tr><td><strong>Leading or rolling out to a team</strong></td><td>Go to <b>X · For leads</b> for the rules model, conventions, and adoption metrics.</td></tr>
         </tbody>
     </table>
     <p class="lede">This is a living document. It is thin in places and will be wrong in others; that is expected. If a rule helped, or a rule is useless to your role, say so and it changes. The goal is fewer rules, sharper rules.</p>
@@ -679,6 +680,7 @@
         <span class="callout-label tip">Add yours</span>
         Shipped something measurably faster with Claude? Post it in the team thread with the number and it lands here. One real before/after converts more skeptics than the whole rule set.
     </div>
+    <p class="lede">Sample for now. <a href="#artifacts-live-shareable-pages">Artifacts</a> (part X) is the path to making this a live, self-updating wall.</p>
 </article>
 
 <!-- ===================== I · GROUND RULES ===================== -->
@@ -703,6 +705,7 @@
             <tr><td><code>CLAUDE.md</code></td><td>The brain. Stack, conventions, where things live, what tests must pass. Loaded automatically every session.</td></tr>
             <tr><td><code>audit-rules.md</code></td><td>The engineering rule book: 95+ numbered rules across categories (<code>PCG-*</code>, <code>VSG-*</code>, <code>TEST-*</code>, <code>PERF-*</code>). Enforced by <code>/audit</code> on code. Separate from this playbook's own 40 how-we-work rules.</td></tr>
             <tr><td><code>skills/</code></td><td>Custom commands: <code>/audit</code>, <code>/commit</code>, <code>/sail-up</code>. New skills get added here.</td></tr>
+            <tr><td><code>.claude/rules/</code></td><td>Targeted constraints that load at session start <em>or</em> only when a matching file is touched. Good for "when editing migrations, do X." The mechanism behind the base/role/client model in part X.</td></tr>
             <tr><td><code>refs/</code></td><td>Reference docs: stores, composables, DRY structure, identity/auth, branding, plus the PCG and VSG playbooks.</td></tr>
         </tbody>
     </table>
@@ -1286,18 +1289,23 @@ claude
 <article class="card" data-part="models" data-title="Effort: the dial nobody uses" data-added="0.4">
     <div class="card-kicker">IX · Models &amp; budget</div>
     <h2>Effort — the dial nobody uses</h2>
-    <p><code>/model</code> also sets an effort level: low, medium, high. It is a second, quieter lever on burn.</p>
+    <p><code>/model</code> also sets an effort level: low, medium, high, and now <strong>xhigh</strong>. It is a second, quieter lever on burn.</p>
     <table>
         <thead><tr><th style="width: 18%;">Effort</th><th>Use for</th></tr></thead>
         <tbody>
-            <tr><td><strong>High</strong></td><td>Real engineering: slices, debugging, anything touching money flow.</td></tr>
+            <tr><td><strong>xhigh</strong></td><td>The hardest problems: a gnarly bug, a tricky migration, an architecture call you want maximum reasoning on. Highest burn — reach for it deliberately, not by default.</td></tr>
+            <tr><td><strong>High</strong></td><td>Real engineering: slices, debugging, anything touching money flow. The sensible default for actual work.</td></tr>
             <tr><td><strong>Medium</strong></td><td>Routine edits in a codebase Claude already knows from the harness.</td></tr>
             <tr><td><strong>Low</strong></td><td>Mechanical bulk where the pattern is obvious and volume is high.</td></tr>
         </tbody>
     </table>
     <div class="callout callout-warn">
         <span class="callout-label warn">Calibrate to our budget, not Boris's</span>
-        The Claude Code team runs high effort on everything — they also do not share a team plan. Default high for real work, drop deliberately for bulk, and never debug commissions on low.
+        The Claude Code team runs high effort on everything — they also do not share a team plan. Default high for real work, drop deliberately for bulk, never debug commissions on low, and save xhigh for the genuinely hard problem in front of you.
+    </div>
+    <div class="callout">
+        <span class="callout-label tip"><code>ultracode</code> — the autopilot</span>
+        There is also an <code>ultracode</code> setting that pins effort to xhigh and lets Claude decide on its own when to spin up a multi-step workflow. Powerful for a hard, open-ended task; expensive for everyday work. Treat it like xhigh: a deliberate choice for the hard thing, not the everyday default.
     </div>
 </article>
 
@@ -1347,6 +1355,10 @@ claude
     <div class="callout">
         <span class="callout-label tip">Why three layers, not one</span>
         Base rules change rarely and apply everywhere, so they live once and get reused. Role rules answer "how does my job work here." Client rules answer "what is true about this codebase." Keeping them separate means a base-rule change does not mean editing twenty files, and onboarding a client is one new file, not a rewrite.
+    </div>
+    <div class="callout callout-good">
+        <span class="callout-label good">The mechanism: <code>.claude/rules/</code></span>
+        Claude Code's <code>.claude/rules/</code> folder makes this layering real instead of conceptual. Rules files there load at session start, or <em>only when a matching file is touched</em> — so a <code>migrations</code> rule can fire just for migration work, and a client rule only in that repo. Put the base layer in shared rules, the role and client layers in their own scoped rules files. <code>CLAUDE.md</code> stays the always-on brain; <code>rules/</code> is the targeted layer.
     </div>
 </article>
 
@@ -1424,6 +1436,28 @@ claude
     </div>
 </article>
 
+<article class="card" data-part="leads" data-title="Artifacts: live shareable pages" data-added="0.5">
+    <div class="card-kicker">X · For leads</div>
+    <h2>Artifacts — live shareable pages from a session</h2>
+    <p>Claude Code can now turn a session into a live web page that updates itself as the work runs, shareable by link with your org. It builds the page from the full session context: your codebase, connected tools, and the conversation. For coordinators and leads, this replaces a lot of hand-written status writing.</p>
+    <table>
+        <thead><tr><th style="width: 34%;">Use it for</th><th>Instead of</th></tr></thead>
+        <tbody>
+            <tr><td>A PR walkthrough: the diff, the reasoning, what was tested</td><td>Writing the MR summary by hand for every reviewer</td></tr>
+            <tr><td>An incident page: timeline, suspect commit, error-rate chart, root cause</td><td>Pasting fragments into a thread and re-explaining</td></tr>
+            <tr><td>A live dashboard or release checklist that updates as the session works</td><td>A static doc that is stale the moment you post it</td></tr>
+        </tbody>
+    </table>
+    <div class="callout callout-good">
+        <span class="callout-label good">This is the Wins Wall, for real</span>
+        The Wins Wall in the start section is a static sample today. An Artifact is the mechanism to make it a live page: point a session at the team's posted before/after numbers and let it keep a running wall that updates itself. Same idea Mide asked for, now buildable.
+    </div>
+    <div class="callout callout-warn">
+        <span class="callout-label warn">Plan-gated</span>
+        Artifacts is a Team / Enterprise beta. Check it is on your plan before building a workflow around it. Same DATA rules apply: a shared page is still internal, so no secrets or member data on it (<code>DATA-01</code>, <code>DATA-02</code>).
+    </div>
+</article>
+
 <!-- ===================== WHAT'S NEW ===================== -->
 <article class="card" data-part="whatsnew" data-title="What's new">
     <div class="card-kicker">✦ What's new</div>
@@ -1438,6 +1472,7 @@ claude
                 <li>Part II: <a href="#sharing-logs-stack-traces-safely">sharing logs &amp; stack traces safely</a> — a concrete raw → redacted example on top of the DATA rules.</li>
                 <li>Part IV: <a href="#slicing-a-big-refactor">slicing a big refactor</a> into one-task sessions, and <a href="#reviewing-a-claude-drafted-slice">reviewing a Claude-drafted slice</a> efficiently (incl. the 20+ file audit approach).</li>
                 <li>Fixed the rule-count confusion: the 40 playbook rules and the 95+ <code>audit-rules.md</code> rules are now labeled as the separate sets they are.</li>
+                <li>Synced to current Claude Code: the <a href="#the-rules-model-base-role-client"><code>.claude/rules/</code></a> mechanism in the harness and rules model, <a href="#effort-the-dial-nobody-uses"><code>xhigh</code> effort and <code>ultracode</code></a> on the effort card, and <a href="#artifacts-live-shareable-pages">Artifacts</a> for live shareable pages.</li>
             </ul>
         </div>
         <div class="cl-entry">
@@ -1492,7 +1527,7 @@ claude
         </div><!-- /.stage-inner -->
 
         <footer class="stage-foot">
-            v0.5 · last updated {{LAST_UPDATED}} · commit {{COMMIT_HASH}} · <a href="https://github.com/blessuptech/claude-playbook/commits/main" style="color: inherit;">view history</a>
+            v0.5 · last updated {{LAST_UPDATED}} · commit {{COMMIT_HASH}} · <a href="https://github.com/blessuptech/claude-playbook/commits/main" style="color: inherit;">view history</a><span id="visitCount"></span>
         </footer>
     </main>
 </div>
@@ -1725,6 +1760,24 @@ claude
     }
     document.getElementById('ubDismiss').addEventListener('click', clearBadges);
     document.getElementById('ubSee').addEventListener('click', function () { goToPart('whatsnew'); clearBadges(); });
+
+    // ---- visit counter (global, via abacus free hit counter; fails silently) ----
+    (function () {
+        var el = document.getElementById('visitCount');
+        if (!el || !window.fetch) return;
+        var NS = 'blessuptech-claude-playbook', KEY = 'views';
+        var base = 'https://abacus.jasoncameron.dev/';
+        // count one hit per browser session; otherwise just read the current total
+        var counted = false;
+        try { counted = sessionStorage.getItem('cpb_counted') === '1'; } catch (e) {}
+        var url = base + (counted ? 'get/' : 'hit/') + NS + '/' + KEY;
+        fetch(url).then(function (r) { return r.json(); }).then(function (d) {
+            var n = d && typeof d.value === 'number' ? d.value : null;
+            if (n === null) return;
+            el.textContent = ' · ' + n.toLocaleString() + (n === 1 ? ' visit' : ' visits');
+            if (!counted) { try { sessionStorage.setItem('cpb_counted', '1'); } catch (e) {} }
+        }).catch(function () { /* service down — leave the counter blank */ });
+    })();
 
     // ---- initial card from hash ----
     var startIdx = 0;
