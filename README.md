@@ -25,4 +25,4 @@ Add `data-added="<version>"` (e.g. `data-added="0.4"`) to a card's `<article>`. 
 
 ## Status
 
-Currently **v0.4** — coded rule sets (DATA, CODE, COMM, DOC, PROMPT, AP, and the new COST rules), 5 role playbooks, the agentic workflows (plan mode, built-in `--worktree`, subagents), troubleshooting, a new **Models & budget** part, 4 embedded demo videos, and the NEW-badge / changelog freshness mechanic — all in the tabbed card-explorer layout.
+Currently **v0.5** — coded rule sets (DATA, CODE, COMM, DOC, PROMPT, AP, COST), 5 role playbooks, the agentic workflows (plan mode, built-in `--worktree`, subagents, slicing a big refactor, reviewing a drafted slice), troubleshooting, the **Models & budget** part, a new **For leads** part (base/role/client rules model, per-client `CLAUDE.md` template, conventions, adoption metrics), safe log/stack-trace sharing, 4 embedded demo videos, and the NEW-badge / changelog freshness mechanic — all in the tabbed card-explorer layout. Most of v0.5 came from team review.

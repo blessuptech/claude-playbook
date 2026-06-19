@@ -493,7 +493,7 @@
 <header class="topbar">
     <div>
         <div class="brand">NaXum <span class="dot">·</span> Claude Playbook</div>
-        <div class="sub">Internal reference · v0.4</div>
+        <div class="sub">Internal reference · v0.5</div>
     </div>
     <div class="right">
         <div class="kbd-hint">Navigate with <span class="kbd">←</span> <span class="kbd">→</span> · jump parts with <span class="kbd">1</span>–<span class="kbd">9</span></div>
@@ -619,10 +619,14 @@
     </table>
     <p class="lede">This is a living document. It is thin in places and will be wrong in others; that is expected. If a rule helped, or a rule is useless to your role, say so and it changes. The goal is fewer rules, sharper rules.</p>
     <div class="stat-row">
-        <div class="stat"><div class="n">40</div><div class="l">Coded rules</div></div>
+        <div class="stat"><div class="n">40</div><div class="l">Playbook rules</div></div>
         <div class="stat"><div class="n">5</div><div class="l">Role playbooks</div></div>
         <div class="stat"><div class="n">4</div><div class="l">Real demos</div></div>
-        <div class="stat"><div class="n">~20</div><div class="l">Min to read</div></div>
+        <div class="stat"><div class="n">~25</div><div class="l">Min to read</div></div>
+    </div>
+    <div class="callout">
+        <span class="callout-label tip">Two different rule sets — don't confuse them</span>
+        The <strong>40 playbook rules</strong> here (DATA, CODE, COMM, DOC, PROMPT, AP, COST) are the <em>how-we-work</em> rules on this page. They are separate from the <strong>95+ engineering rules</strong> in each repo's <code>audit-rules.md</code> (<code>PCG-*</code>, <code>VSG-*</code>, <code>TEST-*</code>, <code>PERF-*</code>) that <code>/audit</code> enforces on code. Different files, different jobs.
     </div>
 </article>
 
@@ -697,7 +701,7 @@
         <thead><tr><th style="width: 30%;">File</th><th>Purpose</th></tr></thead>
         <tbody>
             <tr><td><code>CLAUDE.md</code></td><td>The brain. Stack, conventions, where things live, what tests must pass. Loaded automatically every session.</td></tr>
-            <tr><td><code>audit-rules.md</code></td><td>The rule book: 95+ numbered rules across categories (<code>PCG-*</code>, <code>VSG-*</code>, <code>TEST-*</code>, <code>PERF-*</code>). Enforced by <code>/audit</code>.</td></tr>
+            <tr><td><code>audit-rules.md</code></td><td>The engineering rule book: 95+ numbered rules across categories (<code>PCG-*</code>, <code>VSG-*</code>, <code>TEST-*</code>, <code>PERF-*</code>). Enforced by <code>/audit</code> on code. Separate from this playbook's own 40 how-we-work rules.</td></tr>
             <tr><td><code>skills/</code></td><td>Custom commands: <code>/audit</code>, <code>/commit</code>, <code>/sail-up</code>. New skills get added here.</td></tr>
             <tr><td><code>refs/</code></td><td>Reference docs: stores, composables, DRY structure, identity/auth, branding, plus the PCG and VSG playbooks.</td></tr>
         </tbody>
@@ -754,6 +758,25 @@
     <div class="rule"><div class="rule-id data">DATA-04</div><div class="rule-body"><strong>The harness is internal.</strong> Do not share the contents of <code>audit-rules.md</code>, <code>CLAUDE.md</code>, the PCG/VSG, or custom skills outside NaXum.</div></div>
     <div class="rule"><div class="rule-id data">DATA-05</div><div class="rule-body"><strong>Keep codebase boundaries.</strong> VO work stays in VO sessions, mobile in mobile, BlessUP in BlessUP. Do not paste contract code into a VO session or vice versa; it pollutes context and leaks scope.</div></div>
     <div class="rule"><div class="rule-id data">DATA-06</div><div class="rule-body"><strong>Staging or seed data only for examples.</strong> If you need realistic data shapes, use factory output or anonymized staging dumps.</div></div>
+</article>
+
+<article class="card" data-part="rules" data-title="Sharing logs &amp; stack traces safely" data-added="0.5">
+    <div class="card-kicker">II · Rule sets</div>
+    <h2>Sharing logs &amp; stack traces safely</h2>
+    <p>The DATA rules say no secrets and no real member data. In practice the hard part is a stack trace or a log line that has both the error you need help with <em>and</em> a token, an email, or a member ID baked in. You do not have to choose between the two. Redact, then share.</p>
+    <p>Claude needs the <strong>shape</strong> of the failure: the exception, the file and line, the call stack, the variable names. It does not need the <strong>values</strong>. Strip the values, keep everything else.</p>
+    <div class="prompt-compare">
+        <div class="prompt-box bad"><span class="prompt-tag tag-bad">Raw — don't paste</span><div>SQLSTATE[HY000]: General error: 1364<br>insert into <code>members</code> (<code>email</code>, <code>phone</code>, <code>ssn_last4</code>, <code>api_token</code>)<br>values ('jane.doe@gmail.com', '+1 415 555 0199', '4417', 'sk_live_9f2a...c7')<br>at MemberController.php:212<br>Authorization: Bearer eyJhbGciOiJIUzI1Ni...</div></div>
+        <div class="prompt-box good" data-copy><span class="prompt-tag tag-good">Redacted — safe to paste</span><div>SQLSTATE[HY000]: General error: 1364 (column has no default)<br>insert into <code>members</code> (<code>email</code>, <code>phone</code>, <code>ssn_last4</code>, <code>api_token</code>)<br>values (&lt;email&gt;, &lt;phone&gt;, &lt;ssn4&gt;, &lt;token&gt;)<br>at MemberController.php:212<br>Authorization: Bearer &lt;redacted&gt;<br><br>"Insert fails on column 1364. The model fills these elsewhere — where should the default come from?"</div></div>
+    </div>
+    <div class="callout callout-good">
+        <span class="callout-label good">The three-pass redact</span>
+        Before pasting any log: (1) replace every <strong>value</strong> with a placeholder like <code>&lt;email&gt;</code> or <code>&lt;token&gt;</code> — keep the key names. (2) Delete any line that is purely a secret (full <code>Authorization</code> headers, connection strings, cookies). (3) Keep the exception, the file:line, and the stack. That is the part Claude actually reads.
+    </div>
+    <div class="callout">
+        <span class="callout-label tip">Faster than doing it by hand</span>
+        For a recurring log shape, ask Claude to write you a tiny redact filter once (regex that masks emails, bearer tokens, and <code>sk_live</code> keys) and pipe logs through it before they ever reach a prompt. Reuse beats re-scrubbing. See <code>COST-06</code>.
+    </div>
 </article>
 
 <article class="card" data-part="rules" data-title="CODE — engineering rules">
@@ -980,6 +1003,53 @@ claude
     <p>Check it into the repo's <code>.claude/settings.json</code> once; the whole team benefits. Swap the command per repo (Pint for Laravel, Prettier for the frontend and mobile).</p>
 </article>
 
+<article class="card" data-part="agentic" data-title="Slicing a big refactor" data-added="0.5">
+    <div class="card-kicker">IV · Agentic workflows</div>
+    <h2>Slicing a big refactor into one-task sessions</h2>
+    <p>"One task per session" (<code>PROMPT-05</code>, <code>COST-01</code>) is easy to agree with and hard to apply when the job is "refactor the commission engine." The rule is not "do small work." It is "give each session one outcome it can finish, audit, and commit on its own." A big refactor is a sequence of those, not one giant prompt.</p>
+    <h5>Find the seams before you write anything</h5>
+    <p>Open a planning session (no edits) and ask Claude to map the change, not make it:</p>
+    <div class="codewrap"><pre><code>&gt; I need to refactor &lt;thing&gt;. Don't change code yet.
+&gt; List the files involved and propose how to split this into
+&gt; independent slices that each compile, pass tests, and ship on their own.
+&gt; Order them so earlier slices don't depend on later ones.</code></pre></div>
+    <p>You now have a slice list. Each slice becomes its own session.</p>
+    <table>
+        <thead><tr><th style="width: 34%;">A good slice</th><th>A bad slice</th></tr></thead>
+        <tbody>
+            <tr><td>Compiles and passes tests on its own</td><td>Leaves the build red until the "next" slice lands</td></tr>
+            <tr><td>One reviewable diff, one <code>/audit</code>, one commit</td><td>Touches 30 files across three concerns</td></tr>
+            <tr><td>Has a clear "done" you can state in one line</td><td>"Refactor everything related to X"</td></tr>
+        </tbody>
+    </table>
+    <div class="callout callout-good">
+        <span class="callout-label good">The pattern</span>
+        Plan the seams in one session → fresh session per slice (CCO prompt, plan first, smallest diff) → <code>/audit</code> → <code>/commit</code> → <code>/clear</code> → next slice. Parallel-safe slices can run in their own worktrees at the same time (see the worktrees card).
+    </div>
+    <div class="callout callout-warn">
+        <span class="callout-label warn">Keep the thread, not the bloat</span>
+        If slice 3 genuinely needs what happened in slice 2, <code>/compact</code> at the commit boundary instead of <code>/clear</code> — you keep the summary and drop the noise. Default to <code>/clear</code> between truly independent slices.
+    </div>
+</article>
+
+<article class="card" data-part="agentic" data-title="Reviewing a Claude-drafted slice" data-added="0.5">
+    <div class="card-kicker">IV · Agentic workflows</div>
+    <h2>Reviewing a Claude-drafted slice efficiently</h2>
+    <p>Once Claude drafts the work, your job is review. Reading a machine-drafted diff is a different skill from reading a teammate's: it is usually well-formed and confident, which is exactly why a skim is dangerous. Read it in a fixed order so confidence does not carry a bug past you.</p>
+    <ol>
+        <li><strong>Intent first.</strong> Before the diff, have Claude state what it changed and why in five lines. If its summary does not match what you asked, stop here.</li>
+        <li><strong>The risky third.</strong> Money math, auth, migrations, anything in <code>DATA</code> scope. Read these by hand, every line. This is where confident drafts hide wrong assumptions.</li>
+        <li><strong>The boring two-thirds.</strong> Renames, boilerplate, test scaffolding. Skim for shape, trust <code>/audit</code> for the rest.</li>
+        <li><strong>What it did <em>not</em> touch.</strong> Ask: "What did you choose not to change that I might expect to see changed?" The omission is often the bug.</li>
+        <li><strong>Verify one claim yourself.</strong> Pick the load-bearing assertion ("tests pass", "endpoint unchanged") and confirm it directly. Never take it on the draft's word.</li>
+    </ol>
+    <div class="war">
+        <span class="callout-label">For a 20+ file slice</span>
+        Do not do one giant audit at the end. Run <code>/audit</code> per sub-slice as you build (5–10 files at a time, see <code>COST-04</code>), then one final full pass over the assembled change before the MR.
+        <span class="war-punch">Incremental audits catch issues while the context is still cheap; the final pass catches the seams between slices.</span>
+    </div>
+</article>
+
 <!-- ===================== V · ROLES ===================== -->
 <article class="card" data-part="roles" data-title="Frontend Engineer">
     <div class="card-kicker">V · Role playbooks</div>
@@ -1185,12 +1255,12 @@ claude
 <article class="card" data-part="limits" data-title="This is a living document">
     <div class="card-kicker">VIII · Limits</div>
     <h2>This is a living document</h2>
-    <p>v0.4, and still evolving. The point of a playbook is that it gets better as the team uses it.</p>
+    <p>v0.5, and still evolving. The point of a playbook is that it gets better as the team uses it — most of this version came straight from team review.</p>
     <div class="callout">
         <span class="callout-label tip">Feedback</span>
         If a rule saved you time, flag it so it gets expanded. If a rule is wrong, contradictory, or useless to your role, flag it so it gets cut or fixed. Fewer rules, sharper rules.
     </div>
-    <p class="lede" style="margin-top: 1.4rem;">Bookmark the page and come back to <b>Troubleshooting</b> when Claude does something odd, because it will. Two more parts follow: <b>IX · Models &amp; budget</b> for getting the most per credit, and <b>What's new</b> for anything that changed since your last visit.</p>
+    <p class="lede" style="margin-top: 1.4rem;">Bookmark the page and come back to <b>Troubleshooting</b> when Claude does something odd, because it will. Three more parts follow: <b>IX · Models &amp; budget</b> for getting the most per credit, <b>X · For leads</b> for structuring rules and measuring adoption, and <b>What's new</b> for anything that changed since your last visit.</p>
 </article>
 
 <!-- ===================== IX · MODELS & BUDGET ===================== -->
@@ -1261,12 +1331,115 @@ claude
     <div class="rule"><div class="rule-id ap">COST-06</div><div class="rule-body"><strong>Reuse, don't re-derive.</strong> Anything you prompt more than once a day becomes a skill or slash command, checked into the repo. Repeated prompting is repeated spend.</div></div>
 </article>
 
+<!-- ===================== X · FOR LEADS ===================== -->
+<article class="card" data-part="leads" data-title="The rules model: base, role, client" data-added="0.5">
+    <div class="card-kicker">X · For leads</div>
+    <h2>The rules model — base, role, client</h2>
+    <p>As more teams and clients come onto Claude, one flat <code>CLAUDE.md</code> per repo stops scaling: the same base rules get copy-pasted everywhere, role advice gets buried, and client-specific context has nowhere clean to live. The fix is to think in three layers, not one file.</p>
+    <table>
+        <thead><tr><th style="width: 20%;">Layer</th><th>Holds</th><th>Lives in</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Base</strong></td><td>The non-negotiables every project shares: the DATA rules, <code>/audit</code> before commit, no protected-branch pushes, our commit format.</td><td>This playbook + a shared base block reused across repos.</td></tr>
+            <tr><td><strong>Role</strong></td><td>How a frontend / backend / mobile / QA engineer actually works here: stack, patterns, default workflow, what to avoid.</td><td>Part V of this playbook, and role notes in the repo's <code>refs/</code>.</td></tr>
+            <tr><td><strong>Client</strong></td><td>One client's context: their stack, business rules, domain language, what their codebase calls things.</td><td>A per-client <code>CLAUDE.md</code> in that client's repo. Next card is the template.</td></tr>
+        </tbody>
+    </table>
+    <div class="callout">
+        <span class="callout-label tip">Why three layers, not one</span>
+        Base rules change rarely and apply everywhere, so they live once and get reused. Role rules answer "how does my job work here." Client rules answer "what is true about this codebase." Keeping them separate means a base-rule change does not mean editing twenty files, and onboarding a client is one new file, not a rewrite.
+    </div>
+</article>
+
+<article class="card" data-part="leads" data-title="Per-client CLAUDE.md — starter template" data-added="0.5">
+    <div class="card-kicker">X · For leads</div>
+    <h2>Per-client <code>CLAUDE.md</code> — starter template</h2>
+    <p>When a new client repo comes online, do not write its harness from a blank page. Copy this skeleton into the repo's <code>CLAUDE.md</code>, fill the brackets, and you have the client layer from the model on the previous card. It pairs with the shared base rules, it does not repeat them.</p>
+    <div class="codewrap"><pre><code># CLAUDE.md — &lt;Client / Project name&gt;
+
+## Stack
+- Frontend: &lt;framework + UI lib + styling + state&gt;
+- Backend: &lt;framework + DB + auth&gt;
+- Tests: &lt;runner&gt;. Baseline: &lt;N&gt; passing, 0 failing.
+
+## Where things live
+- &lt;feature&gt; → &lt;path&gt;
+- &lt;the thing people always hunt for&gt; → &lt;path&gt;
+
+## Conventions (client-specific)
+- Naming: &lt;what this codebase calls things&gt;
+- Patterns to match: &lt;example file to copy&gt;
+- Do NOT introduce: &lt;libs/patterns off-limits here&gt;
+
+## Business rules that affect code
+- &lt;domain rule, e.g. "payouts round down, never up"&gt;
+- &lt;rule a new dev would get wrong&gt;
+
+## Definition of done
+- /audit clean, tests green, &lt;client-specific gate&gt;</code></pre></div>
+    <div class="callout callout-good">
+        <span class="callout-label good">Keep it lean</span>
+        The base rules (DATA, <code>/audit</code>, review chain) are not repeated here — they are inherited. This file only holds what is <em>true for this client and nowhere else</em>. A client <code>CLAUDE.md</code> that restates the whole playbook is a maintenance trap.
+    </div>
+</article>
+
+<article class="card" data-part="leads" data-title="Engineering conventions: playbook vs repo" data-added="0.5">
+    <div class="card-kicker">X · For leads</div>
+    <h2>Engineering conventions — playbook vs repo</h2>
+    <p>A common request: put our design-system rules, frontend architecture standards, and DB conventions (new tables, columns, indexes, migrations) into the playbook so the team works consistently. Right instinct, but the specifics do not belong on this page — they belong where <code>/audit</code> can enforce them.</p>
+    <table>
+        <thead><tr><th style="width: 30%;">Goes in the playbook</th><th>Goes in the repo harness</th></tr></thead>
+        <tbody>
+            <tr><td>The <em>principle</em>: "match the design system, do not invent CSS classes," "migrations are reviewed by a human."</td><td>The <em>specifics</em>: the exact button taxonomy, the index-naming rule, the migration checklist — as numbered <code>PCG-*</code>/<code>VSG-*</code> rules in <code>audit-rules.md</code>.</td></tr>
+            <tr><td>Stays general so it reads the same for every stack and client.</td><td>Stays per-repo so <code>/audit</code> actually checks it on real diffs.</td></tr>
+        </tbody>
+    </table>
+    <div class="callout">
+        <span class="callout-label tip">The rule of thumb</span>
+        If a convention can be checked on a diff, it is an <code>audit-rules.md</code> entry, not a playbook paragraph. The playbook tells you the conventions exist and why; the harness enforces them. A standard nobody enforces is a wish.
+    </div>
+    <p class="lede">This keeps the playbook general-purpose and the conventions living and testable — a design-system guide that drifts from the code helps no one.</p>
+</article>
+
+<article class="card" data-part="leads" data-title="Measuring the tool→agent line" data-added="0.5">
+    <div class="card-kicker">X · For leads</div>
+    <h2>Measuring the tool→agent line</h2>
+    <p>The playbook's whole bet is the North Star: every AI thing must move a real number. That applies to adoption itself. A team "using Claude" is not the goal; a team that has crossed from autocomplete to handing over whole slices is. Here is how to see which side of that line your team is on, without surveys.</p>
+    <table>
+        <thead><tr><th style="width: 32%;">Signal</th><th>Tool side</th><th>Agent side</th></tr></thead>
+        <tbody>
+            <tr><td>How work arrives</td><td>Line-by-line, engineer types most of it</td><td>Whole slices drafted, engineer reviews</td></tr>
+            <tr><td>MR return rate</td><td>Flat — <code>/audit</code> not yet a habit</td><td>Dropping toward zero</td></tr>
+            <tr><td>Sessions per task</td><td>One long mixed session</td><td>One focused session per slice, <code>/clear</code> between</td></tr>
+            <tr><td>Parallelism</td><td>One thing at a time</td><td>Worktrees: two or three slices in the same wall-clock</td></tr>
+            <tr><td>Wins wall</td><td>Empty or anecdotal</td><td>Real before/after numbers posted by the team</td></tr>
+        </tbody>
+    </table>
+    <div class="callout callout-good">
+        <span class="callout-label good">What to actually track</span>
+        Pick two: <strong>MR return rate</strong> (should fall as <code>/audit</code> sticks) and <strong>posted wins with numbers</strong> (should rise). Both are observable from work you already do. If neither moves after a rollout wave, the tooling is installed but the habit has not landed — that is a coaching problem, not a tooling one.
+    </div>
+    <div class="callout">
+        <span class="callout-label tip">For the rollout</span>
+        Pilot with leads and lead engineers first, then expand once the habits (audit-before-commit, one task per session, plan first) are visible in their MRs. Inconsistent code quality across the team usually traces to mixed tools — getting everyone on the same harness is what makes the numbers comparable.
+    </div>
+</article>
+
 <!-- ===================== WHAT'S NEW ===================== -->
 <article class="card" data-part="whatsnew" data-title="What's new">
     <div class="card-kicker">✦ What's new</div>
     <h2>What's new</h2>
     <p class="lede">Anything added since your last visit is tagged <span class="newpill">NEW</span> on its tab and in the tip list. Newest first.</p>
     <div class="changelog">
+        <div class="cl-entry">
+            <div class="cl-ver">v0.5</div>
+            <div class="cl-date">June 2026</div>
+            <ul>
+                <li>From team review. New part <a href="#the-rules-model-base-role-client">X · For leads</a>: the base/role/client rules model, a per-client <code>CLAUDE.md</code> starter template, conventions (playbook vs repo), and measuring the tool→agent line.</li>
+                <li>Part II: <a href="#sharing-logs-stack-traces-safely">sharing logs &amp; stack traces safely</a> — a concrete raw → redacted example on top of the DATA rules.</li>
+                <li>Part IV: <a href="#slicing-a-big-refactor">slicing a big refactor</a> into one-task sessions, and <a href="#reviewing-a-claude-drafted-slice">reviewing a Claude-drafted slice</a> efficiently (incl. the 20+ file audit approach).</li>
+                <li>Fixed the rule-count confusion: the 40 playbook rules and the 95+ <code>audit-rules.md</code> rules are now labeled as the separate sets they are.</li>
+            </ul>
+        </div>
         <div class="cl-entry">
             <div class="cl-ver">v0.4</div>
             <div class="cl-date">June 2026</div>
@@ -1319,7 +1492,7 @@ claude
         </div><!-- /.stage-inner -->
 
         <footer class="stage-foot">
-            v0.4 · last updated {{LAST_UPDATED}} · commit {{COMMIT_HASH}} · <a href="https://github.com/blessuptech/claude-playbook/commits/main" style="color: inherit;">view history</a>
+            v0.5 · last updated {{LAST_UPDATED}} · commit {{COMMIT_HASH}} · <a href="https://github.com/blessuptech/claude-playbook/commits/main" style="color: inherit;">view history</a>
         </footer>
     </main>
 </div>
@@ -1337,20 +1510,21 @@ claude
         { id: 'fix',       label: 'Troubleshooting', roman: 'VII' },
         { id: 'limits',    label: 'Limits',         roman: 'VIII' },
         { id: 'models',    label: 'Models & budget', roman: 'IX'  },
+        { id: 'leads',     label: 'For leads',      roman: 'X'    },
         { id: 'whatsnew',  label: "What's new",     roman: '✦'    }
     ];
     var PART = {};
     PARTS.forEach(function (p) { PART[p.id] = p; });
 
     // ---- freshness: version + NEW badges ----
-    var SITE_VERSION = '0.4';
+    var SITE_VERSION = '0.5';
     var LS_KEY = 'cpb_lastSeenVersion';
     function verNum(v) { var m = String(v).split('.'); return (parseInt(m[0], 10) || 0) * 1000 + (parseInt(m[1], 10) || 0); }
     var lastSeen = null;
     try { lastSeen = localStorage.getItem(LS_KEY); } catch (e) {}
     // a returning reader with no flag is presumed to have seen the prior version,
     // so this rollout's cards light up as NEW; brand-new readers see them once too.
-    if (!lastSeen) lastSeen = '0.3';
+    if (!lastSeen) lastSeen = '0.4';
     function isNewCard(card) {
         var a = card.getAttribute('data-added');
         return a && verNum(a) > verNum(lastSeen);
@@ -1545,7 +1719,7 @@ claude
         [].slice.call(document.querySelectorAll('.tab .newpill, .rail-item .newpill, .card-kicker .newpill')).forEach(function (p) { p.remove(); });
     }
     if (newCount > 0) {
-        ubText.innerHTML = '<strong>' + newCount + ' new ' + (newCount === 1 ? 'card' : 'cards') + '</strong> since your last visit — updated for Fable 5.';
+        ubText.innerHTML = '<strong>' + newCount + ' new ' + (newCount === 1 ? 'card' : 'cards') + '</strong> since your last visit — fresh in v0.5.';
         banner.classList.add('show');
         document.body.classList.add('has-banner');
     }
