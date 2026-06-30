@@ -493,7 +493,7 @@
 <header class="topbar">
     <div>
         <div class="brand">NaXum <span class="dot">·</span> Claude Playbook</div>
-        <div class="sub">Internal reference · v0.5</div>
+        <div class="sub">Internal reference · v0.6</div>
     </div>
     <div class="right">
         <div class="kbd-hint">Navigate with <span class="kbd">←</span> <span class="kbd">→</span> · jump parts with <span class="kbd">1</span>–<span class="kbd">9</span></div>
@@ -616,6 +616,7 @@
             <tr><td><strong>Claude just did something odd</strong></td><td>Go to <b>VII · Troubleshooting</b> and bookmark it.</td></tr>
             <tr><td><strong>Want your role's defaults</strong></td><td>Go to <b>V · Roles</b> and find your title.</td></tr>
             <tr><td><strong>Leading or rolling out to a team</strong></td><td>Go to <b>X · For leads</b> for the rules model, conventions, and adoption metrics.</td></tr>
+            <tr><td><strong>Just want the essentials fast</strong></td><td>The <b>one-page cheat sheet</b> (last tip in this Start section) is the whole thing on one screen.</td></tr>
         </tbody>
     </table>
     <p class="lede">This is a living document. It is thin in places and will be wrong in others; that is expected. If a rule helped, or a rule is useless to your role, say so and it changes. The goal is fewer rules, sharper rules.</p>
@@ -681,6 +682,39 @@
         Shipped something measurably faster with Claude? Post it in the team thread with the number and it lands here. One real before/after converts more skeptics than the whole rule set.
     </div>
     <p class="lede">Sample for now. <a href="#artifacts-live-shareable-pages">Artifacts</a> (part X) is the path to making this a live, self-updating wall.</p>
+</article>
+
+<article class="card" data-part="start" data-title="One-page cheat sheet" data-added="0.6">
+    <div class="card-kicker">Start here</div>
+    <h2>One-page cheat sheet</h2>
+    <p class="lede">The whole playbook in one screen. Pin it in a tab or print it. The rest of the page is the detail behind these lines.</p>
+    <h5>The 5 that matter most</h5>
+    <div class="essentials">
+        <div class="ess-head">★ Non-negotiables</div>
+        <ol>
+            <li><code>/audit</code> before every commit <span>— kills MR returns.</span></li>
+            <li>One task per session <span>— <code>/clear</code> between unrelated jobs.</span></li>
+            <li>Tell it what <em>not</em> to touch <span>— state the blast radius.</span></li>
+            <li>Claude drafts, you review and own it <span>— your name, your bug.</span></li>
+            <li>No secrets, no real member data <span>— redact before pasting.</span></li>
+        </ol>
+    </div>
+    <h5>Prompt in one line — CCO</h5>
+    <p><strong>Context</strong> (file path + naming) · <strong>Constraint</strong> (what not to change, what to match) · <strong>Outcome</strong> (what "done" is). Add "plan first" and "smallest diff."</p>
+    <h5>Commands worth memorizing</h5>
+    <table>
+        <tbody>
+            <tr><td style="width: 30%;"><code>/audit</code> · <code>/commit</code></td><td>Before and after every change.</td></tr>
+            <tr><td><code>/clear</code> · <code>/compact</code></td><td>Fresh start vs keep-the-thread (focus it: <code>/compact focus on X</code>).</td></tr>
+            <tr><td><code>/model</code></td><td>Pick model + effort (low / medium / high / xhigh).</td></tr>
+            <tr><td><code>claude --worktree</code></td><td>Run parallel slices in isolation.</td></tr>
+            <tr><td>shift+tab twice</td><td>Plan mode. Refine the plan before any code.</td></tr>
+        </tbody>
+    </table>
+    <div class="callout">
+        <span class="callout-label tip">Stuck or surprised?</span>
+        <b>VII · Troubleshooting</b> for "Claude did X, do Y." <b>VI · Anti-patterns</b> for the five common traps. Your role's defaults live in <b>V · Roles</b>.
+    </div>
 </article>
 
 <!-- ===================== I · GROUND RULES ===================== -->
@@ -939,6 +973,10 @@ claude --worktree slice-5a     # third</code></pre></div>
             <ul><li>One worker is cheaper than five</li><li>No fan-out, no benefit</li></ul>
         </div>
     </div>
+    <div class="callout">
+        <span class="callout-label tip">Subagents can spawn subagents</span>
+        A subagent can now launch its own subagents, so a single explore request can branch into a tree. Powerful for a wide sweep, but the review and the cost are still yours — scope the top-level ask so the tree does not run wider than you need.
+    </div>
 </article>
 
 <article class="card" data-part="agentic" data-title="Claude drafts, you review">
@@ -1076,7 +1114,7 @@ claude
     </ul>
 </article>
 
-<article class="card" data-part="roles" data-title="Backend Engineer">
+<article class="card" data-part="roles" data-title="Backend Engineer" data-added="0.6">
     <div class="card-kicker">V · Role playbooks</div>
     <h2>Backend Engineer</h2>
     <div class="role-meta">Laravel 12 · MySQL 8.4 · JWT · Pest</div>
@@ -1095,9 +1133,24 @@ claude
         <li>Get a behavior-diff list before opening the actual page.</li>
         <li>Log every issue: description, page link, screenshot/video, expected output.</li>
     </ol>
+    <h5>Money-page QA checklist</h5>
+    <p style="font-size: 13.5px;">The behavior diff tells you <em>what</em> changed; this is the standard list of <em>what to check</em> so it is the same across every engineer, not improvised per page.</p>
+    <ul>
+        <li><strong>Rounding:</strong> same direction and precision as the old tool (down vs nearest, 2dp vs raw). A half-cent drift compounds across a payout run.</li>
+        <li><strong>Boundaries:</strong> rank thresholds, qualification cutoffs, min/max payout caps. Test exactly on the boundary, one below, one above.</li>
+        <li><strong>Edge cases:</strong> zero volume, refunds/chargebacks, cancelled members mid-period, ties, missing upline.</li>
+        <li><strong>Period logic:</strong> the cutoff date and timezone match; nothing leaks across period boundaries.</li>
+        <li><strong>Totals reconcile:</strong> sum of member payouts equals the pool, no money created or lost vs the old tool.</li>
+        <li><strong>Log per issue:</strong> page, input that triggered it, expected (old tool) vs actual (new), screenshot.</li>
+    </ul>
+    <h5>Safe migration prompt</h5>
+    <p style="font-size: 13.5px;">Migrations carry more risk than most backend work. Hand them to Claude with a standard prompt so the safety bar is the same every time:</p>
+    <div class="prompt-compare">
+        <div class="prompt-box good" data-copy><span class="prompt-tag tag-good">Template</span><div>"Write a migration in <code>&lt;path&gt;</code> to <code>&lt;change&gt;</code>. Requirements: it must be reversible — write a real <code>down()</code>, not an empty one. State the index strategy and why. For a large table, note the lock/performance impact and an online-safe approach if needed. Show the migration and the down path; do not run it. I will review the SQL, order, rollback, and indexes before it is committed."</div></div>
+    </div>
     <h5>Avoid</h5>
     <ul>
-        <li>Letting Claude write DB migrations without human review of the SQL.</li>
+        <li>Letting Claude write DB migrations without human review. Scope of review is the SQL, the migration order, the rollback (<code>down</code>) logic, and the index strategy — not just the SQL.</li>
         <li>Trusting Claude's commission math without spot-checking against the old tool.</li>
         <li>Adding a caching layer or queue mechanism without team discussion.</li>
     </ul>
@@ -1247,6 +1300,7 @@ claude
         <li><code>/config</code> — theme, and the output styles from the start-here card.</li>
         <li><code>/terminal-setup</code> — shift+enter for newlines if you are in an IDE terminal or Apple Terminal.</li>
         <li><code>/vim</code> — if you know, you know.</li>
+        <li><code>/skills</code> — type-to-filter search box. As our skill set grows, this finds <code>/audit</code> or <code>/sail-up</code> without scrolling.</li>
         <li>Spinner verbs — ask Claude to theme its "thinking…" verbs however you like. Yes, really. One teammate runs Star Trek. It changes nothing and somehow changes everything.</li>
     </ul>
     <div class="callout">
@@ -1258,7 +1312,7 @@ claude
 <article class="card" data-part="limits" data-title="This is a living document">
     <div class="card-kicker">VIII · Limits</div>
     <h2>This is a living document</h2>
-    <p>v0.5, and still evolving. The point of a playbook is that it gets better as the team uses it — most of this version came straight from team review.</p>
+    <p>v0.6, and still evolving. The point of a playbook is that it gets better as the team uses it — most of recent versions came straight from team review.</p>
     <div class="callout">
         <span class="callout-label tip">Feedback</span>
         If a rule saved you time, flag it so it gets expanded. If a rule is wrong, contradictory, or useless to your role, flag it so it gets cut or fixed. Fewer rules, sharper rules.
@@ -1337,6 +1391,10 @@ claude
     <div class="rule"><div class="rule-id ap">COST-04</div><div class="rule-body"><strong>Batch the audits.</strong> 5 to 10 files per <code>/audit</code> run. One audit on a 30-file diff can eat 20% of a session. (See <code>AP-01</code>.)</div></div>
     <div class="rule"><div class="rule-id ap">COST-05</div><div class="rule-body"><strong>Point, don't spelunk.</strong> Docs URL plus the specific question. Never "go research X." (See <code>AP-02</code> — the 24-hour StoreKit story.)</div></div>
     <div class="rule"><div class="rule-id ap">COST-06</div><div class="rule-body"><strong>Reuse, don't re-derive.</strong> Anything you prompt more than once a day becomes a skill or slash command, checked into the repo. Repeated prompting is repeated spend.</div></div>
+    <div class="callout">
+        <span class="callout-label tip">More headroom, same discipline</span>
+        Claude Code rate limits were doubled, so you hit caps far less often. That is about <em>quota</em>, not <em>quality</em> — these rules are about cost per answer and the answers staying sharp. A bloated session is still a worse session even when you are nowhere near a limit.
+    </div>
 </article>
 
 <!-- ===================== X · FOR LEADS ===================== -->
@@ -1465,6 +1523,16 @@ claude
     <p class="lede">Anything added since your last visit is tagged <span class="newpill">NEW</span> on its tab and in the tip list. Newest first.</p>
     <div class="changelog">
         <div class="cl-entry">
+            <div class="cl-ver">v0.6 · in progress</div>
+            <div class="cl-date">June 2026</div>
+            <ul>
+                <li>Backend playbook: a <a href="#backend-engineer">money-page QA checklist</a> and a safe-migration prompt template, plus the full DB-migration review scope.</li>
+                <li>Start: a <a href="#one-page-cheat-sheet">one-page cheat sheet</a> to pin or print.</li>
+                <li>Synced more Claude updates: subagents can spawn subagents, <code>/skills</code> type-to-filter, and doubled rate limits.</li>
+                <li>More is landing in v0.6 before it ships.</li>
+            </ul>
+        </div>
+        <div class="cl-entry">
             <div class="cl-ver">v0.5</div>
             <div class="cl-date">June 2026</div>
             <ul>
@@ -1527,7 +1595,7 @@ claude
         </div><!-- /.stage-inner -->
 
         <footer class="stage-foot">
-            v0.5 · last updated {{LAST_UPDATED}} · commit {{COMMIT_HASH}} · <a href="https://github.com/blessuptech/claude-playbook/commits/main" style="color: inherit;">view history</a><span id="visitCount"></span>
+            v0.6 · last updated {{LAST_UPDATED}} · commit {{COMMIT_HASH}} · <a href="https://github.com/blessuptech/claude-playbook/commits/main" style="color: inherit;">view history</a><span id="visitCount"></span>
         </footer>
     </main>
 </div>
@@ -1552,14 +1620,14 @@ claude
     PARTS.forEach(function (p) { PART[p.id] = p; });
 
     // ---- freshness: version + NEW badges ----
-    var SITE_VERSION = '0.5';
+    var SITE_VERSION = '0.6';
     var LS_KEY = 'cpb_lastSeenVersion';
     function verNum(v) { var m = String(v).split('.'); return (parseInt(m[0], 10) || 0) * 1000 + (parseInt(m[1], 10) || 0); }
     var lastSeen = null;
     try { lastSeen = localStorage.getItem(LS_KEY); } catch (e) {}
     // a returning reader with no flag is presumed to have seen the prior version,
     // so this rollout's cards light up as NEW; brand-new readers see them once too.
-    if (!lastSeen) lastSeen = '0.4';
+    if (!lastSeen) lastSeen = '0.5';
     function isNewCard(card) {
         var a = card.getAttribute('data-added');
         return a && verNum(a) > verNum(lastSeen);
@@ -1754,7 +1822,7 @@ claude
         [].slice.call(document.querySelectorAll('.tab .newpill, .rail-item .newpill, .card-kicker .newpill')).forEach(function (p) { p.remove(); });
     }
     if (newCount > 0) {
-        ubText.innerHTML = '<strong>' + newCount + ' new ' + (newCount === 1 ? 'card' : 'cards') + '</strong> since your last visit — fresh in v0.5.';
+        ubText.innerHTML = '<strong>' + newCount + ' new ' + (newCount === 1 ? 'card' : 'cards') + '</strong> since your last visit — fresh in v0.6.';
         banner.classList.add('show');
         document.body.classList.add('has-banner');
     }
