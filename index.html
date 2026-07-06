@@ -782,6 +782,10 @@
             <tr><td><code>/audit-sol</code></td><td><em>Coming.</em> Solidity audit for BlessUP, same framework as <code>/audit</code>.</td></tr>
         </tbody>
     </table>
+    <div class="callout">
+        <span class="callout-label tip">Built-in vs ours</span>
+        Claude ships its own <code>/code-review</code> (and <code>/code-review --fix</code> to apply findings). It is a fine general pass, but <code>/audit</code> stays the required gate — it enforces <em>our</em> <code>audit-rules.md</code>, which a generic review does not know. Use the built-in as an extra set of eyes, not a substitute.
+    </div>
 </article>
 
 <!-- ===================== II · RULE SETS ===================== -->
@@ -1035,8 +1039,8 @@ claude --worktree slice-5a     # third</code></pre></div>
         </div>
     </div>
     <div class="callout">
-        <span class="callout-label tip">Subagents can spawn subagents</span>
-        A subagent can now launch its own subagents, so a single explore request can branch into a tree. Powerful for a wide sweep, but the review and the cost are still yours — scope the top-level ask so the tree does not run wider than you need.
+        <span class="callout-label tip">Newer behavior worth knowing</span>
+        Subagents now run in the background by default, so your main session keeps working while they finish. A subagent can also launch its own subagents, so one explore request can branch into a tree. Both are powerful for a wide sweep, but the review and the cost are still yours — scope the top-level ask so the tree does not run wider than you need.
     </div>
 </article>
 
@@ -1314,6 +1318,7 @@ claude
     <div class="fix"><div class="sym"><b>Symptom:</b> long research loops on StoreKit / billing / EAS</div><div class="do"><b>Reading docs forever, no code.</b> Stop it. Point it at the exact docs URL with the exact question, or at the last working config: "What's different here that's missing?" Most are pattern-match problems. See <code>AP-02</code>.</div></div>
     <div class="fix"><div class="sym"><b>Symptom:</b> green test, false confidence</div><div class="do"><b>Test passes but doesn't catch the bug.</b> Run it against a known-bad version of the code. If it still passes, the test is worthless; tell Claude exactly what behavior it must fail on. See the QA playbook.</div></div>
     <div class="fix"><div class="sym"><b>Symptom:</b> verbose corporate tone, em dashes, invented quotes</div><div class="do"><b>Draft sounds robotic.</b> Cut hard. Basecamp: TLDR at top, simple language, no em dashes. Strip any quote or commitment attributed to a person (<code>COMM-03</code>). Claude drafts, a human sends (<code>COMM-01</code>).</div></div>
+    <div class="fix"><div class="sym"><b>Symptom:</b> Claude acts strange and you suspect the harness, not Claude</div><div class="do"><b>Is it my hook / skill / rules, or Claude?</b> Start with <code>claude --safe-mode</code> — it launches with every customization (hooks, skills, rules, settings) disabled. If the problem vanishes, it is your harness config, not the model; re-enable pieces until it comes back. Faster than guessing which file broke it.</div></div>
     <div class="callout">
         <span class="callout-label tip">Found a new failure mode?</span>
         Screenshot it and post it in the team thread. Confident mistakes become the next entry here; that is how this section gets useful.
@@ -1557,6 +1562,10 @@ claude
         <span class="callout-label tip">For the rollout</span>
         Pilot with leads and lead engineers first, then expand once the habits (audit-before-commit, one task per session, plan first) are visible in their MRs. Inconsistent code quality across the team usually traces to mixed tools — getting everyone on the same harness is what makes the numbers comparable.
     </div>
+    <div class="callout callout-good">
+        <span class="callout-label good">Levers you have as an admin</span>
+        Claude Code now lets an org set a <strong>default model</strong> (shows as "Org default" in <code>/model</code>) and an <code>availableModels</code> allowlist, plus a <strong>required version range</strong> so everyone runs an approved build. Handy for keeping a wave of new users on the same model and version instead of each person guessing.
+    </div>
 </article>
 
 <article class="card" data-part="leads" data-title="Artifacts: live shareable pages" data-added="0.5">
@@ -1596,7 +1605,7 @@ claude
                 <li>Part IV: a <a href="#which-mode-when-a-decision-guide">decision guide</a> for choosing prompting vs plan mode vs subagents vs worktrees vs models, and a focus note on <a href="#parallel-worktrees">parallel worktrees</a> (single-focus for high-stakes work).</li>
                 <li>Part III: a <a href="#backend-prompt-library">backend prompt library</a> — real Laravel shapes (jobs, policies, N+1, refactors) plus debugging prod issues.</li>
                 <li>Part X: rules files are git-committed so the team shares one source of truth.</li>
-                <li>Synced Claude updates: Sonnet 5 is now the default model, subagents can spawn subagents, <code>/skills</code> type-to-filter, and doubled rate limits.</li>
+                <li>Synced Claude updates: Sonnet 5 is now the default model, subagents run in the background and can spawn subagents, <code>/skills</code> type-to-filter, doubled rate limits, <code>--safe-mode</code> for isolating harness issues, the built-in <code>/code-review</code>, and org-level model/version controls for leads.</li>
                 <li>More is landing in v0.6 before it ships.</li>
             </ul>
         </div>
