@@ -912,7 +912,64 @@
     </div>
 </article>
 
+<article class="card" data-part="prompting" data-title="Backend prompt library" data-added="0.6">
+    <div class="card-kicker">III · Prompting</div>
+    <h2>Backend prompt library</h2>
+    <p class="lede">More real shapes for backend work — Laravel features and the everyday jobs (debugging, performance, refactoring). Same CCO discipline: name the file, state the constraint, define done. Hover a box and hit <span class="kbd">Copy</span>.</p>
+
+    <h4>Queued job (Laravel jobs + queues)</h4>
+    <div class="prompt-compare">
+        <div class="prompt-box bad"><span class="prompt-tag tag-bad">Bad</span><div>"Make the export run in the background"</div></div>
+        <div class="prompt-box good" data-copy><span class="prompt-tag tag-good">Good</span><div>"Move the CSV export in <code>ContactsController@downloadCsv</code> into a queued job <code>App\Jobs\ExportContactsCsv</code> (implements <code>ShouldQueue</code>). Keep the controller thin: dispatch the job, return 202. Make it idempotent and set <code>$tries=3</code> with backoff. Add a Pest test that asserts the job is dispatched with the right filters. Pattern-match an existing job in <code>app/Jobs</code>. Don't change the CSV format."</div></div>
+    </div>
+
+    <h4>Authorization (policies)</h4>
+    <div class="prompt-compare">
+        <div class="prompt-box bad"><span class="prompt-tag tag-bad">Bad</span><div>"Only let the right people download contacts"</div></div>
+        <div class="prompt-box good" data-copy><span class="prompt-tag tag-good">Good</span><div>"Add a <code>ContactPolicy</code> with a <code>download</code> ability: allow only users whose role can access the owning account. Wire it via <code>authorize('download', $account)</code> in <code>ContactsController@downloadCsv</code>. Add Pest tests for allowed and forbidden roles. Match the existing policy pattern in <code>app/Policies</code>. Don't touch the query logic."</div></div>
+    </div>
+
+    <h4>Debugging a production issue</h4>
+    <div class="prompt-compare">
+        <div class="prompt-box bad"><span class="prompt-tag tag-bad">Bad</span><div>"Why is this endpoint throwing 500s in prod?"</div></div>
+        <div class="prompt-box good" data-copy><span class="prompt-tag tag-good">Good</span><div>"This redacted stack trace comes from <code>PayoutController@show</code> in prod: [paste redacted trace]. Trace the code path from the controller to where it throws. List the two or three most likely causes given the trace, ranked, and the exact file:line to check for each. Don't propose a fix yet, just the diagnosis."</div></div>
+    </div>
+
+    <h4>Performance (N+1 / Eloquent relationships)</h4>
+    <div class="prompt-compare">
+        <div class="prompt-box bad"><span class="prompt-tag tag-bad">Bad</span><div>"Make the members page faster"</div></div>
+        <div class="prompt-box good" data-copy><span class="prompt-tag tag-good">Good</span><div>"The members index in <code>MembersController@index</code> is slow. Check for N+1 queries across the <code>member.rank</code> and <code>member.upline</code> relationships. Propose eager-loading with <code>with()</code> and show the before/after query count. Don't add a cache layer or change the response shape. Add a test asserting the query count stays bounded."</div></div>
+    </div>
+
+    <h4>Refactoring (scoped, behavior-preserving)</h4>
+    <div class="prompt-compare">
+        <div class="prompt-box bad"><span class="prompt-tag tag-bad">Bad</span><div>"Clean up the commission service"</div></div>
+        <div class="prompt-box good" data-copy><span class="prompt-tag tag-good">Good</span><div>"Extract the payout-tier logic in <code>CommissionService@calculate</code> into a private method <code>tierFor(int $volume)</code>. Behavior must not change — the existing tests must stay green with no edits. Smallest diff, one method, nothing else in this class or any other file. Show me a plan first."</div></div>
+    </div>
+</article>
+
 <!-- ===================== IV · AGENTIC ===================== -->
+<article class="card" data-part="agentic" data-title="Which mode when — a decision guide" data-added="0.6">
+    <div class="card-kicker">IV · Agentic workflows</div>
+    <h2>Which mode when — a decision guide</h2>
+    <p>Claude Code gives you several gears. Picking the right one is most of the skill. Match the work to the tool instead of using the same gear for everything.</p>
+    <table>
+        <thead><tr><th style="width: 38%;">When the work is…</th><th>Reach for</th></tr></thead>
+        <tbody>
+            <tr><td>One small change, you know the file and the fix</td><td>Regular prompting, CCO. No ceremony.</td></tr>
+            <tr><td>Bigger than a one-liner, or it touches several files, or it is risky</td><td><strong>Plan mode</strong> first (shift+tab twice). Refine the plan, then build.</td></tr>
+            <tr><td>You need to explore or verify across many files, or compare options</td><td><strong>Subagents</strong> ("use subagents"). Fan out, keep the main context clean.</td></tr>
+            <tr><td>You have several independent slices to move at once</td><td><strong>Worktrees</strong> (<code>claude --worktree</code>). One caveat on focus, next card.</td></tr>
+            <tr><td>A genuinely hard problem: gnarly bug, tricky migration, architecture</td><td>Strongest model + <strong>high/xhigh</strong> effort. Steer less, pay less overall.</td></tr>
+            <tr><td>Bulk mechanical work: renames, boilerplate, formatting</td><td>Smaller model + <strong>low</strong> effort. Do not spend Opus money on it.</td></tr>
+        </tbody>
+    </table>
+    <div class="callout">
+        <span class="callout-label tip">When in doubt</span>
+        Plan mode is the safe default for anything non-trivial — it is the cheapest way to catch a wrong turn. You can always drop out of it once the plan is right.
+    </div>
+</article>
+
 <article class="card" data-part="agentic" data-title="Plan mode: pour energy into the plan" data-added="0.4">
     <div class="card-kicker">IV · Agentic workflows</div>
     <h2>Plan mode — pour the energy into the plan</h2>
@@ -944,6 +1001,10 @@ claude --worktree slice-5a     # third</code></pre></div>
     <div class="callout">
         <span class="callout-label tip">Going bigger</span>
         Subagents can use worktree isolation too. For a large batched change you can ask Claude to "batch the changes and launch parallel agents with worktree isolation, each testing its changes end to end." Use with judgment; the review load is still on you.
+    </div>
+    <div class="callout callout-warn">
+        <span class="callout-label warn">Parallel is a choice, not a mandate</span>
+        Running three sessions splits your attention, and for high-stakes work — commissions, payouts, anything you must review line by line — one focused session usually beats three half-watched ones. Reach for worktrees when the slices are independent and mechanical enough to review calmly. When the work needs your full head, do one at a time. The goal is throughput <em>with</em> control, not tabs for their own sake.
     </div>
     <div class="demo">
         <div class="demo-head"><span>▶ Real demo · ACT.X</span><span class="kind">~90 sec</span></div>
@@ -1337,7 +1398,7 @@ claude
         <span class="callout-label tip">The logic, from the creator of Claude Code</span>
         "It's the best coding model I've ever used, and even though it's bigger and slower, since you have to steer it less and it's better at tool use, it is almost always faster than using a smaller model in the end." Steering cost is real cost.
     </div>
-    <p><strong>Lineup moves. This card follows.</strong> As of June 2026 the family is Fable 5 (newest, most capable), Opus 4.8, Sonnet 4.6, Haiku 4.5. When Anthropic ships a new model, this card gets updated and tagged NEW. Day to day, trust <code>/model</code> over memory.</p>
+    <p><strong>Lineup moves. This card follows.</strong> As of July 2026 the family is Fable 5 (Mythos-class, most capable), Opus 4.8, Sonnet 5 (now the default in Claude Code, 1M context), Haiku 4.5. When Anthropic ships a new model, this card gets updated and tagged NEW. Day to day, trust <code>/model</code> over memory.</p>
 </article>
 
 <article class="card" data-part="models" data-title="Effort: the dial nobody uses" data-added="0.4">
@@ -1417,6 +1478,10 @@ claude
     <div class="callout callout-good">
         <span class="callout-label good">The mechanism: <code>.claude/rules/</code></span>
         Claude Code's <code>.claude/rules/</code> folder makes this layering real instead of conceptual. Rules files there load at session start, or <em>only when a matching file is touched</em> — so a <code>migrations</code> rule can fire just for migration work, and a client rule only in that repo. Put the base layer in shared rules, the role and client layers in their own scoped rules files. <code>CLAUDE.md</code> stays the always-on brain; <code>rules/</code> is the targeted layer.
+    </div>
+    <div class="callout">
+        <span class="callout-label tip">Commit them — one source of truth</span>
+        These files (<code>CLAUDE.md</code>, <code>.claude/rules/</code>) are git-committed like any code, so the whole team pulls the same context and a rule change goes through review. A rules file living only on one laptop is how two engineers get two different Claudes on the same repo.
     </div>
 </article>
 
@@ -1524,11 +1589,14 @@ claude
     <div class="changelog">
         <div class="cl-entry">
             <div class="cl-ver">v0.6 · in progress</div>
-            <div class="cl-date">June 2026</div>
+            <div class="cl-date">June–July 2026</div>
             <ul>
                 <li>Backend playbook: a <a href="#backend-engineer">money-page QA checklist</a> and a safe-migration prompt template, plus the full DB-migration review scope.</li>
                 <li>Start: a <a href="#one-page-cheat-sheet">one-page cheat sheet</a> to pin or print.</li>
-                <li>Synced more Claude updates: subagents can spawn subagents, <code>/skills</code> type-to-filter, and doubled rate limits.</li>
+                <li>Part IV: a <a href="#which-mode-when-a-decision-guide">decision guide</a> for choosing prompting vs plan mode vs subagents vs worktrees vs models, and a focus note on <a href="#parallel-worktrees">parallel worktrees</a> (single-focus for high-stakes work).</li>
+                <li>Part III: a <a href="#backend-prompt-library">backend prompt library</a> — real Laravel shapes (jobs, policies, N+1, refactors) plus debugging prod issues.</li>
+                <li>Part X: rules files are git-committed so the team shares one source of truth.</li>
+                <li>Synced Claude updates: Sonnet 5 is now the default model, subagents can spawn subagents, <code>/skills</code> type-to-filter, and doubled rate limits.</li>
                 <li>More is landing in v0.6 before it ships.</li>
             </ul>
         </div>
