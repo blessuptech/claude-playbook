@@ -709,6 +709,8 @@
             <tr><td><code>/model</code></td><td>Pick model + effort (low / medium / high / xhigh).</td></tr>
             <tr><td><code>claude --worktree</code></td><td>Run parallel slices in isolation.</td></tr>
             <tr><td>shift+tab twice</td><td>Plan mode. Refine the plan before any code.</td></tr>
+            <tr><td><code>!</code>cmd · <code>@</code>file · <code>#</code>note</td><td>Run bash / attach a file / save a memory, inline.</td></tr>
+            <tr><td>Esc · Esc Esc</td><td>Interrupt without losing context · rewind to a checkpoint.</td></tr>
         </tbody>
     </table>
     <div class="callout">
@@ -785,6 +787,26 @@
     <div class="callout">
         <span class="callout-label tip">Built-in vs ours</span>
         Claude ships its own <code>/code-review</code> (and <code>/code-review --fix</code> to apply findings). It is a fine general pass, but <code>/audit</code> stays the required gate — it enforces <em>our</em> <code>audit-rules.md</code>, which a generic review does not know. Use the built-in as an extra set of eyes, not a substitute.
+    </div>
+</article>
+
+<article class="card" data-part="ground" data-title="Everyday shortcuts" data-added="0.6">
+    <div class="card-kicker">I · Ground rules</div>
+    <h2>Everyday shortcuts</h2>
+    <p>A handful of input prefixes and keys that save a turn every time. Most people never learn them and type full sentences instead.</p>
+    <table>
+        <thead><tr><th style="width: 20%;">Type this</th><th>What happens</th></tr></thead>
+        <tbody>
+            <tr><td><code>!git status</code></td><td>Runs the bash command immediately. The command and its output land in context, so Claude sees the result without you asking it to run anything. Faster than "can you run git status."</td></tr>
+            <tr><td><code>@path/to/file</code></td><td>File autocomplete. Point Claude at an exact file instead of describing it.</td></tr>
+            <tr><td><code>#</code> a note</td><td>Quick memory: adds the note to <code>CLAUDE.md</code> on the spot. The fast version of "teach the harness back."</td></tr>
+            <tr><td><span class="kbd">Esc</span></td><td>Interrupt Claude mid-action <em>without losing context</em>. Redirect immediately instead of waiting for it to finish a wrong turn.</td></tr>
+            <tr><td><span class="kbd">Esc</span> <span class="kbd">Esc</span> / <code>/rewind</code></td><td>Open the checkpoint menu. Restore code, conversation, or both to an earlier point. Your undo button for a session that went sideways.</td></tr>
+        </tbody>
+    </table>
+    <div class="callout">
+        <span class="callout-label tip">The one that changes your day</span>
+        <code>!</code> for bash. Once it is muscle memory you stop narrating commands to Claude and just run them; it reads the output and keeps going.
     </div>
 </article>
 
@@ -1441,6 +1463,10 @@ claude
         </tbody>
     </table>
     <p><strong>Compact at a natural pause,</strong> not mid-edit. Auto-compact exists as a safety net; do not lean on it during critical work — pick the moment yourself, right after a commit is a good one.</p>
+    <div class="callout callout-good">
+        <span class="callout-label good">The handoff doc — better than compact for a hard task</span>
+        When a long task is not done but the session is bloated, do not just compact. Ask Claude to write a <code>HANDOFF.md</code>: what the task is, what was tried, what worked, what did not, what is left. Then <code>/clear</code> and have a fresh session read <em>only</em> that file. You get clean context <em>and</em> the hard-won findings, without dragging the whole messy transcript along.
+    </div>
     <div class="callout">
         <span class="callout-label tip">See the meter</span>
         Run <code>/statusline</code> once and have it show remaining context and cost. You cannot manage what you cannot see; half the team discovers they were at 90% context only when Claude starts forgetting.
@@ -1493,7 +1519,7 @@ claude
 <article class="card" data-part="leads" data-title="Per-client CLAUDE.md — starter template" data-added="0.5">
     <div class="card-kicker">X · For leads</div>
     <h2>Per-client <code>CLAUDE.md</code> — starter template</h2>
-    <p>When a new client repo comes online, do not write its harness from a blank page. Copy this skeleton into the repo's <code>CLAUDE.md</code>, fill the brackets, and you have the client layer from the model on the previous card. It pairs with the shared base rules, it does not repeat them.</p>
+    <p>When a new client repo comes online, do not write its harness from a blank page. Run <code>/init</code> to auto-generate a starter <code>CLAUDE.md</code> from the codebase, then shape it to this skeleton and fill the brackets. You have the client layer from the model on the previous card. It pairs with the shared base rules, it does not repeat them.</p>
     <div class="codewrap"><pre><code># CLAUDE.md — &lt;Client / Project name&gt;
 
 ## Stack
@@ -1604,7 +1630,9 @@ claude
                 <li>Start: a <a href="#one-page-cheat-sheet">one-page cheat sheet</a> to pin or print.</li>
                 <li>Part IV: a <a href="#which-mode-when-a-decision-guide">decision guide</a> for choosing prompting vs plan mode vs subagents vs worktrees vs models, and a focus note on <a href="#parallel-worktrees">parallel worktrees</a> (single-focus for high-stakes work).</li>
                 <li>Part III: a <a href="#backend-prompt-library">backend prompt library</a> — real Laravel shapes (jobs, policies, N+1, refactors) plus debugging prod issues.</li>
-                <li>Part X: rules files are git-committed so the team shares one source of truth.</li>
+                <li>Part I: an <a href="#everyday-shortcuts">everyday shortcuts</a> card — <code>!</code> bash, <code>@</code> file, <code>#</code> memory, Esc to interrupt, Esc Esc to rewind.</li>
+                <li>Part IX: the <a href="#compact-vs-clear">HANDOFF.md pattern</a> for carrying hard-won context into a fresh session.</li>
+                <li>Part X: rules files are git-committed so the team shares one source of truth; <code>/init</code> to scaffold a client <code>CLAUDE.md</code>.</li>
                 <li>Synced Claude updates: Sonnet 5 is now the default model, subagents run in the background and can spawn subagents, <code>/skills</code> type-to-filter, doubled rate limits, <code>--safe-mode</code> for isolating harness issues, the built-in <code>/code-review</code>, and org-level model/version controls for leads.</li>
                 <li>More is landing in v0.6 before it ships.</li>
             </ul>
