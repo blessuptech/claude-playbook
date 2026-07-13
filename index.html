@@ -674,6 +674,10 @@
     <h2>Wins wall</h2>
     <p class="lede">Real results from the team, with numbers. Rules convince no one; a number from someone next to you does. This is the North Star in practice: measured wins, not claims.</p>
     <div class="war">
+        <span class="callout-label">Real · ACT.X</span>
+        Presale, vesting, and NFT were still pointing at the old token. Handed Claude the bug, it repointed all three, refreshed the registry, and the full contract suite went green — in minutes, not an afternoon. <span class="war-punch">The exact fix in Demo #1, on the real contracts.</span>
+    </div>
+    <div class="war">
         <span class="callout-label">Sample</span>
         Slice 4b: drafted, audited, and MR'd in 2.5 hours. <span class="war-punch">Previous average for a slice this size was a full day.</span>
     </div>
@@ -756,6 +760,24 @@
             <div class="demo-cap">A real session in a freshly-migrated repo (<code>actx-cloud</code>): "Trace the Stripe payment flow from the launchpad request through to where the webhook is verified — files and functions only." Claude maps it across the codebase; you confirm <code>stripe.webhooks.constructEvent</code> and the NOWPayments IPN check. Onboarding in minutes, not days.</div>
             <video class="demo-video" controls preload="none" playsinline poster="assets/demo-2-onboard.jpg" src="assets/demo-2-onboard.mp4"></video>
         </div>
+    </div>
+</article>
+
+<article class="card" data-part="ground" data-title="Harness status by surface" data-added="0.6">
+    <div class="card-kicker">I · Ground rules</div>
+    <h2>Harness status by surface</h2>
+    <p>The harness is the goal on every surface, but it is not fully built out everywhere yet. Before you type <code>/audit</code> into a repo, know what that repo actually ships — otherwise you will call a command that is not there.</p>
+    <table>
+        <thead><tr><th style="width: 26%;">Surface</th><th style="width: 30%;">Harness today</th><th>Notes</th></tr></thead>
+        <tbody>
+            <tr><td><strong>VO</strong> (Laravel/Vue)</td><td>Full — <code>CLAUDE.md</code>, <code>audit-rules.md</code>, <code>/audit</code>, <code>/sail-up</code>, <code>refs/</code></td><td>The reference harness. Everything on this page assumes it.</td></tr>
+            <tr><td><strong>Mobile</strong> (Expo/RN)</td><td>Partial</td><td>Skills present; full rule set still being ported. Manual review where <code>/audit</code> is not wired yet.</td></tr>
+            <tr><td><strong>Contracts / BlessUP</strong> (Solidity, NestJS, Next)</td><td><code>.claude/skills/</code> only</td><td>No <code>CLAUDE.md</code> / <code>audit-rules.md</code> / <code>/audit</code> yet. <code>/audit-sol</code> and a contracts <code>CLAUDE.md</code> are coming.</td></tr>
+        </tbody>
+    </table>
+    <div class="callout callout-warn">
+        <span class="callout-label warn">Do not assume a command exists</span>
+        Type <code>/</code> in the session to see what the repo actually ships. If <code>/audit</code> is not there, do a manual review against the rules on this page until the harness lands — do not skip the review because the command is missing.
     </div>
 </article>
 
@@ -848,7 +870,7 @@
     <p class="lede">Eight rules. Claude-written code earns no shortcuts through the process.</p>
     <div class="rule"><div class="rule-id code">CODE-01</div><div class="rule-body"><strong>Every MR goes through human review.</strong> Claude-written code follows the same approval chain as hand-written: frontend → frontend lead, backend → backend lead, money pages → backend QA. Claude does not bypass review.</div></div>
     <div class="rule"><div class="rule-id code">CODE-02</div><div class="rule-body"><strong><code>/audit</code> is required before every commit.</strong> Even small changes. Especially Claude-written changes. Every MR that comes back is a failure of this step.</div></div>
-    <div class="rule"><div class="rule-id code">CODE-03</div><div class="rule-body"><strong>The test suite is the source of truth.</strong> The VO baseline is 888 passing, 0 failing, 0 skipped. If your work drops that, stop and investigate before committing. Never suppress, skip, or delete a failing test to make the count match.</div></div>
+    <div class="rule"><div class="rule-id code">CODE-03</div><div class="rule-body"><strong>The test suite is the source of truth.</strong> Know the repo's green baseline (0 failing, 0 skipped) and never drop below it. If your work reduces the pass count, stop and investigate before committing. Never suppress, skip, or delete a failing test to make the count match.</div></div>
     <div class="rule"><div class="rule-id code">CODE-04</div><div class="rule-body"><strong>No silent dependency additions.</strong> If Claude suggests installing a new package, the human decides. Justify the add in the MR description.</div></div>
     <div class="rule"><div class="rule-id code">CODE-05</div><div class="rule-body"><strong>Stick to the stack.</strong> VO is Laravel 12 + Vue 3 + PrimeVue + Tailwind + MySQL 8.4 + JWT. Mobile is Expo + React Native + NativeWind + Zustand + TanStack Query. Do not let Claude introduce Nuxt, Next.js, Redux, styled-components, Bootstrap, or alternate ORMs.</div></div>
     <div class="rule"><div class="rule-id code">CODE-06</div><div class="rule-body"><strong>Verify before trusting.</strong> Confirm file paths, function names, and package versions Claude references actually exist before acting on them. <code>/audit</code> catches most hallucinations, not all.</div></div>
@@ -1210,7 +1232,7 @@ claude
         <li>State the route, controller, request class, and expected response shape in the prompt.</li>
         <li>Name the existing endpoint to pattern-match.</li>
         <li>Have Claude generate controller + form request + test in one diff, plan first.</li>
-        <li><code>/audit</code>. Run the test suite locally — baseline is 888 green.</li>
+        <li><code>/audit</code>. Run the test suite locally — stay at the repo's green baseline, 0 failing.</li>
         <li><code>/commit</code>.</li>
     </ol>
     <h5>Default workflow — money-page QA</h5>
@@ -1315,6 +1337,37 @@ claude
     </ul>
 </article>
 
+<article class="card" data-part="roles" data-title="Smart Contracts / BlessUP Engineer" data-added="0.6">
+    <div class="card-kicker">V · Role playbooks</div>
+    <h2>Smart Contracts / BlessUP Engineer</h2>
+    <div class="role-meta">Solidity · Hardhat · Foundry · NestJS · Next.js</div>
+    <h5>Default workflow — a contract change</h5>
+    <ol>
+        <li>Plan mode first. On-chain changes are unforgiving; get the plan right before a line of Solidity.</li>
+        <li>State the contract, the invariant that must hold, and what must not change (storage layout, access control, external interface).</li>
+        <li>Let Claude draft, then review against the security checklist below. For a UUPS upgrade, insist on storage-gap and layout-safety tests.</li>
+        <li>Run the suite (Hardhat/Foundry). Stay at the repo's green baseline.</li>
+        <li>Manual review of every money-flow and access-control line. <code>/commit</code>, MR, note it was AI-assisted.</li>
+    </ol>
+    <h5>Security checklist to prompt against</h5>
+    <ul>
+        <li>Reentrancy, access control, and role separation on every state-changing function.</li>
+        <li>UUPS: storage layout preserved, <code>__gap</code> intact, initializer guarded.</li>
+        <li>Tokenomics invariants: conservation (no money created or lost), rounding direction, dust, cap enforcement.</li>
+        <li>MEV and front-running surface on anything price- or order-sensitive.</li>
+    </ul>
+    <div class="callout callout-bad">
+        <span class="callout-label bad">Always verify money math against the source</span>
+        A real case: asked to explain the token's fee model, Claude gave a confident, plausible description of the tax and fee split — and it did not match what the contract actually implements. This is <code>AP-03</code> / <code>CODE-06</code> in the wild, on a money flow. Never take Claude's description of on-chain economics as fact. Open the <code>.sol</code>, read the actual function, and confirm the numbers yourself. The same rule as spot-checking VO commission math against the old tool, just on-chain.
+    </div>
+    <h5>Avoid</h5>
+    <ul>
+        <li>Trusting Claude's description of tokenomics or a fee split without reading the contract.</li>
+        <li>Letting Claude change storage layout or access control without explicit layout-safety tests.</li>
+        <li>Assuming the full harness exists here — contracts/BlessUP is skills-only today (see harness status, part I).</li>
+    </ul>
+</article>
+
 <!-- ===================== VI · ANTI-PATTERNS ===================== -->
 <article class="card" data-part="anti" data-title="The five common traps">
     <div class="card-kicker">VI · Anti-patterns</div>
@@ -1387,10 +1440,16 @@ claude
         <li><code>/statusline</code> — model, branch, remaining context, cost, always visible.</li>
         <li><code>/config</code> — theme, and the output styles from the start-here card.</li>
         <li><code>/terminal-setup</code> — shift+enter for newlines if you are in an IDE terminal or Apple Terminal.</li>
-        <li><code>/vim</code> — if you know, you know.</li>
+        <li><code>/vim</code> — vim mode (in current builds it may live under <code>/config</code>).</li>
         <li><code>/skills</code> — type-to-filter search box. As our skill set grows, this finds <code>/audit</code> or <code>/sail-up</code> without scrolling.</li>
+        <li><code>/doctor</code> — health check for your setup: finds unused skills, MCP servers, and hooks versus their context cost, dedupes stray <code>CLAUDE.md</code> files, and flags slow hooks. It reports first and asks before changing anything. Run it when a session feels heavy.</li>
+        <li>Built-in browser — Claude Code can now open docs and designs itself and read them, instead of you pasting everything in.</li>
         <li>Spinner verbs — ask Claude to theme its "thinking…" verbs however you like. Yes, really. One teammate runs Star Trek. It changes nothing and somehow changes everything.</li>
     </ul>
+    <div class="callout callout-warn">
+        <span class="callout-label warn">CLI specifics drift</span>
+        Exact commands and flags shift between Claude Code releases. When a keystroke or command on this page does not match your build, trust <code>/help</code>, <code>/model</code>, and <code>/doctor</code> over the page — and flag it so we update it.
+    </div>
     <div class="callout">
         <span class="callout-label tip">Why this card exists</span>
         People take care of tools that feel like theirs.
@@ -1431,19 +1490,20 @@ claude
 <article class="card" data-part="models" data-title="Effort: the dial nobody uses" data-added="0.4">
     <div class="card-kicker">IX · Models &amp; budget</div>
     <h2>Effort — the dial nobody uses</h2>
-    <p><code>/model</code> also sets an effort level: low, medium, high, and now <strong>xhigh</strong>. It is a second, quieter lever on burn.</p>
+    <p><code>/model</code> also sets an effort level: low, medium, high, <strong>xhigh</strong>, and <strong>max</strong>. It is a second, quieter lever on burn.</p>
     <table>
         <thead><tr><th style="width: 18%;">Effort</th><th>Use for</th></tr></thead>
         <tbody>
-            <tr><td><strong>xhigh</strong></td><td>The hardest problems: a gnarly bug, a tricky migration, an architecture call you want maximum reasoning on. Highest burn — reach for it deliberately, not by default.</td></tr>
-            <tr><td><strong>High</strong></td><td>Real engineering: slices, debugging, anything touching money flow. The sensible default for actual work.</td></tr>
+            <tr><td><strong>max</strong></td><td>The single hardest thing you do: a subtle on-chain bug, a multi-contract migration, tokenomics math. Most reasoning, highest burn. Rare and deliberate.</td></tr>
+            <tr><td><strong>xhigh</strong></td><td>Hard coding and contract work. Claude Code itself leans on xhigh for agentic work; treat it as your ceiling for real engineering, not your floor.</td></tr>
+            <tr><td><strong>High</strong></td><td>Everyday real engineering: slices, debugging, anything touching money flow. Our sensible default.</td></tr>
             <tr><td><strong>Medium</strong></td><td>Routine edits in a codebase Claude already knows from the harness.</td></tr>
             <tr><td><strong>Low</strong></td><td>Mechanical bulk where the pattern is obvious and volume is high.</td></tr>
         </tbody>
     </table>
     <div class="callout callout-warn">
-        <span class="callout-label warn">Calibrate to our budget, not Boris's</span>
-        The Claude Code team runs high effort on everything — they also do not share a team plan. Default high for real work, drop deliberately for bulk, never debug commissions on low, and save xhigh for the genuinely hard problem in front of you.
+        <span class="callout-label warn">Calibrate to our budget, not the defaults</span>
+        Claude Code leans high/xhigh out of the box — Anthropic's own team does not share a team plan. Our guidance: default <strong>high</strong> for real work, <strong>xhigh</strong> for genuinely hard coding and contract work, <strong>max</strong> only for the rare gnarly on-chain problem, and drop to low deliberately for bulk. Never debug money math on low.
     </div>
     <div class="callout">
         <span class="callout-label tip"><code>ultracode</code> — the autopilot</span>
@@ -1590,7 +1650,7 @@ claude
     </div>
     <div class="callout callout-good">
         <span class="callout-label good">Levers you have as an admin</span>
-        Claude Code now lets an org set a <strong>default model</strong> (shows as "Org default" in <code>/model</code>) and an <code>availableModels</code> allowlist, plus a <strong>required version range</strong> so everyone runs an approved build. Handy for keeping a wave of new users on the same model and version instead of each person guessing.
+        Claude Code now lets an org set a <strong>default model</strong> (shows as "Org default" in <code>/model</code>) and an <code>availableModels</code> allowlist, plus a <strong>required version range</strong> so everyone runs an approved build. Enterprise also adds <strong>spend alerts</strong> and <strong>model-level entitlements</strong> and richer admin analytics. Handy for keeping a wave of new users on the same model and version, and for watching the budget instead of finding out at month end.
     </div>
 </article>
 
@@ -1633,7 +1693,8 @@ claude
                 <li>Part I: an <a href="#everyday-shortcuts">everyday shortcuts</a> card — <code>!</code> bash, <code>@</code> file, <code>#</code> memory, Esc to interrupt, Esc Esc to rewind.</li>
                 <li>Part IX: the <a href="#compact-vs-clear">HANDOFF.md pattern</a> for carrying hard-won context into a fresh session.</li>
                 <li>Part X: rules files are git-committed so the team shares one source of truth; <code>/init</code> to scaffold a client <code>CLAUDE.md</code>.</li>
-                <li>Synced Claude updates: Sonnet 5 is now the default model, subagents run in the background and can spawn subagents, <code>/skills</code> type-to-filter, doubled rate limits, <code>--safe-mode</code> for isolating harness issues, the built-in <code>/code-review</code>, and org-level model/version controls for leads.</li>
+                <li>From Marcellus's hands-on review: a <a href="#harness-status-by-surface">harness-status-by-surface</a> table (VO full, mobile partial, contracts/BlessUP skills-only), a new <a href="#smart-contracts-blessup-engineer">Smart Contracts / BlessUP role</a> with a verify-money-math example, the Wins Wall seeded with the real ACT.X win, <code>max</code> added to the effort card, and hard-coded test counts softened to "the green baseline."</li>
+                <li>Synced Claude updates: Sonnet 5 is now the default model, <code>/doctor</code> now diagnoses and fixes harness health, the desktop built-in browser, subagents run in the background and can spawn subagents, <code>/skills</code> type-to-filter, doubled rate limits, <code>--safe-mode</code>, the built-in <code>/code-review</code>, and org-level model/version/spend controls for leads.</li>
                 <li>More is landing in v0.6 before it ships.</li>
             </ul>
         </div>
