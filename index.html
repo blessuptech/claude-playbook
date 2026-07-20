@@ -493,7 +493,7 @@
 <header class="topbar">
     <div>
         <div class="brand">NaXum <span class="dot">·</span> Claude Playbook</div>
-        <div class="sub">Internal reference · v0.6</div>
+        <div class="sub">Internal reference · v0.7</div>
     </div>
     <div class="right">
         <div class="kbd-hint">Navigate with <span class="kbd">←</span> <span class="kbd">→</span> · jump parts with <span class="kbd">1</span>–<span class="kbd">9</span></div>
@@ -790,6 +790,10 @@
         Any time you correct Claude, end the session with one more line: <em>"Update CLAUDE.md so you don't make that mistake again."</em> Claude is eerily good at writing rules for itself. Review the diff like any other — CLAUDE.md changes go through MR like everything else.
     </div>
     <p><strong>The compounding.</strong> Ten engineers each adding one correction a week is a harness that gets measurably sharper every month. This pairs with <code>DOC-05</code>: the screenshot goes to the thread, the rule goes to the harness.</p>
+    <div class="callout callout-warn">
+        <span class="callout-label warn">What if a correction is wrong?</span>
+        A bad rule does not silently poison everything. Every harness change goes through MR review, so a teammate catches a wrong rule the same way they catch wrong code — before it lands. And a rule only shapes behavior; the test suite and <code>/audit</code> are still the source of truth, so a bad rule that produces bad code gets caught at the gate. If a rule turns out wrong later, you fix it in one place and the whole team gets the fix. That is the point of one committed harness over notes on ten laptops.
+    </div>
 </article>
 
 <article class="card" data-part="ground" data-title="Standard commands">
@@ -823,7 +827,7 @@
             <tr><td><code>@path/to/file</code></td><td>File autocomplete. Point Claude at an exact file instead of describing it.</td></tr>
             <tr><td><code>#</code> a note</td><td>Quick memory: adds the note to <code>CLAUDE.md</code> on the spot. The fast version of "teach the harness back."</td></tr>
             <tr><td><span class="kbd">Esc</span></td><td>Interrupt Claude mid-action <em>without losing context</em>. Redirect immediately instead of waiting for it to finish a wrong turn.</td></tr>
-            <tr><td><span class="kbd">Esc</span> <span class="kbd">Esc</span> / <code>/rewind</code></td><td>Open the checkpoint menu. Restore code, conversation, or both to an earlier point. Your undo button for a session that went sideways.</td></tr>
+            <tr><td><span class="kbd">Esc</span> <span class="kbd">Esc</span> / <code>/rewind</code></td><td>Open the checkpoint menu. Restore code, conversation, or both to an earlier point, or use "Summarize up to here" to compress everything before it. Your undo button for a session that went sideways.</td></tr>
         </tbody>
     </table>
     <div class="callout">
@@ -1153,7 +1157,7 @@ claude
     <p>Check it into the repo's <code>.claude/settings.json</code> once; the whole team benefits. Swap the command per repo (Pint for Laravel, Prettier for the frontend and mobile).</p>
 </article>
 
-<article class="card" data-part="agentic" data-title="Slicing a big refactor" data-added="0.5">
+<article class="card" data-part="agentic" data-title="Slicing a big refactor" data-added="0.7">
     <div class="card-kicker">IV · Agentic workflows</div>
     <h2>Slicing a big refactor into one-task sessions</h2>
     <p>"One task per session" (<code>PROMPT-05</code>, <code>COST-01</code>) is easy to agree with and hard to apply when the job is "refactor the commission engine." The rule is not "do small work." It is "give each session one outcome it can finish, audit, and commit on its own." A big refactor is a sequence of those, not one giant prompt.</p>
@@ -1172,6 +1176,20 @@ claude
             <tr><td>Has a clear "done" you can state in one line</td><td>"Refactor everything related to X"</td></tr>
         </tbody>
     </table>
+    <h5>A worked example — add a subscription refund flow</h5>
+    <p>One feature, sliced so each piece ships green on its own:</p>
+    <table>
+        <thead><tr><th style="width: 12%;">Slice</th><th style="width: 44%;">Owns these files</th><th>Ships on its own?</th></tr></thead>
+        <tbody>
+            <tr><td><strong>1 · Data</strong></td><td>migration for a <code>refunds</code> table + the <code>Refund</code> model</td><td>Yes. Nothing depends on it yet; suite stays green.</td></tr>
+            <tr><td><strong>2 · Logic</strong></td><td><code>RefundService</code>, controller, form request, routes, tests</td><td>Yes, on top of slice 1. Endpoint works end to end.</td></tr>
+            <tr><td><strong>3 · UI</strong></td><td>the refund button component + its API call</td><td>Yes, on top of slice 2. Wires the button to the live endpoint.</td></tr>
+        </tbody>
+    </table>
+    <div class="callout">
+        <span class="callout-label tip">How to keep slices from overlapping</span>
+        Give each slice its <em>own files</em>. Slices overlap when two of them edit the same file — that is the signal they are not actually independent. If it happens, either sequence them (one after the other, not in parallel) or merge them into one slice. Order so slice N only builds on N-1, never on N+1. Only slices that touch <strong>disjoint</strong> files are safe to run at once in separate worktrees.
+    </div>
     <div class="callout callout-good">
         <span class="callout-label good">The pattern</span>
         Plan the seams in one session → fresh session per slice (CCO prompt, plan first, smallest diff) → <code>/audit</code> → <code>/commit</code> → <code>/clear</code> → next slice. Parallel-safe slices can run in their own worktrees at the same time (see the worktrees card).
@@ -1197,6 +1215,23 @@ claude
         <span class="callout-label">For a 20+ file slice</span>
         Do not do one giant audit at the end. Run <code>/audit</code> per sub-slice as you build (5–10 files at a time, see <code>COST-04</code>), then one final full pass over the assembled change before the MR.
         <span class="war-punch">Incremental audits catch issues while the context is still cheap; the final pass catches the seams between slices.</span>
+    </div>
+</article>
+
+<article class="card" data-part="agentic" data-title="/goal and the agent view" data-added="0.7">
+    <div class="card-kicker">IV · Agentic workflows</div>
+    <h2><code>/goal</code> and the agent view</h2>
+    <p>Two newer controls for when the work runs longer than a single turn or wider than a single session.</p>
+    <table>
+        <thead><tr><th style="width: 24%;">Tool</th><th>What it does</th></tr></thead>
+        <tbody>
+            <tr><td><code>/goal</code></td><td>Give Claude a completion condition and it keeps working across turns until that condition holds, instead of stopping after each step for you to say "continue." Good for a well-scoped multi-step task you have already planned.</td></tr>
+            <tr><td><code>claude agents</code> (agent view)</td><td>One screen for every session: what is running, what is blocked on you, what is done. The control panel for parallel worktrees and subagents — you stop hunting across terminal tabs.</td></tr>
+        </tbody>
+    </table>
+    <div class="callout callout-warn">
+        <span class="callout-label warn">Set the goal, still check the result</span>
+        <code>/goal</code> only earns its keep after plan mode — a clear plan and a tight completion condition. It runs longer without you, it does not review itself. When it stops, you still read the diff and <code>/audit</code>. Autonomy on the doing, not on the judgment.
     </div>
 </article>
 
@@ -1459,7 +1494,7 @@ claude
 <article class="card" data-part="limits" data-title="This is a living document">
     <div class="card-kicker">VIII · Limits</div>
     <h2>This is a living document</h2>
-    <p>v0.6, and still evolving. The point of a playbook is that it gets better as the team uses it — most of recent versions came straight from team review.</p>
+    <p>v0.7, and still evolving. The point of a playbook is that it gets better as the team uses it — most of recent versions came straight from team review.</p>
     <div class="callout">
         <span class="callout-label tip">Feedback</span>
         If a rule saved you time, flag it so it gets expanded. If a rule is wrong, contradictory, or useless to your role, flag it so it gets cut or fixed. Fewer rules, sharper rules.
@@ -1670,6 +1705,10 @@ claude
         <span class="callout-label good">This is the Wins Wall, for real</span>
         The Wins Wall in the start section is a static sample today. An Artifact is the mechanism to make it a live page: point a session at the team's posted before/after numbers and let it keep a running wall that updates itself. Exactly the live Wins Wall the team has asked for, now buildable.
     </div>
+    <div class="callout">
+        <span class="callout-label tip">Now with live data</span>
+        Published artifacts can call MCP connectors each time someone opens them, so a dashboard shows live numbers instead of a snapshot. Each call runs through the viewer's own connections and they approve access first — so the page never carries your credentials.
+    </div>
     <div class="callout callout-warn">
         <span class="callout-label warn">Plan-gated</span>
         Artifacts is a Team / Enterprise beta. Check it is on your plan before building a workflow around it. Same DATA rules apply: a shared page is still internal, so no secrets or member data on it (<code>DATA-01</code>, <code>DATA-02</code>).
@@ -1683,7 +1722,17 @@ claude
     <p class="lede">Anything added since your last visit is tagged <span class="newpill">NEW</span> on its tab and in the tip list. Newest first.</p>
     <div class="changelog">
         <div class="cl-entry">
-            <div class="cl-ver">v0.6 · in progress</div>
+            <div class="cl-ver">v0.7</div>
+            <div class="cl-date">July 2026</div>
+            <ul>
+                <li>A worked <a href="#slicing-a-big-refactor">slicing example</a> — one feature split into non-overlapping slices, and how to keep slices from stepping on each other.</li>
+                <li>Part IV: <a href="#goal-and-the-agent-view"><code>/goal</code> and the agent view</a> for longer and parallel runs.</li>
+                <li>Part I: a note on what happens if a harness correction is wrong (MR review and the test gate catch it).</li>
+                <li>Claude updates: <code>/goal</code>, the <code>claude agents</code> view, Rewind's "summarize up to here," and live-data Artifacts (pages that call MCP connectors on view).</li>
+            </ul>
+        </div>
+        <div class="cl-entry">
+            <div class="cl-ver">v0.6</div>
             <div class="cl-date">June–July 2026</div>
             <ul>
                 <li>Backend playbook: a <a href="#backend-engineer">money-page QA checklist</a> and a safe-migration prompt template, plus the full DB-migration review scope.</li>
@@ -1695,7 +1744,6 @@ claude
                 <li>Part X: rules files are git-committed so the team shares one source of truth; <code>/init</code> to scaffold a client <code>CLAUDE.md</code>.</li>
                 <li>From a hands-on review pass: a <a href="#harness-status-by-surface">harness-status-by-surface</a> table (VO full, mobile partial, contracts/BlessUP skills-only), a new <a href="#smart-contracts-blessup-engineer">Smart Contracts / BlessUP role</a> with a verify-money-math example, the Wins Wall seeded with the real ACT.X win, <code>max</code> added to the effort card, and hard-coded test counts softened to "the green baseline."</li>
                 <li>Synced Claude updates: Sonnet 5 is now the default model, <code>/doctor</code> now diagnoses and fixes harness health, the desktop built-in browser, subagents run in the background and can spawn subagents, <code>/skills</code> type-to-filter, doubled rate limits, <code>--safe-mode</code>, the built-in <code>/code-review</code>, and org-level model/version/spend controls for leads.</li>
-                <li>More is landing in v0.6 before it ships.</li>
             </ul>
         </div>
         <div class="cl-entry">
@@ -1761,7 +1809,7 @@ claude
         </div><!-- /.stage-inner -->
 
         <footer class="stage-foot">
-            v0.6 · last updated {{LAST_UPDATED}} · commit {{COMMIT_HASH}} · <a href="https://github.com/blessuptech/claude-playbook/commits/main" style="color: inherit;">view history</a><span id="visitCount"></span>
+            v0.7 · last updated {{LAST_UPDATED}} · commit {{COMMIT_HASH}} · <a href="https://github.com/blessuptech/claude-playbook/commits/main" style="color: inherit;">view history</a><span id="visitCount"></span>
         </footer>
     </main>
 </div>
@@ -1786,14 +1834,14 @@ claude
     PARTS.forEach(function (p) { PART[p.id] = p; });
 
     // ---- freshness: version + NEW badges ----
-    var SITE_VERSION = '0.6';
+    var SITE_VERSION = '0.7';
     var LS_KEY = 'cpb_lastSeenVersion';
     function verNum(v) { var m = String(v).split('.'); return (parseInt(m[0], 10) || 0) * 1000 + (parseInt(m[1], 10) || 0); }
     var lastSeen = null;
     try { lastSeen = localStorage.getItem(LS_KEY); } catch (e) {}
     // a returning reader with no flag is presumed to have seen the prior version,
     // so this rollout's cards light up as NEW; brand-new readers see them once too.
-    if (!lastSeen) lastSeen = '0.5';
+    if (!lastSeen) lastSeen = '0.6';
     function isNewCard(card) {
         var a = card.getAttribute('data-added');
         return a && verNum(a) > verNum(lastSeen);
@@ -1988,7 +2036,7 @@ claude
         [].slice.call(document.querySelectorAll('.tab .newpill, .rail-item .newpill, .card-kicker .newpill')).forEach(function (p) { p.remove(); });
     }
     if (newCount > 0) {
-        ubText.innerHTML = '<strong>' + newCount + ' new ' + (newCount === 1 ? 'card' : 'cards') + '</strong> since your last visit — fresh in v0.6.';
+        ubText.innerHTML = '<strong>' + newCount + ' new ' + (newCount === 1 ? 'card' : 'cards') + '</strong> since your last visit — fresh in v0.7.';
         banner.classList.add('show');
         document.body.classList.add('has-banner');
     }
