@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Claude Playbook — NaXum</title>
+<title>AI Playbook — NaXum</title>
 <style>
     :root {
         --bg: #0d1117;
@@ -492,12 +492,12 @@
 
 <header class="topbar">
     <div>
-        <div class="brand">NaXum <span class="dot">·</span> Claude Playbook</div>
-        <div class="sub">Internal reference · v0.7</div>
+        <div class="brand">NaXum <span class="dot">·</span> AI Playbook</div>
+        <div class="sub">Internal reference · v0.8 · tool-agnostic core + per-tool layer</div>
     </div>
     <div class="right">
         <div class="kbd-hint">Navigate with <span class="kbd">←</span> <span class="kbd">→</span> · jump parts with <span class="kbd">1</span>–<span class="kbd">9</span></div>
-        <div style="margin-top:3px;">Pair with <code style="font-size:11px;">CLAUDE.md</code> · <code style="font-size:11px;">audit-rules.md</code></div>
+        <div style="margin-top:3px;">Pair with repo harness · <code style="font-size:11px;">CLAUDE.md</code> · <code style="font-size:11px;">audit-rules.md</code> · <code style="font-size:11px;">.cursor/rules</code></div>
     </div>
 </header>
 
@@ -538,7 +538,7 @@
         <div class="ns-line">Every AI thing we do must move a real number, <em>or we stop</em>.</div>
     </div>
     <h2>The one idea</h2>
-    <p class="lede">Most people here use Claude like a search box. The people shipping noticeably faster use it like a teammate they hand real work to. Everything below is about becoming the second kind, on our actual repos.</p>
+    <p class="lede">Most people here use an AI coding tool like a search box. The people shipping noticeably faster hand it real work like a teammate. Everything below is about becoming the second kind, on our actual repos — whether the session runs in Claude Code, Cursor, Copilot, or another agent.</p>
     <div class="vs">
         <div class="vs-card tool">
             <div class="vs-tag">Tool</div>
@@ -569,10 +569,10 @@
     <div class="essentials">
         <div class="ess-head">★ If you read nothing else</div>
         <ol>
-            <li><code>/audit</code> before every commit <span>— it catches what gets your MR sent back.</span></li>
+            <li>Audit before every commit <span>— <code>/audit</code> in Claude Code, or the same checklist in any tool. Catches what gets your MR sent back.</span></li>
             <li>One task per session <span>— start fresh between unrelated jobs.</span></li>
             <li>Tell it what <em>not</em> to touch <span>— or it will refactor things you never asked about.</span></li>
-            <li>Claude drafts, you review and decide <span>— you own what you ship.</span></li>
+            <li>AI drafts, you review and decide <span>— you own what you ship.</span></li>
             <li>Never paste secrets or real customer data <span>— variable names and errors only.</span></li>
         </ol>
     </div>
@@ -586,10 +586,29 @@
     </div>
 </article>
 
+<article class="card" data-part="start" data-title="New to AI coding? Start here" data-added="0.8">
+    <div class="card-kicker">Start here</div>
+    <h2>New to AI coding? The 60-second orientation</h2>
+    <p>Five words you will see all the time, in plain language. Read this once and the rest of the playbook makes sense. Claude-specific terms still appear because Claude Code is our flagship for high-stakes work — the same ideas map to other tools in <b>◈ · Tools</b>.</p>
+    <table>
+        <tbody>
+            <tr><td style="width: 22%;"><strong>Chat surface</strong></td><td>A website or app chat (claude.ai, ChatGPT, Gemini, etc.). For writing, summarizing, research. No repo access unless you paste code in.</td></tr>
+            <tr><td><strong>Coding agent</strong></td><td>A tool that runs <em>inside</em> your repo: Claude Code, Cursor Agent, Copilot coding agent, Codex CLI, Cline, Aider. Reads files, runs commands, edits code. This is where engineering happens.</td></tr>
+            <tr><td><strong>Session</strong></td><td>One conversation with one task. Start fresh between unrelated jobs.</td></tr>
+            <tr><td><strong>Skill / command</strong></td><td>A shortcut the tool loads from the repo (<code>/audit</code>, slash commands, custom skills). Type <code>/</code> or open the command palette to see what the repo offers.</td></tr>
+            <tr><td><strong>Harness</strong></td><td>The files that teach the agent our stack automatically: <code>CLAUDE.md</code>, <code>audit-rules.md</code>, <code>.claude/rules/</code>, <code>.cursor/rules/</code>, <code>AGENTS.md</code>, and friends. Covered in part I and ◈ · Tools.</td></tr>
+        </tbody>
+    </table>
+    <div class="callout">
+        <span class="callout-label tip">Your first session, end to end</span>
+        Open a coding agent in a repo → name the file and the change you want → read what it writes → run the audit habit → commit. That is the whole loop. Everything else is refinement.
+    </div>
+</article>
+
 <article class="card" data-part="start" data-title="New to Claude? Start here">
     <div class="card-kicker">Start here</div>
-    <h2>New to Claude? The 60-second orientation</h2>
-    <p>Five words you will see all the time, in plain language. Read this once and the rest of the playbook makes sense.</p>
+    <h2>New to Claude Code? The Claude-specific map</h2>
+    <p>Same ideas as the orientation card, with Claude Code's exact names. Keep this if Claude Code is your daily driver; otherwise start with the tool-agnostic orientation and jump to <b>◈ · Tools</b>.</p>
     <table>
         <tbody>
             <tr><td style="width: 22%;"><strong>claude.ai</strong></td><td>The chat website. For writing, summarizing, research, drafting posts. No access to your code unless you paste it in.</td></tr>
@@ -600,7 +619,7 @@
         </tbody>
     </table>
     <div class="callout">
-        <span class="callout-label tip">Your first session, end to end</span>
+        <span class="callout-label tip">Your first Claude Code session</span>
         <code>cd</code> into a repo → run <code>claude</code> → name the file and the change you want → read what it writes → <code>/audit</code> → <code>/commit</code>. That is the whole loop. Everything else is refinement.
     </div>
 </article>
@@ -611,9 +630,10 @@
     <p>This is a reference, not a course. Jump to what you need; the tabs across the top are the parts, and the arrow keys page through tips inside a part.</p>
     <table>
         <tbody>
-            <tr><td style="width: 38%;"><strong>New to Claude Code here</strong></td><td>Read part 0, then I, then IV. That is roughly 80% of the value.</td></tr>
-            <tr><td><strong>Already coding with it</strong></td><td>Go to <b>IV · Agentic</b>. That is where the speed lives.</td></tr>
-            <tr><td><strong>Claude just did something odd</strong></td><td>Go to <b>VII · Troubleshooting</b> and bookmark it.</td></tr>
+            <tr><td style="width: 38%;"><strong>New to AI coding here</strong></td><td>Read part 0, then <b>◈ · Tools</b>, then I, then IV. That is roughly 80% of the value.</td></tr>
+            <tr><td><strong>Picking a tool or model</strong></td><td>Go to <b>◈ · Tools</b> and <b>IX · Models &amp; budget</b>. Match the job, not the brand.</td></tr>
+            <tr><td><strong>Already coding with an agent</strong></td><td>Go to <b>IV · Agentic</b>. That is where the speed lives. Claude Code commands are named; the habits transfer.</td></tr>
+            <tr><td><strong>The agent just did something odd</strong></td><td>Go to <b>VII · Troubleshooting</b> and bookmark it.</td></tr>
             <tr><td><strong>Want your role's defaults</strong></td><td>Go to <b>V · Roles</b> and find your title.</td></tr>
             <tr><td><strong>Leading or rolling out to a team</strong></td><td>Go to <b>X · For leads</b> for the rules model, conventions, and adoption metrics.</td></tr>
             <tr><td><strong>Just want the essentials fast</strong></td><td>The <b>one-page cheat sheet</b> (last tip in this Start section) is the whole thing on one screen.</td></tr>
@@ -696,10 +716,10 @@
     <div class="essentials">
         <div class="ess-head">★ Non-negotiables</div>
         <ol>
-            <li><code>/audit</code> before every commit <span>— kills MR returns.</span></li>
-            <li>One task per session <span>— <code>/clear</code> between unrelated jobs.</span></li>
+            <li>Audit before every commit <span>— <code>/audit</code> or the same checklist; kills MR returns.</span></li>
+            <li>One task per session <span>— clear context between unrelated jobs.</span></li>
             <li>Tell it what <em>not</em> to touch <span>— state the blast radius.</span></li>
-            <li>Claude drafts, you review and own it <span>— your name, your bug.</span></li>
+            <li>AI drafts, you review and own it <span>— your name, your bug.</span></li>
             <li>No secrets, no real member data <span>— redact before pasting.</span></li>
         </ol>
     </div>
@@ -723,15 +743,155 @@
     </div>
 </article>
 
+<!-- ===================== ◈ · TOOLS ===================== -->
+<article class="card" data-part="tools" data-title="The tool landscape" data-added="0.8">
+    <div class="card-kicker">◈ · Tools</div>
+    <h2>The tool landscape</h2>
+    <p class="lede">Pros typically run 2–3 coding tools for different jobs. The field sorts into three categories. Pick by workflow fit, not brand loyalty — and keep the tool-neutral rules (part II) no matter which you open.</p>
+    <table>
+        <thead><tr><th style="width: 28%;">Category</th><th>Examples</th><th>Best when</th></tr></thead>
+        <tbody>
+            <tr><td><strong>IDE-embedded agents</strong></td><td>Cursor, Windsurf / Devin Desktop, GitHub Copilot, JetBrains AI</td><td>You want edits inside the editor, multi-model pickers, and tight feedback loops.</td></tr>
+            <tr><td><strong>Terminal-first agents</strong></td><td>Claude Code, OpenAI Codex CLI, Aider</td><td>You live in the shell, want deep repo harnesses, or need high-stakes agentic loops.</td></tr>
+            <tr><td><strong>Autonomous cloud agents</strong></td><td>Devin, Cursor Cloud Agents, Copilot cloud agent</td><td>You kick off work from phone/web and come back to a draft MR.</td></tr>
+        </tbody>
+    </table>
+    <div class="callout">
+        <span class="callout-label tip">Our stance in one line</span>
+        Claude Code stays the flagship for high-stakes work (money math, contracts, migrations). Cursor is the main multi-model / mobile-cloud option for on-the-go MRs. Copilot is lowest-friction for teams already in VS Code. Open-source BYO-key tools (Cline, Aider, Continue) matter if data residency ever demands it.
+    </div>
+</article>
+
+<article class="card" data-part="tools" data-title="Claude Code" data-added="0.8">
+    <div class="card-kicker">◈ · Tools</div>
+    <h2>Claude Code</h2>
+    <p>Terminal-first agent from Anthropic. Runs inside the repo, loads our harness (<code>CLAUDE.md</code>, <code>audit-rules.md</code>, skills, <code>.claude/rules/</code>), and is where most of parts I and IV still name commands.</p>
+    <table>
+        <thead><tr><th style="width: 32%;">Best at</th><th>Our stance</th></tr></thead>
+        <tbody>
+            <tr><td>High-stakes slices: money pages, contracts, migrations, deep debugging</td><td><strong>Flagship.</strong> Default for work where a wrong turn is expensive.</td></tr>
+            <tr><td>Plan mode, worktrees, subagents, <code>/audit</code>, <code>/goal</code></td><td>Habits in part IV map 1:1 here.</td></tr>
+            <tr><td>Org defaults, model allowlists, spend alerts (Team/Enterprise)</td><td>Leads use these to keep a rollout on one approved setup.</td></tr>
+        </tbody>
+    </table>
+    <div class="callout callout-good">
+        <span class="callout-label good">As of July 2026</span>
+        Sonnet 5 is the common default on Free/Pro (1M context); Opus 5 is the Opus-class default with the same 1M window. Use <code>/model</code>, <code>/doctor</code>, <code>--safe-mode</code>, background/nested subagents, and live-data Artifacts as covered elsewhere in this playbook.
+    </div>
+</article>
+
+<article class="card" data-part="tools" data-title="Cursor" data-added="0.8">
+    <div class="card-kicker">◈ · Tools</div>
+    <h2>Cursor</h2>
+    <p>AI-first IDE (VS Code fork) with a multi-model picker: in-house Composer 2 / 2.5 plus Claude, GPT, Gemini, and Grok families, selectable per prompt. Agents run on desktop, web, CLI, mobile, and in the cloud.</p>
+    <table>
+        <thead><tr><th style="width: 34%;">Capability</th><th>Why it matters here</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Cloud Agents</strong> (isolated VMs; formerly Background Agents)</td><td>Build, test, and open PRs without your laptop. Multi-repo workspaces supported.</td></tr>
+            <tr><td><strong>Mobile / web kickoff</strong></td><td>Start a small UI change from your phone, review the diff, open an MR — no PC required.</td></tr>
+            <tr><td><strong>Composer 2.5</strong></td><td>Cursor's own agentic model: strong on long-horizon edits and tool use; fast variant is the interactive default.</td></tr>
+            <tr><td><strong>Parallel / async agents</strong></td><td>Several branches or subagents in flight; same tool→agent habit as worktrees.</td></tr>
+            <tr><td><strong>Bugbot / vulnerability scan</strong></td><td>PR review and security pass as a second set of eyes — still not a substitute for human review (<code>CODE-01</code>).</td></tr>
+        </tbody>
+    </table>
+    <div class="callout">
+        <span class="callout-label tip">Harness in Cursor</span>
+        Put team rules in <code>.cursor/rules/</code> (and <code>AGENTS.md</code> where the repo uses it). Same content principles as <code>CLAUDE.md</code>: stack, blast radius, definition of done. Do not paste secrets into rules files. The DATA/CODE rules still apply in cloud VMs.
+    </div>
+    <div class="callout callout-warn">
+        <span class="callout-label warn">Public-page note</span>
+        Cloud agents run with whatever secrets and network access the environment allows. Treat that like production access: least privilege, no member data in prompts, and review every PR the agent opens.
+    </div>
+</article>
+
+<article class="card" data-part="tools" data-title="GitHub Copilot" data-added="0.8">
+    <div class="card-kicker">◈ · Tools</div>
+    <h2>GitHub Copilot</h2>
+    <p>Most-adopted coding assistant — IDE extensions (VS Code, JetBrains, Neovim, and more), Copilot CLI, cloud agent, and GitHub Mobile. Lowest friction when the team already lives in GitHub.</p>
+    <table>
+        <thead><tr><th style="width: 34%;">Best at</th><th>Watch-outs</th></tr></thead>
+        <tbody>
+            <tr><td>Inline completion + agent mode in the editor you already use</td><td>Enterprise/Business admins must enable newer model policies; defaults can lag.</td></tr>
+            <tr><td>Deep GitHub context (issues, PRs, repos) via the coding agent / CLI</td><td>Still needs human review and our audit habit before merge.</td></tr>
+            <tr><td>GPT-5.6 Sol / Terra / Luna (as of July 2026) plus other providers in the picker</td><td>Match Sol (hard reasoning), Terra (everyday), Luna (cheap/fast) to the job — see part IX.</td></tr>
+        </tbody>
+    </table>
+    <div class="callout">
+        <span class="callout-label tip">Our stance</span>
+        Fine for everyday edits and GitHub-native workflows. For money math and contract work, prefer the flagship terminal agent with the full harness and <code>/audit</code> loop unless Copilot is explicitly set up with the same rules and review bar.
+    </div>
+</article>
+
+<article class="card" data-part="tools" data-title="Windsurf / Devin Desktop" data-added="0.8">
+    <div class="card-kicker">◈ · Tools</div>
+    <h2>Windsurf / Devin Desktop</h2>
+    <p>AI-first IDE that started as Codeium → Windsurf, and as of mid-2026 ships as <strong>Devin Desktop</strong> under Cognition (same IDE foundation; branding and agent command center evolving). Cascade / Devin Local is the agentic surface; proprietary SWE models sit alongside frontier providers.</p>
+    <table>
+        <thead><tr><th style="width: 34%;">Best at</th><th>Our stance</th></tr></thead>
+        <tbody>
+            <tr><td>Fast agentic iteration in a VS Code-like editor; generous free/pro tiers historically</td><td>Viable Cursor alternative when cost or IDE preference wins.</td></tr>
+            <tr><td>Parallel agents via worktrees; handoff toward Devin cloud workers</td><td>Same parallelism habits as part IV — isolate slices, do not overlap files.</td></tr>
+            <tr><td>Enterprise compliance story (SOC 2 and related)</td><td>Evaluate if a client mandates those certifications; do not assume they replace our DATA rules.</td></tr>
+        </tbody>
+    </table>
+    <div class="callout">
+        <span class="callout-label tip">Name drift</span>
+        Docs and screenshots may still say Windsurf or Cascade. Treat Devin Desktop as the current product name; the habits (plan, isolate, review) do not change with the logo.
+    </div>
+</article>
+
+<article class="card" data-part="tools" data-title="Cline, Aider, Continue" data-added="0.8">
+    <div class="card-kicker">◈ · Tools</div>
+    <h2>Cline, Aider, Continue — open / BYO-key</h2>
+    <p>Apache-2.0 or similarly open options that are model-agnostic: Anthropic, OpenAI, Gemini, OpenRouter, or local via LM Studio / Ollama. You bring the API key (or run local). These are the realistic path if a client ever requires strict data residency or offline inference.</p>
+    <table>
+        <thead><tr><th style="width: 22%;">Tool</th><th>Shape</th><th>Fit</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Cline</strong></td><td>VS Code extension, autonomous file + terminal agent</td><td>Stay in VS Code, pay only inference, keep keys under our control.</td></tr>
+            <tr><td><strong>Aider</strong></td><td>Terminal, git-native (often auto-commits each step)</td><td>Terminal-first power users who want a clean, reversible AI commit history.</td></tr>
+            <tr><td><strong>Continue</strong></td><td>VS Code / JetBrains extension, chat + autocomplete + agent</td><td>OSS IDE layer when you want full control of providers and routing.</td></tr>
+        </tbody>
+    </table>
+    <div class="callout callout-warn">
+        <span class="callout-label warn">Keys and residency</span>
+        BYO-key means the key holder is on the hook for billing and for where prompts go. Local models help residency but usually lag frontier quality — do not put money math on a weak local model to save a policy argument. Escalate residency requirements; do not invent a one-off setup on a public playbook page.
+    </div>
+</article>
+
+<article class="card" data-part="tools" data-title="Which tool for which job" data-added="0.8">
+    <div class="card-kicker">◈ · Tools</div>
+    <h2>Which tool for which job</h2>
+    <p>Extend the part IV mode guide with a tool column. Same work, different surface — pick both.</p>
+    <table>
+        <thead><tr><th style="width: 36%;">When the work is…</th><th>Reach for</th></tr></thead>
+        <tbody>
+            <tr><td>Money pages, contracts, tokenomics-adjacent logic, risky migrations</td><td><strong>Claude Code</strong> + strongest model + plan mode + <code>/audit</code></td></tr>
+            <tr><td>Small UI tweak, you are away from a desk, need an MR tonight</td><td><strong>Cursor</strong> cloud / mobile agent → human review on the PR</td></tr>
+            <tr><td>Everyday edit in VS Code / JetBrains, low ceremony</td><td><strong>Copilot</strong> agent or inline; still run the audit habit before merge</td></tr>
+            <tr><td>Several independent slices in parallel on a laptop</td><td>Claude Code <code>--worktree</code> <em>or</em> Cursor parallel agents — isolate files either way</td></tr>
+            <tr><td>Client requires BYO-key / local / strict residency</td><td><strong>Cline / Aider / Continue</strong> with approved providers; escalate before inventing policy</td></tr>
+            <tr><td>Long unattended ticket with cloud VM + browser</td><td>Cursor Cloud Agents or Devin-class cloud — only with secrets scoped and a human owning the merge</td></tr>
+        </tbody>
+    </table>
+    <div class="callout">
+        <span class="callout-label tip">Decision order</span>
+        (1) Is this high-stakes? → flagship harness. (2) Where are you physically? → desktop vs mobile/cloud. (3) What model ceiling do you need? → part IX. (4) Always: AI drafts, you review.
+    </div>
+</article>
+
 <!-- ===================== I · GROUND RULES ===================== -->
-<article class="card" data-part="ground" data-title="Purpose & scope">
+<article class="card" data-part="ground" data-title="Purpose & scope" data-added="0.8">
     <div class="card-kicker">I · Ground rules</div>
     <h2>Purpose &amp; scope</h2>
-    <p>This playbook defines <em>how</em> Claude is used inside NaXum, across our products, teams, and workflows. It is not a Claude tutorial; Anthropic's docs cover what Claude is and how to install it. This covers how <em>we</em> use it on <em>our</em> codebases.</p>
-    <p>It applies across NaXum engineering: the web app (the VO), mobile, BlessUP / ACT.X, and the coordination work around them. It assumes you have Claude Code installed and repo access.</p>
+    <p>This playbook defines <em>how</em> the NaXum / BlessUP team uses AI in code — shared boundaries and rules that apply across tools, plus a per-tool layer for commands and harness files. It is not a vendor tutorial; each product's docs cover install and features. This covers how <em>we</em> use agents on <em>our</em> codebases.</p>
+    <p>It applies across NaXum engineering: the web app (the VO), mobile, BlessUP / ACT.X, and the coordination work around them. It assumes you have a coding agent installed and repo access.</p>
+    <div class="callout">
+        <span class="callout-label tip">Two layers</span>
+        <strong>Tool-neutral core</strong> — DATA, CODE, COMM, DOC, CCO prompting, anti-patterns, cost discipline. Same wherever you work. <strong>Per-tool layer</strong> — Claude Code commands and harness, Cursor cloud/mobile agents, Copilot, Windsurf / Devin Desktop, open-source BYO-key options. Details in <b>◈ · Tools</b>.
+    </div>
     <div class="callout">
         <span class="callout-label tip">The shape of it</span>
-        Three layers. <strong>Rules</strong> that are non-negotiable (part II). <strong>Conventions</strong> for prompting and workflow that earn their keep (parts III–IV). <strong>Role defaults</strong> so you do not have to assemble your own from scratch (part V).
+        Four layers. <strong>Rules</strong> that are non-negotiable (part II). <strong>Conventions</strong> for prompting and workflow (parts III–IV). <strong>Role defaults</strong> so you do not assemble your own from scratch (part V). <strong>Tool &amp; model choice</strong> so the job picks the gear (◈ · Tools, part IX).
     </div>
 </article>
 
@@ -739,6 +899,10 @@
     <div class="card-kicker">I · Ground rules</div>
     <h2>The harness</h2>
     <p>Every NaXum repo ships with a Claude harness: the setup that makes Claude already know our stack, our rules, and our patterns the moment you open a session. You do not start from a blank prompt. You start from thousands of lines of context that load automatically.</p>
+    <div class="callout">
+        <span class="callout-label tip">Other tools, same idea</span>
+        Cursor loads <code>.cursor/rules/</code> and <code>AGENTS.md</code>; Copilot can pin settings under <code>.github/copilot/</code>; open-source agents often read <code>AGENTS.md</code> or their own config. Mirror the same principles — stack, blast radius, definition of done — and see <b>◈ · Tools</b> for per-product notes. This card stays Claude Code–specific because that is our deepest harness today.
+    </div>
     <table>
         <thead><tr><th style="width: 30%;">File</th><th>Purpose</th></tr></thead>
         <tbody>
@@ -837,14 +1001,14 @@
 </article>
 
 <!-- ===================== II · RULE SETS ===================== -->
-<article class="card" data-part="rules" data-title="DATA — security & confidentiality">
+<article class="card" data-part="rules" data-title="DATA — security & confidentiality" data-added="0.8">
     <div class="card-kicker">II · Rule sets</div>
     <h2>DATA — security &amp; confidentiality</h2>
-    <p class="lede">Six rules. Breaking one is a stop-everything moment, not a code-review note.</p>
-    <div class="rule"><div class="rule-id data">DATA-01</div><div class="rule-body"><strong>No production customer data in Claude.</strong> Member names, emails, phones, addresses, payment info, member IDs. Not in claude.ai, not in Claude Code, not in screenshots. Anonymize before pasting.</div></div>
+    <p class="lede">Six rules. Breaking one is a stop-everything moment, not a code-review note. <strong>Applies to every AI tool</strong> — Claude Code, Cursor, Copilot, chat sites, cloud agents, local models. The product name does not change the rule.</p>
+    <div class="rule"><div class="rule-id data">DATA-01</div><div class="rule-body"><strong>No production customer data in any AI tool.</strong> Member names, emails, phones, addresses, payment info, member IDs. Not in chat sites, not in IDE agents, not in cloud agents, not in screenshots. Anonymize before pasting.</div></div>
     <div class="rule"><div class="rule-id data">DATA-02</div><div class="rule-body"><strong>No secrets in any prompt.</strong> API keys, JWT secrets, DB credentials, Stripe keys, Apple/Google merchant keys, IPN tokens. Paste the variable <em>name</em> and the error, never the value.</div></div>
     <div class="rule"><div class="rule-id data">DATA-03</div><div class="rule-body"><strong>No full <code>.env</code> dumps.</strong> Even when debugging env issues. Share the schema and the error, not the values.</div></div>
-    <div class="rule"><div class="rule-id data">DATA-04</div><div class="rule-body"><strong>The harness is internal.</strong> Do not share the contents of <code>audit-rules.md</code>, <code>CLAUDE.md</code>, the PCG/VSG, or custom skills outside NaXum.</div></div>
+    <div class="rule"><div class="rule-id data">DATA-04</div><div class="rule-body"><strong>The harness is internal.</strong> Do not share the contents of <code>audit-rules.md</code>, <code>CLAUDE.md</code>, <code>.cursor/rules/</code>, the PCG/VSG, or custom skills outside NaXum.</div></div>
     <div class="rule"><div class="rule-id data">DATA-05</div><div class="rule-body"><strong>Keep codebase boundaries.</strong> VO work stays in VO sessions, mobile in mobile, BlessUP in BlessUP. Do not paste contract code into a VO session or vice versa; it pollutes context and leaks scope.</div></div>
     <div class="rule"><div class="rule-id data">DATA-06</div><div class="rule-body"><strong>Staging or seed data only for examples.</strong> If you need realistic data shapes, use factory output or anonymized staging dumps.</div></div>
 </article>
@@ -871,8 +1035,8 @@
 <article class="card" data-part="rules" data-title="CODE — engineering rules">
     <div class="card-kicker">II · Rule sets</div>
     <h2>CODE — engineering rules</h2>
-    <p class="lede">Eight rules. Claude-written code earns no shortcuts through the process.</p>
-    <div class="rule"><div class="rule-id code">CODE-01</div><div class="rule-body"><strong>Every MR goes through human review.</strong> Claude-written code follows the same approval chain as hand-written: frontend → frontend lead, backend → backend lead, money pages → backend QA. Claude does not bypass review.</div></div>
+    <p class="lede">Eight rules. AI-written code earns no shortcuts through the process. <strong>Applies to every coding agent.</strong></p>
+    <div class="rule"><div class="rule-id code">CODE-01</div><div class="rule-body"><strong>Every MR goes through human review.</strong> AI-written code follows the same approval chain as hand-written: frontend → frontend lead, backend → backend lead, money pages → backend QA. An agent does not bypass review — not Bugbot, not cloud agents, not <code>/code-review</code>.</div></div>
     <div class="rule"><div class="rule-id code">CODE-02</div><div class="rule-body"><strong><code>/audit</code> is required before every commit.</strong> Even small changes. Especially Claude-written changes. Every MR that comes back is a failure of this step.</div></div>
     <div class="rule"><div class="rule-id code">CODE-03</div><div class="rule-body"><strong>The test suite is the source of truth.</strong> Know the repo's green baseline (0 failing, 0 skipped) and never drop below it. If your work reduces the pass count, stop and investigate before committing. Never suppress, skip, or delete a failing test to make the count match.</div></div>
     <div class="rule"><div class="rule-id code">CODE-04</div><div class="rule-body"><strong>No silent dependency additions.</strong> If Claude suggests installing a new package, the human decides. Justify the add in the MR description.</div></div>
@@ -885,8 +1049,8 @@
 <article class="card" data-part="rules" data-title="COMM — client & team communication">
     <div class="card-kicker">II · Rule sets</div>
     <h2>COMM — client &amp; team communication</h2>
-    <p class="lede">Four rules. Claude drafts; a person sends.</p>
-    <div class="rule"><div class="rule-id comm">COMM-01</div><div class="rule-body"><strong>Claude does not post on your behalf.</strong> Drafts only. Basecamp posts, client emails, MR descriptions: all reviewed and sent by a human.</div></div>
+    <p class="lede">Four rules. AI drafts; a person sends. <strong>Applies to every tool.</strong></p>
+    <div class="rule"><div class="rule-id comm">COMM-01</div><div class="rule-body"><strong>An agent does not post on your behalf.</strong> Drafts only. Basecamp posts, client emails, MR descriptions: all reviewed and sent by a human.</div></div>
     <div class="rule"><div class="rule-id comm">COMM-02</div><div class="rule-body"><strong>Match the channel's voice.</strong> Task specs follow TASK / NOTES / DONE DONE. Basecamp posts get a TLDR at top, no em dashes, simple language. Client comms are warmer. Claude defaults to verbose corporate tone; cut hard.</div></div>
     <div class="rule"><div class="rule-id comm">COMM-03</div><div class="rule-body"><strong>No fabricated attributions.</strong> Do not let Claude invent quotes, decisions, or commitments attributed to teammates or clients. If a draft contains them, strip them.</div></div>
     <div class="rule"><div class="rule-id comm">COMM-04</div><div class="rule-body"><strong>Client-facing content gets a second pass.</strong> Anything going to an external stakeholder is reviewed before sending.</div></div>
@@ -895,8 +1059,8 @@
 <article class="card" data-part="rules" data-title="DOC — documenting AI-generated work">
     <div class="card-kicker">II · Rule sets</div>
     <h2>DOC — documenting AI-generated work</h2>
-    <p>Using Claude is encouraged. <em>Hiding</em> that you used it is not. These five rules keep AI-generated work reviewable, traceable, and honest, so the next person (and the audit trail) knows what to trust and what to double-check.</p>
-    <div class="rule"><div class="rule-id doc">DOC-01</div><div class="rule-body"><strong>You own what you submit.</strong> Once your name is on an MR, a Basecamp post, or a doc, it is yours. "Claude wrote it" is never an excuse for a bug, a wrong number, or a bad tone. Read every line before it ships.</div></div>
+    <p>Using AI coding tools is encouraged. <em>Hiding</em> that you used them is not. These five rules keep AI-generated work reviewable, traceable, and honest, so the next person (and the audit trail) knows what to trust and what to double-check. <strong>Tool-agnostic.</strong></p>
+    <div class="rule"><div class="rule-id doc">DOC-01</div><div class="rule-body"><strong>You own what you submit.</strong> Once your name is on an MR, a Basecamp post, or a doc, it is yours. "The AI wrote it" is never an excuse for a bug, a wrong number, or a bad tone. Read every line before it ships.</div></div>
     <div class="rule"><div class="rule-id doc">DOC-02</div><div class="rule-body"><strong>Note AI-assisted work in the MR description.</strong> One line is enough, e.g. <em>"Slice drafted with Claude Code, reviewed and audited by me."</em> Reviewers calibrate their attention when they know what was machine-drafted.</div></div>
     <div class="rule"><div class="rule-id doc">DOC-03</div><div class="rule-body"><strong>Flag what you couldn't verify.</strong> If Claude produced a number, a citation, or a config value you did not confirm, say so rather than presenting it as checked. Unverified is not the same as wrong, but it must be labeled.</div></div>
     <div class="rule"><div class="rule-id doc">DOC-04</div><div class="rule-body"><strong>Keep AI-generated docs in our format.</strong> Task specs still follow TASK / NOTES / DONE DONE; commit messages still go through <code>/commit</code>. AI output gets edited to our standards, not pasted raw.</div></div>
@@ -1001,24 +1165,25 @@
 </article>
 
 <!-- ===================== IV · AGENTIC ===================== -->
-<article class="card" data-part="agentic" data-title="Which mode when — a decision guide" data-added="0.6">
+<article class="card" data-part="agentic" data-title="Which mode when — a decision guide" data-added="0.8">
     <div class="card-kicker">IV · Agentic workflows</div>
     <h2>Which mode when — a decision guide</h2>
-    <p>Claude Code gives you several gears. Picking the right one is most of the skill. Match the work to the tool instead of using the same gear for everything.</p>
+    <p>Coding agents give you several gears. Picking the right one is most of the skill. Match the work to the mode — and to the tool (see <b>◈ · Tools</b>) — instead of using the same gear for everything. Commands below are Claude Code names; the habits transfer.</p>
     <table>
         <thead><tr><th style="width: 38%;">When the work is…</th><th>Reach for</th></tr></thead>
         <tbody>
             <tr><td>One small change, you know the file and the fix</td><td>Regular prompting, CCO. No ceremony.</td></tr>
-            <tr><td>Bigger than a one-liner, or it touches several files, or it is risky</td><td><strong>Plan mode</strong> first (shift+tab twice). Refine the plan, then build.</td></tr>
-            <tr><td>You need to explore or verify across many files, or compare options</td><td><strong>Subagents</strong> ("use subagents"). Fan out, keep the main context clean.</td></tr>
-            <tr><td>You have several independent slices to move at once</td><td><strong>Worktrees</strong> (<code>claude --worktree</code>). One caveat on focus, next card.</td></tr>
-            <tr><td>A genuinely hard problem: gnarly bug, tricky migration, architecture</td><td>Strongest model + <strong>high/xhigh</strong> effort. Steer less, pay less overall.</td></tr>
-            <tr><td>Bulk mechanical work: renames, boilerplate, formatting</td><td>Smaller model + <strong>low</strong> effort. Do not spend Opus money on it.</td></tr>
+            <tr><td>Bigger than a one-liner, or it touches several files, or it is risky</td><td><strong>Plan mode</strong> first (shift+tab twice in Claude Code; Plan/Agent modes in IDE tools). Refine the plan, then build.</td></tr>
+            <tr><td>You need to explore or verify across many files, or compare options</td><td><strong>Subagents</strong> / parallel agents. Fan out, keep the main context clean.</td></tr>
+            <tr><td>You have several independent slices to move at once</td><td><strong>Worktrees</strong> (<code>claude --worktree</code>) or Cursor parallel-branch agents. Isolate files either way.</td></tr>
+            <tr><td>A genuinely hard problem: gnarly bug, tricky migration, architecture</td><td>Strongest model available in your tool + <strong>high effort</strong>. Steer less, pay less overall.</td></tr>
+            <tr><td>Bulk mechanical work: renames, boilerplate, formatting</td><td>Smaller / cheaper model + <strong>low</strong> effort. Do not spend frontier money on it.</td></tr>
+            <tr><td>Away from a desk, small UI change, need an MR</td><td><strong>Cursor</strong> cloud/mobile agent (or Copilot mobile) → human reviews the PR.</td></tr>
         </tbody>
     </table>
     <div class="callout">
         <span class="callout-label tip">When in doubt</span>
-        Plan mode is the safe default for anything non-trivial — it is the cheapest way to catch a wrong turn. You can always drop out of it once the plan is right.
+        Plan mode is the safe default for anything non-trivial — it is the cheapest way to catch a wrong turn. You can always drop out of it once the plan is right. For which <em>product</em> to open, use the which-tool card in <b>◈ · Tools</b>.
     </div>
 </article>
 
@@ -1494,38 +1659,62 @@ claude
 <article class="card" data-part="limits" data-title="This is a living document">
     <div class="card-kicker">VIII · Limits</div>
     <h2>This is a living document</h2>
-    <p>v0.7, and still evolving. The point of a playbook is that it gets better as the team uses it — most of recent versions came straight from team review.</p>
+    <p>v0.8, and still evolving. The point of a playbook is that it gets better as the team uses it — most of recent versions came straight from team review. Feedback is welcome from anyone, including leads and VPs; there is no formal review gate.</p>
     <div class="callout">
         <span class="callout-label tip">Feedback</span>
         If a rule saved you time, flag it so it gets expanded. If a rule is wrong, contradictory, or useless to your role, flag it so it gets cut or fixed. Fewer rules, sharper rules.
     </div>
-    <p class="lede" style="margin-top: 1.4rem;">Bookmark the page and come back to <b>Troubleshooting</b> when Claude does something odd, because it will. Three more parts follow: <b>IX · Models &amp; budget</b> for getting the most per credit, <b>X · For leads</b> for structuring rules and measuring adoption, and <b>What's new</b> for anything that changed since your last visit.</p>
+    <p class="lede" style="margin-top: 1.4rem;">Bookmark the page and come back to <b>Troubleshooting</b> when an agent does something odd, because it will. More parts follow: <b>◈ · Tools</b> for which product fits which job, <b>IX · Models &amp; budget</b> for getting the most per credit across providers, <b>X · For leads</b> for structuring rules and measuring adoption, and <b>What's new</b> for anything that changed since your last visit.</p>
 </article>
 
 <!-- ===================== IX · MODELS & BUDGET ===================== -->
-<article class="card" data-part="models" data-title="Which model, when" data-added="0.4">
+<article class="card" data-part="models" data-title="Which model, when" data-added="0.8">
     <div class="card-kicker">IX · Models &amp; budget</div>
     <h2>Which model, when</h2>
-    <p>Claude Code lets you pick the model with <code>/model</code>. Picking right is the single biggest lever on both quality and credits — bigger is not always better, and smaller is not always cheaper.</p>
+    <p>Every serious coding tool lets you pick a model. Picking right is the single biggest lever on both quality and credits — bigger is not always better, smaller is not always cheaper, and <strong>no single vendor wins every job</strong>. Match the ceiling to the risk.</p>
     <table>
-        <thead><tr><th style="width: 40%;">Work</th><th style="width: 22%;">Model</th><th>Why</th></tr></thead>
+        <thead><tr><th style="width: 40%;">Work</th><th style="width: 28%;">Model class</th><th>Why</th></tr></thead>
         <tbody>
-            <tr><td>Migration slices, debugging, architecture, money pages, contract code</td><td>The strongest your plan offers (Fable 5 / Opus-class)</td><td>Less steering. It gets the intent in one turn instead of three. A bigger model that one-shots the task is usually <strong>cheaper in total</strong> than a smaller one you babysit.</td></tr>
-            <tr><td>Bulk mechanical work: renames, translations, formatting, boilerplate tests, commit messages</td><td>Sonnet-class</td><td>Plenty smart for pattern work at a fraction of the burn.</td></tr>
-            <tr><td>Quick lookups, "what does this regex do", summaries of short files</td><td>Haiku-class</td><td>Do not spend Opus money on questions a fast model answers identically.</td></tr>
+            <tr><td>Migration slices, debugging, architecture, money pages, contract code</td><td>Frontier / max-reasoning tier in whatever tool you are in</td><td>Less steering. It gets the intent in one turn instead of three. A bigger model that one-shots the task is usually <strong>cheaper in total</strong> than a smaller one you babysit.</td></tr>
+            <tr><td>Bulk mechanical work: renames, translations, formatting, boilerplate tests, commit messages</td><td>Mid / default tier</td><td>Plenty smart for pattern work at a fraction of the burn.</td></tr>
+            <tr><td>Quick lookups, "what does this regex do", summaries of short files</td><td>Fast / lite tier</td><td>Do not spend frontier money on questions a cheap model answers identically.</td></tr>
         </tbody>
     </table>
     <div class="callout">
-        <span class="callout-label tip">The logic, from the creator of Claude Code</span>
-        "It's the best coding model I've ever used, and even though it's bigger and slower, since you have to steer it less and it's better at tool use, it is almost always faster than using a smaller model in the end." Steering cost is real cost.
+        <span class="callout-label tip">The logic that generalizes</span>
+        Steering cost is real cost. A model that needs three corrections can cost more wall-clock and more tokens than a stronger model that lands once — even when the stronger model's sticker price is higher.
     </div>
-    <p><strong>Lineup moves. This card follows.</strong> As of July 2026 the family is Fable 5 (Mythos-class, most capable), Opus 4.8, Sonnet 5 (now the default in Claude Code, 1M context), Haiku 4.5. When Anthropic ships a new model, this card gets updated and tagged NEW. Day to day, trust <code>/model</code> over memory.</p>
+    <p><strong>Lineup moves. This card follows.</strong> Trust the tool's model picker over memory. Next card maps current families across providers (July 2026).</p>
+</article>
+
+<article class="card" data-part="models" data-title="Choosing across providers" data-added="0.8">
+    <div class="card-kicker">IX · Models &amp; budget</div>
+    <h2>Choosing a model across tools</h2>
+    <p class="lede">Multi-model IDEs and CLIs make it easy to chase a favorite brand. Don't. Pick by job class. Names and prices move monthly — treat this as a map, not a scoreboard.</p>
+    <table>
+        <thead><tr><th style="width: 26%;">Family (July 2026)</th><th style="width: 28%;">Typical tiers</th><th>Where it tends to fit</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Anthropic Claude</strong></td><td>Opus 5 · Sonnet 5 · Haiku · Fable/Mythos-class where offered</td><td>High-stakes reasoning, long context (Sonnet/Opus at 1M), Claude Code default path. Strong when wrong answers are expensive.</td></tr>
+            <tr><td><strong>OpenAI GPT-5.6</strong></td><td>Sol (highest reasoning) · Terra (balanced default) · Luna (cheap/fast)</td><td>Copilot, Codex CLI, ChatGPT desktop. Match Sol/Terra/Luna to hard / everyday / bulk — same COST logic as effort dials.</td></tr>
+            <tr><td><strong>xAI Grok</strong></td><td>Grok 4.5</td><td>Often strong on agentic/terminal coding benchmarks at competitive token cost. Available in multi-model IDEs. Verify on <em>our</em> repos before standardizing.</td></tr>
+            <tr><td><strong>Google Gemini</strong></td><td>Gemini 3.x Pro · 3.6 Flash</td><td>Multimodal and fast workhorse lanes; good when the task mixes code with docs/images. Coding-agent fit varies by tool integration.</td></tr>
+            <tr><td><strong>Cursor Composer</strong></td><td>Composer 2.5 (standard + fast)</td><td>IDE-native agentic edits inside Cursor only. Sensible interactive default there; still subject to human review and DATA rules.</td></tr>
+        </tbody>
+    </table>
+    <div class="callout callout-good">
+        <span class="callout-label good">How we decide without brand bias</span>
+        (1) Risk of the change. (2) Context size needed. (3) Token cost × expected steering. (4) Which tool already has the harness loaded. If two models are within a few points on public benches, prefer the one already wired to our rules — or A/B on a real slice and keep the winner.
+    </div>
+    <div class="callout callout-warn">
+        <span class="callout-label warn">Do not optimize for the leaderboard alone</span>
+        Public SWE-Bench / Terminal-Bench gaps between frontier models are often small. Workflow fit, harness loading, and review discipline move our numbers more than a 2-point bench delta.
+    </div>
 </article>
 
 <article class="card" data-part="models" data-title="Effort: the dial nobody uses" data-added="0.4">
     <div class="card-kicker">IX · Models &amp; budget</div>
     <h2>Effort — the dial nobody uses</h2>
-    <p><code>/model</code> also sets an effort level: low, medium, high, <strong>xhigh</strong>, and <strong>max</strong>. It is a second, quieter lever on burn.</p>
+    <p>Most tools expose a thinking / effort / reasoning dial (Claude Code: low → medium → high → <strong>xhigh</strong> → <strong>max</strong> via <code>/model</code>; Copilot and Codex have similar effort controls; IDE pickers often bundle it with the model). It is a second, quieter lever on burn. Same idea everywhere: spend deep reasoning on hard work only.</p>
     <table>
         <thead><tr><th style="width: 18%;">Effort</th><th>Use for</th></tr></thead>
         <tbody>
@@ -1571,9 +1760,9 @@ claude
 <article class="card" data-part="models" data-title="COST rules" data-added="0.4">
     <div class="card-kicker">IX · Models &amp; budget</div>
     <h2>COST rules</h2>
-    <p class="lede">Six rules. Every one of these is a real credit leak we have already paid for.</p>
+    <p class="lede">Six rules. Every one of these is a real credit leak we have already paid for. <strong>Applies across tools and providers.</strong></p>
     <div class="rule"><div class="rule-id ap">COST-01</div><div class="rule-body"><strong>One task per session.</strong> Context bloat is the silent burner. Long mixed sessions cost more per answer and the answers get worse. (Same rule as <code>PROMPT-05</code>, promoted to a money rule.)</div></div>
-    <div class="rule"><div class="rule-id ap">COST-02</div><div class="rule-body"><strong>Match the model to the job.</strong> Bulk renames on the biggest model wastes credits; money-math debugging on the smallest wastes a day. See the table on the first card of this part.</div></div>
+    <div class="rule"><div class="rule-id ap">COST-02</div><div class="rule-body"><strong>Match the model to the job.</strong> Bulk renames on the biggest model wastes credits; money-math debugging on the smallest wastes a day. See the tables earlier in this part — including cross-provider options.</div></div>
     <div class="rule"><div class="rule-id ap">COST-03</div><div class="rule-body"><strong>Plan first on anything non-trivial.</strong> A wrong implementation paid for twice costs more than a plan paid for once. Plan mode exists for this (part IV).</div></div>
     <div class="rule"><div class="rule-id ap">COST-04</div><div class="rule-body"><strong>Batch the audits.</strong> 5 to 10 files per <code>/audit</code> run. One audit on a 30-file diff can eat 20% of a session. (See <code>AP-01</code>.)</div></div>
     <div class="rule"><div class="rule-id ap">COST-05</div><div class="rule-body"><strong>Point, don't spelunk.</strong> Docs URL plus the specific question. Never "go research X." (See <code>AP-02</code> — the 24-hour StoreKit story.)</div></div>
@@ -1722,6 +1911,18 @@ claude
     <p class="lede">Anything added since your last visit is tagged <span class="newpill">NEW</span> on its tab and in the tip list. Newest first.</p>
     <div class="changelog">
         <div class="cl-entry">
+            <div class="cl-ver">v0.8</div>
+            <div class="cl-date">July 2026</div>
+            <ul>
+                <li>Reframed as the <strong>AI Playbook</strong>: tool-agnostic core (DATA/CODE/COMM/DOC/PROMPT/AP/COST) plus a per-tool layer. URL and repo stay the same.</li>
+                <li>New part <a href="#the-tool-landscape">◈ · Tools</a>: landscape map; cards for Claude Code, Cursor (incl. cloud/mobile MR workflow), GitHub Copilot, Windsurf / Devin Desktop, and Cline/Aider/Continue; plus <a href="#which-tool-for-which-job">which tool for which job</a>.</li>
+                <li>Start: tool-agnostic orientation card; Claude-specific map kept alongside.</li>
+                <li>Part IV: decision guide extended with tool + mode (incl. away-from-desk cloud agents).</li>
+                <li>Part IX: model advice generalized; new <a href="#choosing-across-providers">choosing across providers</a> card (Claude, GPT-5.6 Sol/Terra/Luna, Grok 4.5, Gemini 3.x, Composer 2.5) without picking a single winner.</li>
+                <li>Synced landscape notes through July 2026 (Opus 5 / Sonnet 5, GPT-5.6 family, Composer 2.5, Windsurf → Devin Desktop naming).</li>
+            </ul>
+        </div>
+        <div class="cl-entry">
             <div class="cl-ver">v0.7</div>
             <div class="cl-date">July 2026</div>
             <ul>
@@ -1809,7 +2010,7 @@ claude
         </div><!-- /.stage-inner -->
 
         <footer class="stage-foot">
-            v0.7 · last updated {{LAST_UPDATED}} · commit {{COMMIT_HASH}} · <a href="https://github.com/blessuptech/claude-playbook/commits/main" style="color: inherit;">view history</a><span id="visitCount"></span>
+            v0.8 · last updated {{LAST_UPDATED}} · commit {{COMMIT_HASH}} · <a href="https://github.com/blessuptech/claude-playbook/commits/main" style="color: inherit;">view history</a><span id="visitCount"></span>
         </footer>
     </main>
 </div>
@@ -1818,6 +2019,7 @@ claude
 (function () {
     var PARTS = [
         { id: 'start',     label: 'Start',          roman: '0'    },
+        { id: 'tools',     label: 'Tools',          roman: '◈'    },
         { id: 'ground',    label: 'Ground Rules',   roman: 'I'    },
         { id: 'rules',     label: 'Rule Sets',      roman: 'II'   },
         { id: 'prompting', label: 'Prompting',      roman: 'III'  },
@@ -1834,14 +2036,14 @@ claude
     PARTS.forEach(function (p) { PART[p.id] = p; });
 
     // ---- freshness: version + NEW badges ----
-    var SITE_VERSION = '0.7';
+    var SITE_VERSION = '0.8';
     var LS_KEY = 'cpb_lastSeenVersion';
     function verNum(v) { var m = String(v).split('.'); return (parseInt(m[0], 10) || 0) * 1000 + (parseInt(m[1], 10) || 0); }
     var lastSeen = null;
     try { lastSeen = localStorage.getItem(LS_KEY); } catch (e) {}
     // a returning reader with no flag is presumed to have seen the prior version,
     // so this rollout's cards light up as NEW; brand-new readers see them once too.
-    if (!lastSeen) lastSeen = '0.6';
+    if (!lastSeen) lastSeen = '0.7';
     function isNewCard(card) {
         var a = card.getAttribute('data-added');
         return a && verNum(a) > verNum(lastSeen);
@@ -2036,7 +2238,7 @@ claude
         [].slice.call(document.querySelectorAll('.tab .newpill, .rail-item .newpill, .card-kicker .newpill')).forEach(function (p) { p.remove(); });
     }
     if (newCount > 0) {
-        ubText.innerHTML = '<strong>' + newCount + ' new ' + (newCount === 1 ? 'card' : 'cards') + '</strong> since your last visit — fresh in v0.7.';
+        ubText.innerHTML = '<strong>' + newCount + ' new ' + (newCount === 1 ? 'card' : 'cards') + '</strong> since your last visit — fresh in v' + SITE_VERSION + '.';
         banner.classList.add('show');
         document.body.classList.add('has-banner');
     }
