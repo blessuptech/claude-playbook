@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>AI Playbook — NaXum</title>
+<title>AI Playbook - NaXum</title>
 <style>
     :root {
         --bg: #0d1117;
@@ -496,7 +496,7 @@
         <div class="sub">Internal reference · v0.8 · tool-agnostic core + per-tool layer</div>
     </div>
     <div class="right">
-        <div class="kbd-hint">Navigate with <span class="kbd">←</span> <span class="kbd">→</span> · jump parts with <span class="kbd">1</span>–<span class="kbd">9</span></div>
+        <div class="kbd-hint">Navigate with <span class="kbd">←</span> <span class="kbd">→</span> · jump parts with <span class="kbd">1</span>-<span class="kbd">9</span></div>
         <div style="margin-top:3px;">Pair with repo harness · <code style="font-size:11px;">CLAUDE.md</code> · <code style="font-size:11px;">audit-rules.md</code> · <code style="font-size:11px;">.cursor/rules</code></div>
     </div>
 </header>
@@ -538,7 +538,7 @@
         <div class="ns-line">Every AI thing we do must move a real number, <em>or we stop</em>.</div>
     </div>
     <h2>The one idea</h2>
-    <p class="lede">Most people here use an AI coding tool like a search box. The people shipping noticeably faster hand it real work like a teammate. Everything below is about becoming the second kind, on our actual repos — whether the session runs in Claude Code, Cursor, Copilot, or another agent.</p>
+    <p class="lede">Most people here use an AI coding tool like a search box. The people shipping noticeably faster hand it real work like a teammate. Everything below is about becoming the second kind, on our actual repos - whether the session runs in Claude Code, Cursor, Copilot, or another agent.</p>
     <div class="vs">
         <div class="vs-card tool">
             <div class="vs-tag">Tool</div>
@@ -557,7 +557,7 @@
                 <li>You hand it a whole slice, it drafts the change</li>
                 <li>Reads files, runs tests, reports back</li>
                 <li>You review and decide instead of typing</li>
-                <li>Ceiling: 2–3× on the right work</li>
+                <li>Ceiling: 2-3× on the right work</li>
             </ul>
         </div>
     </div>
@@ -569,17 +569,17 @@
     <div class="essentials">
         <div class="ess-head">★ If you read nothing else</div>
         <ol>
-            <li>Audit before every commit <span>— <code>/audit</code> in Claude Code, or the same checklist in any tool. Catches what gets your MR sent back.</span></li>
-            <li>One task per session <span>— start fresh between unrelated jobs.</span></li>
-            <li>Tell it what <em>not</em> to touch <span>— or it will refactor things you never asked about.</span></li>
-            <li>AI drafts, you review and decide <span>— you own what you ship.</span></li>
-            <li>Never paste secrets or real customer data <span>— variable names and errors only.</span></li>
+            <li>Audit before every commit <span>- <code>/audit</code> in Claude Code, or the same checklist in any tool. Catches what gets your MR sent back.</span></li>
+            <li>One task per session <span>- start fresh between unrelated jobs.</span></li>
+            <li>Tell it what <em>not</em> to touch <span>- or it will refactor things you never asked about.</span></li>
+            <li>AI drafts, you review and decide <span>- you own what you ship.</span></li>
+            <li>Never paste secrets or real customer data <span>- variable names and errors only.</span></li>
         </ol>
     </div>
     <div class="demo">
         <div class="demo-head"><span>▶ Real demo · ACT.X</span><span class="kind">~2 min</span></div>
         <div class="demo-body">
-            <div class="demo-title">Tool vs agent — close a real bug in actx-contracts</div>
+            <div class="demo-title">Tool vs agent - close a real bug in actx-contracts</div>
             <div class="demo-cap">A real session: hand the agent an open bug (presale, vesting, and NFT still point at the old ACTXToken), have it repoint them to the consolidated token, refresh <code>DEPLOYMENT_REGISTRY.md</code>, then run the suite. <code>npx hardhat test</code> → 717/717 green. A real fix in minutes; the same move works on any repo.</div>
             <video class="demo-video" controls preload="none" playsinline poster="assets/demo-1-tool-vs-agent.jpg" src="assets/demo-1-tool-vs-agent.mp4"></video>
         </div>
@@ -589,7 +589,7 @@
 <article class="card" data-part="start" data-title="New to AI coding? Start here" data-added="0.8">
     <div class="card-kicker">Start here</div>
     <h2>New to AI coding? The 60-second orientation</h2>
-    <p>Five words you will see all the time, in plain language. Read this once and the rest of the playbook makes sense. Claude-specific terms still appear because Claude Code is our flagship for high-stakes work — the same ideas map to other tools in <b>◈ · Tools</b>.</p>
+    <p>Five words you will see all the time, in plain language. Read this once and the rest of the playbook makes sense. Claude-specific terms still appear because Claude Code is our flagship for high-stakes work - the same ideas map to other tools in <b>◈ · Tools</b>.</p>
     <table>
         <tbody>
             <tr><td style="width: 22%;"><strong>Chat surface</strong></td><td>A website or app chat (claude.ai, ChatGPT, Gemini, etc.). For writing, summarizing, research. No repo access unless you paste code in.</td></tr>
@@ -647,7 +647,7 @@
         <div class="stat"><div class="n">~25</div><div class="l">Min to read</div></div>
     </div>
     <div class="callout">
-        <span class="callout-label tip">Two different rule sets — don't confuse them</span>
+        <span class="callout-label tip">Two different rule sets - don't confuse them</span>
         The <strong>40 playbook rules</strong> here (DATA, CODE, COMM, DOC, PROMPT, AP, COST) are the <em>how-we-work</em> rules on this page. They are separate from the <strong>95+ engineering rules</strong> in each repo's <code>audit-rules.md</code> (<code>PCG-*</code>, <code>VSG-*</code>, <code>TEST-*</code>, <code>PERF-*</code>) that <code>/audit</code> enforces on code. Different files, different jobs.
     </div>
 </article>
@@ -659,7 +659,7 @@
     <table class="reps">
         <thead><tr><th style="width: 4%;">#</th><th style="width: 52%;">Rep</th><th style="width: 12%;">Time</th><th>What it teaches</th></tr></thead>
         <tbody>
-            <tr><td>1</td><td><code>cd</code> into a repo, run <code>claude</code>, ask: "Explain what <code>&lt;file&gt;</code> does — files and functions only."</td><td>10 min</td><td>The read loop. Claude maps code faster than you scroll.</td></tr>
+            <tr><td>1</td><td><code>cd</code> into a repo, run <code>claude</code>, ask: "Explain what <code>&lt;file&gt;</code> does - files and functions only."</td><td>10 min</td><td>The read loop. Claude maps code faster than you scroll.</td></tr>
             <tr><td>2</td><td>Pick the smallest open bug you have. Prompt it CCO style: context, constraint, outcome. Add "plan first" and "smallest diff."</td><td>45 min</td><td>The build loop. Your first real handoff.</td></tr>
             <tr><td>3</td><td><code>/audit</code> → fix what it flags → <code>/commit</code></td><td>10 min</td><td>The loop that kills MR returns.</td></tr>
             <tr><td>4</td><td>Start two sessions with <code>claude --worktree</code> on two trivial tasks. Keep both moving.</td><td>30 min</td><td>The moment you stop typing and start reviewing. This is the tool→agent line.</td></tr>
@@ -695,7 +695,7 @@
     <p class="lede">Real results from the team, with numbers. Rules convince no one; a number from someone next to you does. This is the North Star in practice: measured wins, not claims.</p>
     <div class="war">
         <span class="callout-label">Real · ACT.X</span>
-        Presale, vesting, and NFT were still pointing at the old token. Handed Claude the bug, it repointed all three, refreshed the registry, and the full contract suite went green — in minutes, not an afternoon. <span class="war-punch">The exact fix in Demo #1, on the real contracts.</span>
+        Presale, vesting, and NFT were still pointing at the old token. Handed Claude the bug, it repointed all three, refreshed the registry, and the full contract suite went green - in minutes, not an afternoon. <span class="war-punch">The exact fix in Demo #1, on the real contracts.</span>
     </div>
     <div class="war">
         <span class="callout-label">Sample</span>
@@ -716,14 +716,14 @@
     <div class="essentials">
         <div class="ess-head">★ Non-negotiables</div>
         <ol>
-            <li>Audit before every commit <span>— <code>/audit</code> or the same checklist; kills MR returns.</span></li>
-            <li>One task per session <span>— clear context between unrelated jobs.</span></li>
-            <li>Tell it what <em>not</em> to touch <span>— state the blast radius.</span></li>
-            <li>AI drafts, you review and own it <span>— your name, your bug.</span></li>
-            <li>No secrets, no real member data <span>— redact before pasting.</span></li>
+            <li>Audit before every commit <span>- <code>/audit</code> or the same checklist; kills MR returns.</span></li>
+            <li>One task per session <span>- clear context between unrelated jobs.</span></li>
+            <li>Tell it what <em>not</em> to touch <span>- state the blast radius.</span></li>
+            <li>AI drafts, you review and own it <span>- your name, your bug.</span></li>
+            <li>No secrets, no real member data <span>- redact before pasting.</span></li>
         </ol>
     </div>
-    <h5>Prompt in one line — CCO</h5>
+    <h5>Prompt in one line - CCO</h5>
     <p><strong>Context</strong> (file path + naming) · <strong>Constraint</strong> (what not to change, what to match) · <strong>Outcome</strong> (what "done" is). Add "plan first" and "smallest diff."</p>
     <h5>Commands worth memorizing</h5>
     <table>
@@ -747,7 +747,7 @@
 <article class="card" data-part="tools" data-title="The tool landscape" data-added="0.8">
     <div class="card-kicker">◈ · Tools</div>
     <h2>The tool landscape</h2>
-    <p class="lede">Pros typically run 2–3 coding tools for different jobs. The field sorts into three categories. Pick by workflow fit, not brand loyalty — and keep the tool-neutral rules (part II) no matter which you open.</p>
+    <p class="lede">Pros typically run 2-3 coding tools for different jobs. The field sorts into three categories. Pick by workflow fit, not brand loyalty - and keep the tool-neutral rules (part II) no matter which you open.</p>
     <table>
         <thead><tr><th style="width: 28%;">Category</th><th>Examples</th><th>Best when</th></tr></thead>
         <tbody>
@@ -788,10 +788,10 @@
         <thead><tr><th style="width: 34%;">Capability</th><th>Why it matters here</th></tr></thead>
         <tbody>
             <tr><td><strong>Cloud Agents</strong> (isolated VMs; formerly Background Agents)</td><td>Build, test, and open PRs without your laptop. Multi-repo workspaces supported.</td></tr>
-            <tr><td><strong>Mobile / web kickoff</strong></td><td>Start a small UI change from your phone, review the diff, open an MR — no PC required.</td></tr>
+            <tr><td><strong>Mobile / web kickoff</strong></td><td>Start a small UI change from your phone, review the diff, open an MR - no PC required.</td></tr>
             <tr><td><strong>Composer 2.5</strong></td><td>Cursor's own agentic model: strong on long-horizon edits and tool use; fast variant is the interactive default.</td></tr>
             <tr><td><strong>Parallel / async agents</strong></td><td>Several branches or subagents in flight; same tool→agent habit as worktrees.</td></tr>
-            <tr><td><strong>Bugbot / vulnerability scan</strong></td><td>PR review and security pass as a second set of eyes — still not a substitute for human review (<code>CODE-01</code>).</td></tr>
+            <tr><td><strong>Bugbot / vulnerability scan</strong></td><td>PR review and security pass as a second set of eyes - still not a substitute for human review (<code>CODE-01</code>).</td></tr>
         </tbody>
     </table>
     <div class="callout">
@@ -807,13 +807,13 @@
 <article class="card" data-part="tools" data-title="GitHub Copilot" data-added="0.8">
     <div class="card-kicker">◈ · Tools</div>
     <h2>GitHub Copilot</h2>
-    <p>Most-adopted coding assistant — IDE extensions (VS Code, JetBrains, Neovim, and more), Copilot CLI, cloud agent, and GitHub Mobile. Lowest friction when the team already lives in GitHub.</p>
+    <p>Most-adopted coding assistant - IDE extensions (VS Code, JetBrains, Neovim, and more), Copilot CLI, cloud agent, and GitHub Mobile. Lowest friction when the team already lives in GitHub.</p>
     <table>
         <thead><tr><th style="width: 34%;">Best at</th><th>Watch-outs</th></tr></thead>
         <tbody>
             <tr><td>Inline completion + agent mode in the editor you already use</td><td>Enterprise/Business admins must enable newer model policies; defaults can lag.</td></tr>
             <tr><td>Deep GitHub context (issues, PRs, repos) via the coding agent / CLI</td><td>Still needs human review and our audit habit before merge.</td></tr>
-            <tr><td>GPT-5.6 Sol / Terra / Luna (as of July 2026) plus other providers in the picker</td><td>Match Sol (hard reasoning), Terra (everyday), Luna (cheap/fast) to the job — see part IX.</td></tr>
+            <tr><td>GPT-5.6 Sol / Terra / Luna (as of July 2026) plus other providers in the picker</td><td>Match Sol (hard reasoning), Terra (everyday), Luna (cheap/fast) to the job - see part IX.</td></tr>
         </tbody>
     </table>
     <div class="callout">
@@ -830,7 +830,7 @@
         <thead><tr><th style="width: 34%;">Best at</th><th>Our stance</th></tr></thead>
         <tbody>
             <tr><td>Fast agentic iteration in a VS Code-like editor; generous free/pro tiers historically</td><td>Viable Cursor alternative when cost or IDE preference wins.</td></tr>
-            <tr><td>Parallel agents via worktrees; handoff toward Devin cloud workers</td><td>Same parallelism habits as part IV — isolate slices, do not overlap files.</td></tr>
+            <tr><td>Parallel agents via worktrees; handoff toward Devin cloud workers</td><td>Same parallelism habits as part IV - isolate slices, do not overlap files.</td></tr>
             <tr><td>Enterprise compliance story (SOC 2 and related)</td><td>Evaluate if a client mandates those certifications; do not assume they replace our DATA rules.</td></tr>
         </tbody>
     </table>
@@ -842,7 +842,7 @@
 
 <article class="card" data-part="tools" data-title="Cline, Aider, Continue" data-added="0.8">
     <div class="card-kicker">◈ · Tools</div>
-    <h2>Cline, Aider, Continue — open / BYO-key</h2>
+    <h2>Cline, Aider, Continue - open / BYO-key</h2>
     <p>Apache-2.0 or similarly open options that are model-agnostic: Anthropic, OpenAI, Gemini, OpenRouter, or local via LM Studio / Ollama. You bring the API key (or run local). These are the realistic path if a client ever requires strict data residency or offline inference.</p>
     <table>
         <thead><tr><th style="width: 22%;">Tool</th><th>Shape</th><th>Fit</th></tr></thead>
@@ -854,23 +854,23 @@
     </table>
     <div class="callout callout-warn">
         <span class="callout-label warn">Keys and residency</span>
-        BYO-key means the key holder is on the hook for billing and for where prompts go. Local models help residency but usually lag frontier quality — do not put money math on a weak local model to save a policy argument. Escalate residency requirements; do not invent a one-off setup on a public playbook page.
+        BYO-key means the key holder is on the hook for billing and for where prompts go. Local models help residency but usually lag frontier quality - do not put money math on a weak local model to save a policy argument. Escalate residency requirements; do not invent a one-off setup on a public playbook page.
     </div>
 </article>
 
 <article class="card" data-part="tools" data-title="Which tool for which job" data-added="0.8">
     <div class="card-kicker">◈ · Tools</div>
     <h2>Which tool for which job</h2>
-    <p>Extend the part IV mode guide with a tool column. Same work, different surface — pick both.</p>
+    <p>Extend the part IV mode guide with a tool column. Same work, different surface - pick both.</p>
     <table>
         <thead><tr><th style="width: 36%;">When the work is…</th><th>Reach for</th></tr></thead>
         <tbody>
             <tr><td>Money pages, contracts, tokenomics-adjacent logic, risky migrations</td><td><strong>Claude Code</strong> + strongest model + plan mode + <code>/audit</code></td></tr>
             <tr><td>Small UI tweak, you are away from a desk, need an MR tonight</td><td><strong>Cursor</strong> cloud / mobile agent → human review on the PR</td></tr>
             <tr><td>Everyday edit in VS Code / JetBrains, low ceremony</td><td><strong>Copilot</strong> agent or inline; still run the audit habit before merge</td></tr>
-            <tr><td>Several independent slices in parallel on a laptop</td><td>Claude Code <code>--worktree</code> <em>or</em> Cursor parallel agents — isolate files either way</td></tr>
+            <tr><td>Several independent slices in parallel on a laptop</td><td>Claude Code <code>--worktree</code> <em>or</em> Cursor parallel agents - isolate files either way</td></tr>
             <tr><td>Client requires BYO-key / local / strict residency</td><td><strong>Cline / Aider / Continue</strong> with approved providers; escalate before inventing policy</td></tr>
-            <tr><td>Long unattended ticket with cloud VM + browser</td><td>Cursor Cloud Agents or Devin-class cloud — only with secrets scoped and a human owning the merge</td></tr>
+            <tr><td>Long unattended ticket with cloud VM + browser</td><td>Cursor Cloud Agents or Devin-class cloud - only with secrets scoped and a human owning the merge</td></tr>
         </tbody>
     </table>
     <div class="callout">
@@ -883,15 +883,15 @@
 <article class="card" data-part="ground" data-title="Purpose & scope" data-added="0.8">
     <div class="card-kicker">I · Ground rules</div>
     <h2>Purpose &amp; scope</h2>
-    <p>This playbook defines <em>how</em> the NaXum / BlessUP team uses AI in code — shared boundaries and rules that apply across tools, plus a per-tool layer for commands and harness files. It is not a vendor tutorial; each product's docs cover install and features. This covers how <em>we</em> use agents on <em>our</em> codebases.</p>
+    <p>This playbook defines <em>how</em> the NaXum / BlessUP team uses AI in code - shared boundaries and rules that apply across tools, plus a per-tool layer for commands and harness files. It is not a vendor tutorial; each product's docs cover install and features. This covers how <em>we</em> use agents on <em>our</em> codebases.</p>
     <p>It applies across NaXum engineering: the web app (the VO), mobile, BlessUP / ACT.X, and the coordination work around them. It assumes you have a coding agent installed and repo access.</p>
     <div class="callout">
         <span class="callout-label tip">Two layers</span>
-        <strong>Tool-neutral core</strong> — DATA, CODE, COMM, DOC, CCO prompting, anti-patterns, cost discipline. Same wherever you work. <strong>Per-tool layer</strong> — Claude Code commands and harness, Cursor cloud/mobile agents, Copilot, Windsurf / Devin Desktop, open-source BYO-key options. Details in <b>◈ · Tools</b>.
+        <strong>Tool-neutral core</strong> - DATA, CODE, COMM, DOC, CCO prompting, anti-patterns, cost discipline. Same wherever you work. <strong>Per-tool layer</strong> - Claude Code commands and harness, Cursor cloud/mobile agents, Copilot, Windsurf / Devin Desktop, open-source BYO-key options. Details in <b>◈ · Tools</b>.
     </div>
     <div class="callout">
         <span class="callout-label tip">The shape of it</span>
-        Four layers. <strong>Rules</strong> that are non-negotiable (part II). <strong>Conventions</strong> for prompting and workflow (parts III–IV). <strong>Role defaults</strong> so you do not assemble your own from scratch (part V). <strong>Tool &amp; model choice</strong> so the job picks the gear (◈ · Tools, part IX).
+        Four layers. <strong>Rules</strong> that are non-negotiable (part II). <strong>Conventions</strong> for prompting and workflow (parts III-IV). <strong>Role defaults</strong> so you do not assemble your own from scratch (part V). <strong>Tool &amp; model choice</strong> so the job picks the gear (◈ · Tools, part IX).
     </div>
 </article>
 
@@ -901,7 +901,7 @@
     <p>Every NaXum repo ships with a Claude harness: the setup that makes Claude already know our stack, our rules, and our patterns the moment you open a session. You do not start from a blank prompt. You start from thousands of lines of context that load automatically.</p>
     <div class="callout">
         <span class="callout-label tip">Other tools, same idea</span>
-        Cursor loads <code>.cursor/rules/</code> and <code>AGENTS.md</code>; Copilot can pin settings under <code>.github/copilot/</code>; open-source agents often read <code>AGENTS.md</code> or their own config. Mirror the same principles — stack, blast radius, definition of done — and see <b>◈ · Tools</b> for per-product notes. This card stays Claude Code–specific because that is our deepest harness today.
+        Cursor loads <code>.cursor/rules/</code> and <code>AGENTS.md</code>; Copilot can pin settings under <code>.github/copilot/</code>; open-source agents often read <code>AGENTS.md</code> or their own config. Mirror the same principles - stack, blast radius, definition of done - and see <b>◈ · Tools</b> for per-product notes. This card stays Claude Code-specific because that is our deepest harness today.
     </div>
     <table>
         <thead><tr><th style="width: 30%;">File</th><th>Purpose</th></tr></thead>
@@ -921,7 +921,7 @@
         <div class="demo-head"><span>▶ Real demo · ACT.X</span><span class="kind">~90 sec</span></div>
         <div class="demo-body">
             <div class="demo-title">Get productive in a new repo without reading all of it</div>
-            <div class="demo-cap">A real session in a freshly-migrated repo (<code>actx-cloud</code>): "Trace the Stripe payment flow from the launchpad request through to where the webhook is verified — files and functions only." Claude maps it across the codebase; you confirm <code>stripe.webhooks.constructEvent</code> and the NOWPayments IPN check. Onboarding in minutes, not days.</div>
+            <div class="demo-cap">A real session in a freshly-migrated repo (<code>actx-cloud</code>): "Trace the Stripe payment flow from the launchpad request through to where the webhook is verified - files and functions only." Claude maps it across the codebase; you confirm <code>stripe.webhooks.constructEvent</code> and the NOWPayments IPN check. Onboarding in minutes, not days.</div>
             <video class="demo-video" controls preload="none" playsinline poster="assets/demo-2-onboard.jpg" src="assets/demo-2-onboard.mp4"></video>
         </div>
     </div>
@@ -930,18 +930,18 @@
 <article class="card" data-part="ground" data-title="Harness status by surface" data-added="0.6">
     <div class="card-kicker">I · Ground rules</div>
     <h2>Harness status by surface</h2>
-    <p>The harness is the goal on every surface, but it is not fully built out everywhere yet. Before you type <code>/audit</code> into a repo, know what that repo actually ships — otherwise you will call a command that is not there.</p>
+    <p>The harness is the goal on every surface, but it is not fully built out everywhere yet. Before you type <code>/audit</code> into a repo, know what that repo actually ships - otherwise you will call a command that is not there.</p>
     <table>
         <thead><tr><th style="width: 26%;">Surface</th><th style="width: 30%;">Harness today</th><th>Notes</th></tr></thead>
         <tbody>
-            <tr><td><strong>VO</strong> (Laravel/Vue)</td><td>Full — <code>CLAUDE.md</code>, <code>audit-rules.md</code>, <code>/audit</code>, <code>/sail-up</code>, <code>refs/</code></td><td>The reference harness. Everything on this page assumes it.</td></tr>
+            <tr><td><strong>VO</strong> (Laravel/Vue)</td><td>Full - <code>CLAUDE.md</code>, <code>audit-rules.md</code>, <code>/audit</code>, <code>/sail-up</code>, <code>refs/</code></td><td>The reference harness. Everything on this page assumes it.</td></tr>
             <tr><td><strong>Mobile</strong> (Expo/RN)</td><td>Partial</td><td>Skills present; full rule set still being ported. Manual review where <code>/audit</code> is not wired yet.</td></tr>
             <tr><td><strong>Contracts / BlessUP</strong> (Solidity, NestJS, Next)</td><td><code>.claude/skills/</code> only</td><td>No <code>CLAUDE.md</code> / <code>audit-rules.md</code> / <code>/audit</code> yet. <code>/audit-sol</code> and a contracts <code>CLAUDE.md</code> are coming.</td></tr>
         </tbody>
     </table>
     <div class="callout callout-warn">
         <span class="callout-label warn">Do not assume a command exists</span>
-        Type <code>/</code> in the session to see what the repo actually ships. If <code>/audit</code> is not there, do a manual review against the rules on this page until the harness lands — do not skip the review because the command is missing.
+        Type <code>/</code> in the session to see what the repo actually ships. If <code>/audit</code> is not there, do a manual review against the rules on this page until the harness lands - do not skip the review because the command is missing.
     </div>
 </article>
 
@@ -951,12 +951,12 @@
     <p>The harness gets smarter the same way this playbook does: every confident mistake becomes a rule.</p>
     <div class="callout">
         <span class="callout-label tip">The habit</span>
-        Any time you correct Claude, end the session with one more line: <em>"Update CLAUDE.md so you don't make that mistake again."</em> Claude is eerily good at writing rules for itself. Review the diff like any other — CLAUDE.md changes go through MR like everything else.
+        Any time you correct Claude, end the session with one more line: <em>"Update CLAUDE.md so you don't make that mistake again."</em> Claude is eerily good at writing rules for itself. Review the diff like any other - CLAUDE.md changes go through MR like everything else.
     </div>
     <p><strong>The compounding.</strong> Ten engineers each adding one correction a week is a harness that gets measurably sharper every month. This pairs with <code>DOC-05</code>: the screenshot goes to the thread, the rule goes to the harness.</p>
     <div class="callout callout-warn">
         <span class="callout-label warn">What if a correction is wrong?</span>
-        A bad rule does not silently poison everything. Every harness change goes through MR review, so a teammate catches a wrong rule the same way they catch wrong code — before it lands. And a rule only shapes behavior; the test suite and <code>/audit</code> are still the source of truth, so a bad rule that produces bad code gets caught at the gate. If a rule turns out wrong later, you fix it in one place and the whole team gets the fix. That is the point of one committed harness over notes on ten laptops.
+        A bad rule does not silently poison everything. Every harness change goes through MR review, so a teammate catches a wrong rule the same way they catch wrong code - before it lands. And a rule only shapes behavior; the test suite and <code>/audit</code> are still the source of truth, so a bad rule that produces bad code gets caught at the gate. If a rule turns out wrong later, you fix it in one place and the whole team gets the fix. That is the point of one committed harness over notes on ten laptops.
     </div>
 </article>
 
@@ -976,7 +976,7 @@
     </table>
     <div class="callout">
         <span class="callout-label tip">Built-in vs ours</span>
-        Claude ships its own <code>/code-review</code> (and <code>/code-review --fix</code> to apply findings). It is a fine general pass, but <code>/audit</code> stays the required gate — it enforces <em>our</em> <code>audit-rules.md</code>, which a generic review does not know. Use the built-in as an extra set of eyes, not a substitute.
+        Claude ships its own <code>/code-review</code> (and <code>/code-review --fix</code> to apply findings). It is a fine general pass, but <code>/audit</code> stays the required gate - it enforces <em>our</em> <code>audit-rules.md</code>, which a generic review does not know. Use the built-in as an extra set of eyes, not a substitute.
     </div>
 </article>
 
@@ -1001,10 +1001,10 @@
 </article>
 
 <!-- ===================== II · RULE SETS ===================== -->
-<article class="card" data-part="rules" data-title="DATA — security & confidentiality" data-added="0.8">
+<article class="card" data-part="rules" data-title="DATA - security & confidentiality" data-added="0.8">
     <div class="card-kicker">II · Rule sets</div>
-    <h2>DATA — security &amp; confidentiality</h2>
-    <p class="lede">Six rules. Breaking one is a stop-everything moment, not a code-review note. <strong>Applies to every AI tool</strong> — Claude Code, Cursor, Copilot, chat sites, cloud agents, local models. The product name does not change the rule.</p>
+    <h2>DATA - security &amp; confidentiality</h2>
+    <p class="lede">Six rules. Breaking one is a stop-everything moment, not a code-review note. <strong>Applies to every AI tool</strong> - Claude Code, Cursor, Copilot, chat sites, cloud agents, local models. The product name does not change the rule.</p>
     <div class="rule"><div class="rule-id data">DATA-01</div><div class="rule-body"><strong>No production customer data in any AI tool.</strong> Member names, emails, phones, addresses, payment info, member IDs. Not in chat sites, not in IDE agents, not in cloud agents, not in screenshots. Anonymize before pasting.</div></div>
     <div class="rule"><div class="rule-id data">DATA-02</div><div class="rule-body"><strong>No secrets in any prompt.</strong> API keys, JWT secrets, DB credentials, Stripe keys, Apple/Google merchant keys, IPN tokens. Paste the variable <em>name</em> and the error, never the value.</div></div>
     <div class="rule"><div class="rule-id data">DATA-03</div><div class="rule-body"><strong>No full <code>.env</code> dumps.</strong> Even when debugging env issues. Share the schema and the error, not the values.</div></div>
@@ -1019,12 +1019,12 @@
     <p>The DATA rules say no secrets and no real member data. In practice the hard part is a stack trace or a log line that has both the error you need help with <em>and</em> a token, an email, or a member ID baked in. You do not have to choose between the two. Redact, then share.</p>
     <p>Claude needs the <strong>shape</strong> of the failure: the exception, the file and line, the call stack, the variable names. It does not need the <strong>values</strong>. Strip the values, keep everything else.</p>
     <div class="prompt-compare">
-        <div class="prompt-box bad"><span class="prompt-tag tag-bad">Raw — don't paste</span><div>SQLSTATE[HY000]: General error: 1364<br>insert into <code>members</code> (<code>email</code>, <code>phone</code>, <code>ssn_last4</code>, <code>api_token</code>)<br>values ('jane.doe@gmail.com', '+1 415 555 0199', '4417', 'sk_live_9f2a...c7')<br>at MemberController.php:212<br>Authorization: Bearer eyJhbGciOiJIUzI1Ni...</div></div>
-        <div class="prompt-box good" data-copy><span class="prompt-tag tag-good">Redacted — safe to paste</span><div>SQLSTATE[HY000]: General error: 1364 (column has no default)<br>insert into <code>members</code> (<code>email</code>, <code>phone</code>, <code>ssn_last4</code>, <code>api_token</code>)<br>values (&lt;email&gt;, &lt;phone&gt;, &lt;ssn4&gt;, &lt;token&gt;)<br>at MemberController.php:212<br>Authorization: Bearer &lt;redacted&gt;<br><br>"Insert fails on column 1364. The model fills these elsewhere — where should the default come from?"</div></div>
+        <div class="prompt-box bad"><span class="prompt-tag tag-bad">Raw - don't paste</span><div>SQLSTATE[HY000]: General error: 1364<br>insert into <code>members</code> (<code>email</code>, <code>phone</code>, <code>ssn_last4</code>, <code>api_token</code>)<br>values ('jane.doe@gmail.com', '+1 415 555 0199', '4417', 'sk_live_9f2a...c7')<br>at MemberController.php:212<br>Authorization: Bearer eyJhbGciOiJIUzI1Ni...</div></div>
+        <div class="prompt-box good" data-copy><span class="prompt-tag tag-good">Redacted - safe to paste</span><div>SQLSTATE[HY000]: General error: 1364 (column has no default)<br>insert into <code>members</code> (<code>email</code>, <code>phone</code>, <code>ssn_last4</code>, <code>api_token</code>)<br>values (&lt;email&gt;, &lt;phone&gt;, &lt;ssn4&gt;, &lt;token&gt;)<br>at MemberController.php:212<br>Authorization: Bearer &lt;redacted&gt;<br><br>"Insert fails on column 1364. The model fills these elsewhere - where should the default come from?"</div></div>
     </div>
     <div class="callout callout-good">
         <span class="callout-label good">The three-pass redact</span>
-        Before pasting any log: (1) replace every <strong>value</strong> with a placeholder like <code>&lt;email&gt;</code> or <code>&lt;token&gt;</code> — keep the key names. (2) Delete any line that is purely a secret (full <code>Authorization</code> headers, connection strings, cookies). (3) Keep the exception, the file:line, and the stack. That is the part Claude actually reads.
+        Before pasting any log: (1) replace every <strong>value</strong> with a placeholder like <code>&lt;email&gt;</code> or <code>&lt;token&gt;</code> - keep the key names. (2) Delete any line that is purely a secret (full <code>Authorization</code> headers, connection strings, cookies). (3) Keep the exception, the file:line, and the stack. That is the part Claude actually reads.
     </div>
     <div class="callout">
         <span class="callout-label tip">Faster than doing it by hand</span>
@@ -1032,11 +1032,11 @@
     </div>
 </article>
 
-<article class="card" data-part="rules" data-title="CODE — engineering rules">
+<article class="card" data-part="rules" data-title="CODE - engineering rules">
     <div class="card-kicker">II · Rule sets</div>
-    <h2>CODE — engineering rules</h2>
+    <h2>CODE - engineering rules</h2>
     <p class="lede">Eight rules. AI-written code earns no shortcuts through the process. <strong>Applies to every coding agent.</strong></p>
-    <div class="rule"><div class="rule-id code">CODE-01</div><div class="rule-body"><strong>Every MR goes through human review.</strong> AI-written code follows the same approval chain as hand-written: frontend → frontend lead, backend → backend lead, money pages → backend QA. An agent does not bypass review — not Bugbot, not cloud agents, not <code>/code-review</code>.</div></div>
+    <div class="rule"><div class="rule-id code">CODE-01</div><div class="rule-body"><strong>Every MR goes through human review.</strong> AI-written code follows the same approval chain as hand-written: frontend → frontend lead, backend → backend lead, money pages → backend QA. An agent does not bypass review - not Bugbot, not cloud agents, not <code>/code-review</code>.</div></div>
     <div class="rule"><div class="rule-id code">CODE-02</div><div class="rule-body"><strong><code>/audit</code> is required before every commit.</strong> Even small changes. Especially Claude-written changes. Every MR that comes back is a failure of this step.</div></div>
     <div class="rule"><div class="rule-id code">CODE-03</div><div class="rule-body"><strong>The test suite is the source of truth.</strong> Know the repo's green baseline (0 failing, 0 skipped) and never drop below it. If your work reduces the pass count, stop and investigate before committing. Never suppress, skip, or delete a failing test to make the count match.</div></div>
     <div class="rule"><div class="rule-id code">CODE-04</div><div class="rule-body"><strong>No silent dependency additions.</strong> If Claude suggests installing a new package, the human decides. Justify the add in the MR description.</div></div>
@@ -1046,9 +1046,9 @@
     <div class="rule"><div class="rule-id code">CODE-08</div><div class="rule-body"><strong>Behavior changes need a test.</strong> If Claude changes logic that affects user-visible behavior or money flow (commissions, payouts, billing), it adds or updates a test.</div></div>
 </article>
 
-<article class="card" data-part="rules" data-title="COMM — client & team communication">
+<article class="card" data-part="rules" data-title="COMM - client & team communication">
     <div class="card-kicker">II · Rule sets</div>
-    <h2>COMM — client &amp; team communication</h2>
+    <h2>COMM - client &amp; team communication</h2>
     <p class="lede">Four rules. AI drafts; a person sends. <strong>Applies to every tool.</strong></p>
     <div class="rule"><div class="rule-id comm">COMM-01</div><div class="rule-body"><strong>An agent does not post on your behalf.</strong> Drafts only. Basecamp posts, client emails, MR descriptions: all reviewed and sent by a human.</div></div>
     <div class="rule"><div class="rule-id comm">COMM-02</div><div class="rule-body"><strong>Match the channel's voice.</strong> Task specs follow TASK / NOTES / DONE DONE. Basecamp posts get a TLDR at top, no em dashes, simple language. Client comms are warmer. Claude defaults to verbose corporate tone; cut hard.</div></div>
@@ -1056,9 +1056,9 @@
     <div class="rule"><div class="rule-id comm">COMM-04</div><div class="rule-body"><strong>Client-facing content gets a second pass.</strong> Anything going to an external stakeholder is reviewed before sending.</div></div>
 </article>
 
-<article class="card" data-part="rules" data-title="DOC — documenting AI-generated work">
+<article class="card" data-part="rules" data-title="DOC - documenting AI-generated work">
     <div class="card-kicker">II · Rule sets</div>
-    <h2>DOC — documenting AI-generated work</h2>
+    <h2>DOC - documenting AI-generated work</h2>
     <p>Using AI coding tools is encouraged. <em>Hiding</em> that you used them is not. These five rules keep AI-generated work reviewable, traceable, and honest, so the next person (and the audit trail) knows what to trust and what to double-check. <strong>Tool-agnostic.</strong></p>
     <div class="rule"><div class="rule-id doc">DOC-01</div><div class="rule-body"><strong>You own what you submit.</strong> Once your name is on an MR, a Basecamp post, or a doc, it is yours. "The AI wrote it" is never an excuse for a bug, a wrong number, or a bad tone. Read every line before it ships.</div></div>
     <div class="rule"><div class="rule-id doc">DOC-02</div><div class="rule-body"><strong>Note AI-assisted work in the MR description.</strong> One line is enough, e.g. <em>"Slice drafted with Claude Code, reviewed and audited by me."</em> Reviewers calibrate their attention when they know what was machine-drafted.</div></div>
@@ -1098,21 +1098,21 @@
     <div class="rule"><div class="rule-id prompt">PROMPT-06</div><div class="rule-body"><strong>Don't make Claude research external docs from scratch.</strong> Point it at the specific docs URL with the question. Do not let it spelunk.</div></div>
 </article>
 
-<article class="card" data-part="prompting" data-title="NaXum examples — bad vs good">
+<article class="card" data-part="prompting" data-title="NaXum examples - bad vs good">
     <div class="card-kicker">III · Prompting</div>
-    <h2>NaXum examples — bad vs good</h2>
+    <h2>NaXum examples - bad vs good</h2>
     <p class="lede">Four real shapes of work. Hover a green box and hit <span class="kbd">Copy</span> to grab the prompt.</p>
 
     <h4>Bug triage from a reported issue (VO frontend)</h4>
     <div class="prompt-compare">
         <div class="prompt-box bad"><span class="prompt-tag tag-bad">Bad</span><div>"Fix the contact download bug that was reported"</div></div>
-        <div class="prompt-box good" data-copy><span class="prompt-tag tag-good">Good</span><div>"In <code>app/Http/Controllers/ContactsController.php</code> the <code>downloadCsv()</code> method exports every DB column. We want only the columns currently visible in the frontend table — the frontend sends them as <code>visible_columns[]</code> in the request. Don't change the frontend. Add a feature test in <code>tests/Feature/Contacts/DownloadCsvTest.php</code>. Smallest diff."</div></div>
+        <div class="prompt-box good" data-copy><span class="prompt-tag tag-good">Good</span><div>"In <code>app/Http/Controllers/ContactsController.php</code> the <code>downloadCsv()</code> method exports every DB column. We want only the columns currently visible in the frontend table - the frontend sends them as <code>visible_columns[]</code> in the request. Don't change the frontend. Add a feature test in <code>tests/Feature/Contacts/DownloadCsvTest.php</code>. Smallest diff."</div></div>
     </div>
 
     <h4>Adding validation (VO backend)</h4>
     <div class="prompt-compare">
         <div class="prompt-box bad"><span class="prompt-tag tag-bad">Bad</span><div>"Add username with numbers"</div></div>
-        <div class="prompt-box good" data-copy><span class="prompt-tag tag-good">Good</span><div>"The username field rejects digits via the regex in <code>UserStoreRequest.php</code>. Update it to accept digits but reject usernames that are ALL digits — at least one letter required. Add the cases to <code>UserStoreRequestTest.php</code>. Don't change the length limit or any other rule on this request class."</div></div>
+        <div class="prompt-box good" data-copy><span class="prompt-tag tag-good">Good</span><div>"The username field rejects digits via the regex in <code>UserStoreRequest.php</code>. Update it to accept digits but reject usernames that are ALL digits - at least one letter required. Add the cases to <code>UserStoreRequestTest.php</code>. Don't change the length limit or any other rule on this request class."</div></div>
     </div>
 
     <h4>Understanding a flow (commission engine QA)</h4>
@@ -1131,7 +1131,7 @@
 <article class="card" data-part="prompting" data-title="Backend prompt library" data-added="0.6">
     <div class="card-kicker">III · Prompting</div>
     <h2>Backend prompt library</h2>
-    <p class="lede">More real shapes for backend work — Laravel features and the everyday jobs (debugging, performance, refactoring). Same CCO discipline: name the file, state the constraint, define done. Hover a box and hit <span class="kbd">Copy</span>.</p>
+    <p class="lede">More real shapes for backend work - Laravel features and the everyday jobs (debugging, performance, refactoring). Same CCO discipline: name the file, state the constraint, define done. Hover a box and hit <span class="kbd">Copy</span>.</p>
 
     <h4>Queued job (Laravel jobs + queues)</h4>
     <div class="prompt-compare">
@@ -1160,15 +1160,15 @@
     <h4>Refactoring (scoped, behavior-preserving)</h4>
     <div class="prompt-compare">
         <div class="prompt-box bad"><span class="prompt-tag tag-bad">Bad</span><div>"Clean up the commission service"</div></div>
-        <div class="prompt-box good" data-copy><span class="prompt-tag tag-good">Good</span><div>"Extract the payout-tier logic in <code>CommissionService@calculate</code> into a private method <code>tierFor(int $volume)</code>. Behavior must not change — the existing tests must stay green with no edits. Smallest diff, one method, nothing else in this class or any other file. Show me a plan first."</div></div>
+        <div class="prompt-box good" data-copy><span class="prompt-tag tag-good">Good</span><div>"Extract the payout-tier logic in <code>CommissionService@calculate</code> into a private method <code>tierFor(int $volume)</code>. Behavior must not change - the existing tests must stay green with no edits. Smallest diff, one method, nothing else in this class or any other file. Show me a plan first."</div></div>
     </div>
 </article>
 
 <!-- ===================== IV · AGENTIC ===================== -->
-<article class="card" data-part="agentic" data-title="Which mode when — a decision guide" data-added="0.8">
+<article class="card" data-part="agentic" data-title="Which mode when - a decision guide" data-added="0.8">
     <div class="card-kicker">IV · Agentic workflows</div>
-    <h2>Which mode when — a decision guide</h2>
-    <p>Coding agents give you several gears. Picking the right one is most of the skill. Match the work to the mode — and to the tool (see <b>◈ · Tools</b>) — instead of using the same gear for everything. Commands below are Claude Code names; the habits transfer.</p>
+    <h2>Which mode when - a decision guide</h2>
+    <p>Coding agents give you several gears. Picking the right one is most of the skill. Match the work to the mode - and to the tool (see <b>◈ · Tools</b>) - instead of using the same gear for everything. Commands below are Claude Code names; the habits transfer.</p>
     <table>
         <thead><tr><th style="width: 38%;">When the work is…</th><th>Reach for</th></tr></thead>
         <tbody>
@@ -1183,13 +1183,13 @@
     </table>
     <div class="callout">
         <span class="callout-label tip">When in doubt</span>
-        Plan mode is the safe default for anything non-trivial — it is the cheapest way to catch a wrong turn. You can always drop out of it once the plan is right. For which <em>product</em> to open, use the which-tool card in <b>◈ · Tools</b>.
+        Plan mode is the safe default for anything non-trivial - it is the cheapest way to catch a wrong turn. You can always drop out of it once the plan is right. For which <em>product</em> to open, use the which-tool card in <b>◈ · Tools</b>.
     </div>
 </article>
 
 <article class="card" data-part="agentic" data-title="Plan mode: pour energy into the plan" data-added="0.4">
     <div class="card-kicker">IV · Agentic workflows</div>
-    <h2>Plan mode — pour the energy into the plan</h2>
+    <h2>Plan mode - pour the energy into the plan</h2>
     <p>For anything bigger than a one-liner, start in plan mode: hit <span class="kbd">shift</span>+<span class="kbd">tab</span> twice. Claude proposes a plan, you iterate on it until it is right, then switch to auto-accept and let it one-shot the implementation.</p>
     <div class="callout">
         <span class="callout-label tip">The workflow</span>
@@ -1204,7 +1204,7 @@
 
 <article class="card" data-part="agentic" data-title="Parallel worktrees">
     <div class="card-kicker">IV · Agentic workflows</div>
-    <h2>Parallel worktrees — three slices at once</h2>
+    <h2>Parallel worktrees - three slices at once</h2>
     <p>The single biggest unlock: run multiple Claude Code sessions at the same time, each in its own git worktree, each on a different slice. One engineer, three slices, same wall-clock.</p>
     <p>Worktrees are now built in. One flag, no manual git setup:</p>
     <div class="codewrap"><pre><code>claude --worktree slice-4a     # opens an isolated worktree + session
@@ -1221,13 +1221,13 @@ claude --worktree slice-5a     # third</code></pre></div>
     </div>
     <div class="callout callout-warn">
         <span class="callout-label warn">Parallel is a choice, not a mandate</span>
-        Running three sessions splits your attention, and for high-stakes work — commissions, payouts, anything you must review line by line — one focused session usually beats three half-watched ones. Reach for worktrees when the slices are independent and mechanical enough to review calmly. When the work needs your full head, do one at a time. The goal is throughput <em>with</em> control, not tabs for their own sake.
+        Running three sessions splits your attention, and for high-stakes work - commissions, payouts, anything you must review line by line - one focused session usually beats three half-watched ones. Reach for worktrees when the slices are independent and mechanical enough to review calmly. When the work needs your full head, do one at a time. The goal is throughput <em>with</em> control, not tabs for their own sake.
     </div>
     <div class="demo">
         <div class="demo-head"><span>▶ Real demo · ACT.X</span><span class="kind">~90 sec</span></div>
         <div class="demo-body">
             <div class="demo-title">Three agents, one change across three repos</div>
-            <div class="demo-cap">A real session: 3 Claude Code agents at once across <code>actx-contracts</code>, <code>actx-cloud</code>, and <code>blessup-launchpad</code> — exploring backend architecture, reviewing contracts for mergeability, and checking UI/backend integration after the GitHub migration. One engineer directing three streams in parallel.</div>
+            <div class="demo-cap">A real session: 3 Claude Code agents at once across <code>actx-contracts</code>, <code>actx-cloud</code>, and <code>blessup-launchpad</code> - exploring backend architecture, reviewing contracts for mergeability, and checking UI/backend integration after the GitHub migration. One engineer directing three streams in parallel.</div>
             <video class="demo-video" controls preload="none" playsinline poster="assets/demo-3-parallel-agents.jpg" src="assets/demo-3-parallel-agents.mp4"></video>
         </div>
     </div>
@@ -1235,9 +1235,9 @@ claude --worktree slice-5a     # third</code></pre></div>
 
 <article class="card" data-part="agentic" data-title="Subagents: throw more compute at it" data-added="0.4">
     <div class="card-kicker">IV · Agentic workflows</div>
-    <h2>Subagents — throw more compute at it</h2>
+    <h2>Subagents - throw more compute at it</h2>
     <p>Append "use subagents" to any request where the work fans out: exploring a codebase, checking a change across many files, researching three options at once. Claude spins up parallel workers and keeps your main session's context clean.</p>
-    <div class="codewrap"><pre><code>&gt; use 3 subagents to explore the commission engine —
+    <div class="codewrap"><pre><code>&gt; use 3 subagents to explore the commission engine -
 &gt; controllers, services, and jobs. Files and methods only.</code></pre></div>
     <div class="vs">
         <div class="vs-card agent">
@@ -1253,24 +1253,24 @@ claude --worktree slice-5a     # third</code></pre></div>
     </div>
     <div class="callout">
         <span class="callout-label tip">Newer behavior worth knowing</span>
-        Subagents now run in the background by default, so your main session keeps working while they finish. A subagent can also launch its own subagents, so one explore request can branch into a tree. Both are powerful for a wide sweep, but the review and the cost are still yours — scope the top-level ask so the tree does not run wider than you need.
+        Subagents now run in the background by default, so your main session keeps working while they finish. A subagent can also launch its own subagents, so one explore request can branch into a tree. Both are powerful for a wide sweep, but the review and the cost are still yours - scope the top-level ask so the tree does not run wider than you need.
     </div>
 </article>
 
 <article class="card" data-part="agentic" data-title="Claude drafts, you review">
     <div class="card-kicker">IV · Agentic workflows</div>
-    <h2>Claude drafts, you review — invert the work</h2>
+    <h2>Claude drafts, you review - invert the work</h2>
     <p>The slow way: you write the slice from scratch, Claude helps here and there. The fast way: Claude writes the first full draft from the migration plan, and you become the reviewer. Same quality bar, a fraction of the time.</p>
     <div class="prompt-compare">
         <div class="prompt-box bad"><span class="prompt-tag tag-bad">Tool way</span><div>Open the files, start typing the port yourself, ask Claude to fill in functions as you go.</div></div>
-        <div class="prompt-box good" data-copy><span class="prompt-tag tag-good">Agent way</span><div>"Implement slice 4a (manage — simple) by porting from <code>nxm-office</code> to <code>laravel12_vo</code>, following the patterns in CLAUDE.md and the migration plan. Show me a plan first. Then implement, run <code>/audit</code>, and report what changed."</div></div>
+        <div class="prompt-box good" data-copy><span class="prompt-tag tag-good">Agent way</span><div>"Implement slice 4a (manage - simple) by porting from <code>nxm-office</code> to <code>laravel12_vo</code>, following the patterns in CLAUDE.md and the migration plan. Show me a plan first. Then implement, run <code>/audit</code>, and report what changed."</div></div>
     </div>
     <p>You stay in the loop on judgment and architecture. Claude handles the mechanical lift. <strong>You review and correct, not the other way around.</strong></p>
 </article>
 
 <article class="card" data-part="agentic" data-title="/audit before every commit">
     <div class="card-kicker">IV · Agentic workflows</div>
-    <h2><code>/audit</code> before every commit — kill the returns</h2>
+    <h2><code>/audit</code> before every commit - kill the returns</h2>
     <p>Returns are the timeline killer. Every MR that bounces back costs a reviewer cycle plus your rework. <code>/audit</code> catches exactly those issues <em>before</em> review. Run it before every single commit. Zero exceptions, zero returns is the standard.</p>
     <div class="codewrap"><pre><code># after Claude finishes a slice, before you commit:
 /audit
@@ -1285,19 +1285,19 @@ claude --worktree slice-5a     # third</code></pre></div>
 
 <article class="card" data-part="agentic" data-title="AI-assisted MR review">
     <div class="card-kicker">IV · Agentic workflows</div>
-    <h2>AI-assisted MR review — pre-review before the human</h2>
+    <h2>AI-assisted MR review - pre-review before the human</h2>
     <p>Reviewing is a bottleneck on every team. Before a human opens the diff, have Claude do a first pass: what changed, which audit rules it touches, what looks risky. The human reviewer then signs off in a fraction of the time.</p>
     <div class="codewrap"><pre><code>git fetch &amp;&amp; git checkout origin/&lt;mr-branch&gt;
 claude
 &gt; Review this diff vs main. Flag anything that breaks an audit rule,
 &gt; doesn't match our patterns, or looks risky. Files + line numbers only.
 &gt; Then give me a 5-line summary I can paste into the MR thread.</code></pre></div>
-    <p class="lede">Reviewer time on a typical MR drops from roughly 30–45 minutes to about 10. The human still makes the call; Claude just clears the underbrush.</p>
+    <p class="lede">Reviewer time on a typical MR drops from roughly 30-45 minutes to about 10. The human still makes the call; Claude just clears the underbrush.</p>
 </article>
 
-<article class="card" data-part="agentic" data-title="The migration loop — Gate A/B/C">
+<article class="card" data-part="agentic" data-title="The migration loop - Gate A/B/C">
     <div class="card-kicker">IV · Agentic workflows</div>
-    <h2>The migration loop — Gate A / B / C</h2>
+    <h2>The migration loop - Gate A / B / C</h2>
     <p>A big port (like <code>nxm-office</code> → <code>laravel12_vo</code>) runs slice by slice through a three-gate method. Each gate is a human checkpoint; Claude does the work inside each phase, you approve between them.</p>
     <table>
         <thead><tr><th style="width: 16%;">Gate</th><th>Claude does</th><th>You do</th></tr></thead>
@@ -1341,7 +1341,7 @@ claude
             <tr><td>Has a clear "done" you can state in one line</td><td>"Refactor everything related to X"</td></tr>
         </tbody>
     </table>
-    <h5>A worked example — add a subscription refund flow</h5>
+    <h5>A worked example - add a subscription refund flow</h5>
     <p>One feature, sliced so each piece ships green on its own:</p>
     <table>
         <thead><tr><th style="width: 12%;">Slice</th><th style="width: 44%;">Owns these files</th><th>Ships on its own?</th></tr></thead>
@@ -1353,7 +1353,7 @@ claude
     </table>
     <div class="callout">
         <span class="callout-label tip">How to keep slices from overlapping</span>
-        Give each slice its <em>own files</em>. Slices overlap when two of them edit the same file — that is the signal they are not actually independent. If it happens, either sequence them (one after the other, not in parallel) or merge them into one slice. Order so slice N only builds on N-1, never on N+1. Only slices that touch <strong>disjoint</strong> files are safe to run at once in separate worktrees.
+        Give each slice its <em>own files</em>. Slices overlap when two of them edit the same file - that is the signal they are not actually independent. If it happens, either sequence them (one after the other, not in parallel) or merge them into one slice. Order so slice N only builds on N-1, never on N+1. Only slices that touch <strong>disjoint</strong> files are safe to run at once in separate worktrees.
     </div>
     <div class="callout callout-good">
         <span class="callout-label good">The pattern</span>
@@ -1361,7 +1361,7 @@ claude
     </div>
     <div class="callout callout-warn">
         <span class="callout-label warn">Keep the thread, not the bloat</span>
-        If slice 3 genuinely needs what happened in slice 2, <code>/compact</code> at the commit boundary instead of <code>/clear</code> — you keep the summary and drop the noise. Default to <code>/clear</code> between truly independent slices.
+        If slice 3 genuinely needs what happened in slice 2, <code>/compact</code> at the commit boundary instead of <code>/clear</code> - you keep the summary and drop the noise. Default to <code>/clear</code> between truly independent slices.
     </div>
 </article>
 
@@ -1378,7 +1378,7 @@ claude
     </ol>
     <div class="war">
         <span class="callout-label">For a 20+ file slice</span>
-        Do not do one giant audit at the end. Run <code>/audit</code> per sub-slice as you build (5–10 files at a time, see <code>COST-04</code>), then one final full pass over the assembled change before the MR.
+        Do not do one giant audit at the end. Run <code>/audit</code> per sub-slice as you build (5-10 files at a time, see <code>COST-04</code>), then one final full pass over the assembled change before the MR.
         <span class="war-punch">Incremental audits catch issues while the context is still cheap; the final pass catches the seams between slices.</span>
     </div>
 </article>
@@ -1391,12 +1391,12 @@ claude
         <thead><tr><th style="width: 24%;">Tool</th><th>What it does</th></tr></thead>
         <tbody>
             <tr><td><code>/goal</code></td><td>Give Claude a completion condition and it keeps working across turns until that condition holds, instead of stopping after each step for you to say "continue." Good for a well-scoped multi-step task you have already planned.</td></tr>
-            <tr><td><code>claude agents</code> (agent view)</td><td>One screen for every session: what is running, what is blocked on you, what is done. The control panel for parallel worktrees and subagents — you stop hunting across terminal tabs.</td></tr>
+            <tr><td><code>claude agents</code> (agent view)</td><td>One screen for every session: what is running, what is blocked on you, what is done. The control panel for parallel worktrees and subagents - you stop hunting across terminal tabs.</td></tr>
         </tbody>
     </table>
     <div class="callout callout-warn">
         <span class="callout-label warn">Set the goal, still check the result</span>
-        <code>/goal</code> only earns its keep after plan mode — a clear plan and a tight completion condition. It runs longer without you, it does not review itself. When it stops, you still read the diff and <code>/audit</code>. Autonomy on the doing, not on the judgment.
+        <code>/goal</code> only earns its keep after plan mode - a clear plan and a tight completion condition. It runs longer without you, it does not review itself. When it stops, you still read the diff and <code>/audit</code>. Autonomy on the doing, not on the judgment.
     </div>
 </article>
 
@@ -1405,12 +1405,12 @@ claude
     <div class="card-kicker">V · Role playbooks</div>
     <h2>Frontend Engineer</h2>
     <div class="role-meta">Vue 3 · PrimeVue · Tailwind · Pinia</div>
-    <h5>Default workflow — slice port (agentic)</h5>
+    <h5>Default workflow - slice port (agentic)</h5>
     <ol>
         <li>Set up worktrees for the slices you own. Do not work them sequentially.</li>
         <li>In each session: "Implement slice X following CLAUDE.md and the migration plan. Plan first, then build."</li>
         <li>Let Claude draft. You review against the PCG and VSG.</li>
-        <li><code>/audit</code> — fix everything it flags.</li>
+        <li><code>/audit</code> - fix everything it flags.</li>
         <li>Manual visual QA in the browser (Claude cannot see pixels). Use <code>/sail-up</code> to compare old vs new.</li>
         <li><code>/commit</code>, push, MR.</li>
     </ol>
@@ -1427,15 +1427,15 @@ claude
     <div class="card-kicker">V · Role playbooks</div>
     <h2>Backend Engineer</h2>
     <div class="role-meta">Laravel 12 · MySQL 8.4 · JWT · Pest</div>
-    <h5>Default workflow — feature endpoint</h5>
+    <h5>Default workflow - feature endpoint</h5>
     <ol>
         <li>State the route, controller, request class, and expected response shape in the prompt.</li>
         <li>Name the existing endpoint to pattern-match.</li>
         <li>Have Claude generate controller + form request + test in one diff, plan first.</li>
-        <li><code>/audit</code>. Run the test suite locally — stay at the repo's green baseline, 0 failing.</li>
+        <li><code>/audit</code>. Run the test suite locally - stay at the repo's green baseline, 0 failing.</li>
         <li><code>/commit</code>.</li>
     </ol>
-    <h5>Default workflow — money-page QA</h5>
+    <h5>Default workflow - money-page QA</h5>
     <ol>
         <li>Pick one calculator or page at a time. Never "audit the commission engine" in one go.</li>
         <li>Have Claude diff the new VO logic against the old <code>nxm-office</code> behavior.</li>
@@ -1455,11 +1455,11 @@ claude
     <h5>Safe migration prompt</h5>
     <p style="font-size: 13.5px;">Migrations carry more risk than most backend work. Hand them to Claude with a standard prompt so the safety bar is the same every time:</p>
     <div class="prompt-compare">
-        <div class="prompt-box good" data-copy><span class="prompt-tag tag-good">Template</span><div>"Write a migration in <code>&lt;path&gt;</code> to <code>&lt;change&gt;</code>. Requirements: it must be reversible — write a real <code>down()</code>, not an empty one. State the index strategy and why. For a large table, note the lock/performance impact and an online-safe approach if needed. Show the migration and the down path; do not run it. I will review the SQL, order, rollback, and indexes before it is committed."</div></div>
+        <div class="prompt-box good" data-copy><span class="prompt-tag tag-good">Template</span><div>"Write a migration in <code>&lt;path&gt;</code> to <code>&lt;change&gt;</code>. Requirements: it must be reversible - write a real <code>down()</code>, not an empty one. State the index strategy and why. For a large table, note the lock/performance impact and an online-safe approach if needed. Show the migration and the down path; do not run it. I will review the SQL, order, rollback, and indexes before it is committed."</div></div>
     </div>
     <h5>Avoid</h5>
     <ul>
-        <li>Letting Claude write DB migrations without human review. Scope of review is the SQL, the migration order, the rollback (<code>down</code>) logic, and the index strategy — not just the SQL.</li>
+        <li>Letting Claude write DB migrations without human review. Scope of review is the SQL, the migration order, the rollback (<code>down</code>) logic, and the index strategy - not just the SQL.</li>
         <li>Trusting Claude's commission math without spot-checking against the old tool.</li>
         <li>Adding a caching layer or queue mechanism without team discussion.</li>
     </ul>
@@ -1469,7 +1469,7 @@ claude
     <div class="card-kicker">V · Role playbooks</div>
     <h2>Mobile Engineer</h2>
     <div class="role-meta">Expo · React Native · NativeWind · Zustand</div>
-    <h5>Default workflow — new screen</h5>
+    <h5>Default workflow - new screen</h5>
     <ol>
         <li>Start from Figma. Provide the screen name and node ID.</li>
         <li>Name the existing screen to pattern-match.</li>
@@ -1477,7 +1477,7 @@ claude
         <li>Claude drafts the screen file + any new query hook in one diff. Plan first.</li>
         <li>Review, then <code>/audit</code> (or manual review if the mobile harness is not in your repo yet).</li>
     </ol>
-    <h5>Default workflow — EAS build issues</h5>
+    <h5>Default workflow - EAS build issues</h5>
     <p style="font-size: 13.5px;">Do not have Claude explore EAS docs for hours. Point it at the last working build config: "What's different here that might be missing?" Builds fail on env config and App Store Connect API errors; both are pattern-match problems, not docs problems.</p>
     <h5>Avoid</h5>
     <ul>
@@ -1491,13 +1491,13 @@ claude
     <div class="card-kicker">V · Role playbooks</div>
     <h2>Product Lead / Coordinator</h2>
     <div class="role-meta">claude.ai · Basecamp Skill</div>
-    <h5>Default workflow — Basecamp thread summary</h5>
+    <h5>Default workflow - Basecamp thread summary</h5>
     <ol>
         <li>With the Basecamp Skill connected to Claude Code (or the connector in claude.ai), point it at the thread.</li>
         <li>Ask for: current status, who owes what, decisions made, decisions still open.</li>
         <li>Verify any extracted commitment against the actual thread before relying on it.</li>
     </ol>
-    <h5>Default workflow — task spec drafting</h5>
+    <h5>Default workflow - task spec drafting</h5>
     <ol>
         <li>Give Claude the format: TASK / NOTES / DONE DONE.</li>
         <li>State the real scope, repo, and prerequisites.</li>
@@ -1513,7 +1513,7 @@ claude
         <div class="demo-head"><span>▶ Real demo · ACT.X</span><span class="kind">~90 sec</span></div>
         <div class="demo-body">
             <div class="demo-title">Triaging a long thread with the Basecamp Skill</div>
-            <div class="demo-cap">Not just for engineers: point the Basecamp Skill at a long ACT.X thread inside Claude Code and get status, who-owes-what, and open decisions in one pass — then verify against the latest comment before trusting it.</div>
+            <div class="demo-cap">Not just for engineers: point the Basecamp Skill at a long ACT.X thread inside Claude Code and get status, who-owes-what, and open decisions in one pass - then verify against the latest comment before trusting it.</div>
             <video class="demo-video" controls preload="none" playsinline poster="assets/demo-4-basecamp-triage.jpg" src="assets/demo-4-basecamp-triage.mp4"></video>
         </div>
     </div>
@@ -1523,11 +1523,11 @@ claude
     <div class="card-kicker">V · Role playbooks</div>
     <h2>QA / Reviewer</h2>
     <div class="role-meta">claude.ai · Claude Code · DevTools</div>
-    <h5>Default workflow — AI-assisted review</h5>
+    <h5>Default workflow - AI-assisted review</h5>
     <ol>
         <li>Run the pre-review prompt on the diff before manual review.</li>
         <li>Read Claude's flagged risks first, then verify the high-risk ones yourself.</li>
-        <li>For test plans: ask for edge cases — empty state, max length, special chars, concurrent users, network failure.</li>
+        <li>For test plans: ask for edge cases - empty state, max length, special chars, concurrent users, network failure.</li>
         <li>Filter to what is testable in our environment. Execute manually. Log per standard format.</li>
     </ol>
     <h5>Avoid</h5>
@@ -1541,7 +1541,7 @@ claude
     <div class="card-kicker">V · Role playbooks</div>
     <h2>Smart Contracts / BlessUP Engineer</h2>
     <div class="role-meta">Solidity · Hardhat · Foundry · NestJS · Next.js</div>
-    <h5>Default workflow — a contract change</h5>
+    <h5>Default workflow - a contract change</h5>
     <ol>
         <li>Plan mode first. On-chain changes are unforgiving; get the plan right before a line of Solidity.</li>
         <li>State the contract, the invariant that must hold, and what must not change (storage layout, access control, external interface).</li>
@@ -1558,13 +1558,13 @@ claude
     </ul>
     <div class="callout callout-bad">
         <span class="callout-label bad">Always verify money math against the source</span>
-        A real case: asked to explain the token's fee model, Claude gave a confident, plausible description of the tax and fee split — and it did not match what the contract actually implements. This is <code>AP-03</code> / <code>CODE-06</code> in the wild, on a money flow. Never take Claude's description of on-chain economics as fact. Open the <code>.sol</code>, read the actual function, and confirm the numbers yourself. The same rule as spot-checking VO commission math against the old tool, just on-chain.
+        A real case: asked to explain the token's fee model, Claude gave a confident, plausible description of the tax and fee split - and it did not match what the contract actually implements. This is <code>AP-03</code> / <code>CODE-06</code> in the wild, on a money flow. Never take Claude's description of on-chain economics as fact. Open the <code>.sol</code>, read the actual function, and confirm the numbers yourself. The same rule as spot-checking VO commission math against the old tool, just on-chain.
     </div>
     <h5>Avoid</h5>
     <ul>
         <li>Trusting Claude's description of tokenomics or a fee split without reading the contract.</li>
         <li>Letting Claude change storage layout or access control without explicit layout-safety tests.</li>
-        <li>Assuming the full harness exists here — contracts/BlessUP is skills-only today (see harness status, part I).</li>
+        <li>Assuming the full harness exists here - contracts/BlessUP is skills-only today (see harness status, part I).</li>
     </ul>
 </article>
 
@@ -1573,17 +1573,17 @@ claude
     <div class="card-kicker">VI · Anti-patterns</div>
     <h2>The five common traps</h2>
     <p class="lede">The failure modes that show up again and again. Name them and you stop repeating them.</p>
-    <div class="rule"><div class="rule-id ap">AP-01</div><div class="rule-body"><strong>The runaway <code>/audit</code>.</strong> One audit on a 30-file diff can eat 20% of a session. <em>Fix:</em> batch audits by 5–10 files. Reset the session between unrelated tasks. Skip <code>/audit</code> on whitespace- and comment-only changes.</div></div>
-    <div class="rule"><div class="rule-id ap">AP-02</div><div class="rule-body"><strong>Docs spelunking.</strong> Reading official API docs for hours before writing any code. Worst case observed: 24 hours on StoreKit + Google Billing docs before starting. <em>Fix:</em> point Claude at the docs URL with the specific question. 5–10 minutes, not days.</div></div>
+    <div class="rule"><div class="rule-id ap">AP-01</div><div class="rule-body"><strong>The runaway <code>/audit</code>.</strong> One audit on a 30-file diff can eat 20% of a session. <em>Fix:</em> batch audits by 5-10 files. Reset the session between unrelated tasks. Skip <code>/audit</code> on whitespace- and comment-only changes.</div></div>
+    <div class="rule"><div class="rule-id ap">AP-02</div><div class="rule-body"><strong>Docs spelunking.</strong> Reading official API docs for hours before writing any code. Worst case observed: 24 hours on StoreKit + Google Billing docs before starting. <em>Fix:</em> point Claude at the docs URL with the specific question. 5-10 minutes, not days.</div></div>
     <div class="rule"><div class="rule-id ap">AP-03</div><div class="rule-body"><strong>Confident hallucination.</strong> Claude will invent function names, package versions, and citations with full confidence. <em>Fix:</em> verify paths and function names exist before acting. Spot-check versions. Treat citations as suspect until proven.</div></div>
     <div class="rule"><div class="rule-id ap">AP-04</div><div class="rule-body"><strong>The kitchen-sink prompt.</strong> Asking Claude to do four things at once. Result: four half-done things. <em>Fix:</em> one task per prompt, one task per session. See <code>PROMPT-05</code>.</div></div>
     <div class="rule"><div class="rule-id ap">AP-05</div><div class="rule-body"><strong>Skipping <code>/audit</code> "because Claude wrote it."</strong> The audit catches Claude-specific failure modes more often than human ones. It is not optional. See <code>CODE-02</code>.</div></div>
 </article>
 
 <!-- ===================== VII · TROUBLESHOOTING ===================== -->
-<article class="card" data-part="fix" data-title="Claude did X — do Y">
+<article class="card" data-part="fix" data-title="Claude did X - do Y">
     <div class="card-kicker">VII · Troubleshooting</div>
-    <h2>Claude did X — do Y</h2>
+    <h2>Claude did X - do Y</h2>
     <p class="lede">The come-back-again section. Find the symptom, apply the fix.</p>
     <div class="fix"><div class="sym"><b>Symptom:</b> scope creep, "helpful" refactors of adjacent code</div><div class="do"><b>Editing files you told it not to touch.</b> Restate the blast radius: "Only change <code>X</code>. Do not modify any other file." Add "smallest diff." If it already sprawled, <code>git checkout</code> the files it should not have touched and re-run with tighter constraints. See <code>PROMPT-02</code>.</div></div>
     <div class="fix"><div class="sym"><b>Symptom:</b> confident reference to something not in the repo</div><div class="do"><b>Invented a function / file / package.</b> Do not act on it. Ask Claude to grep and confirm first: "Find the definition of <code>X</code> before using it." Spot-check versions against <code>composer.json</code> / <code>package.json</code>. See <code>AP-03</code>.</div></div>
@@ -1593,7 +1593,7 @@ claude
     <div class="fix"><div class="sym"><b>Symptom:</b> long research loops on StoreKit / billing / EAS</div><div class="do"><b>Reading docs forever, no code.</b> Stop it. Point it at the exact docs URL with the exact question, or at the last working config: "What's different here that's missing?" Most are pattern-match problems. See <code>AP-02</code>.</div></div>
     <div class="fix"><div class="sym"><b>Symptom:</b> green test, false confidence</div><div class="do"><b>Test passes but doesn't catch the bug.</b> Run it against a known-bad version of the code. If it still passes, the test is worthless; tell Claude exactly what behavior it must fail on. See the QA playbook.</div></div>
     <div class="fix"><div class="sym"><b>Symptom:</b> verbose corporate tone, em dashes, invented quotes</div><div class="do"><b>Draft sounds robotic.</b> Cut hard. Basecamp: TLDR at top, simple language, no em dashes. Strip any quote or commitment attributed to a person (<code>COMM-03</code>). Claude drafts, a human sends (<code>COMM-01</code>).</div></div>
-    <div class="fix"><div class="sym"><b>Symptom:</b> Claude acts strange and you suspect the harness, not Claude</div><div class="do"><b>Is it my hook / skill / rules, or Claude?</b> Start with <code>claude --safe-mode</code> — it launches with every customization (hooks, skills, rules, settings) disabled. If the problem vanishes, it is your harness config, not the model; re-enable pieces until it comes back. Faster than guessing which file broke it.</div></div>
+    <div class="fix"><div class="sym"><b>Symptom:</b> Claude acts strange and you suspect the harness, not Claude</div><div class="do"><b>Is it my hook / skill / rules, or Claude?</b> Start with <code>claude --safe-mode</code> - it launches with every customization (hooks, skills, rules, settings) disabled. If the problem vanishes, it is your harness config, not the model; re-enable pieces until it comes back. Faster than guessing which file broke it.</div></div>
     <div class="callout">
         <span class="callout-label tip">Found a new failure mode?</span>
         Screenshot it and post it in the team thread. Confident mistakes become the next entry here; that is how this section gets useful.
@@ -1606,10 +1606,10 @@ claude
     <h2>What Claude won't do</h2>
     <p class="lede">Know the edges so you do not waste a session pushing against them.</p>
     <ul>
-        <li>See your screen — screenshots must be pasted</li>
-        <li>Access production environments — only your local repo</li>
+        <li>See your screen - screenshots must be pasted</li>
+        <li>Access production environments - only your local repo</li>
         <li>Approve MRs, push to protected branches, or merge</li>
-        <li>Post to Basecamp / Slack / email on your behalf — drafts only</li>
+        <li>Post to Basecamp / Slack / email on your behalf - drafts only</li>
         <li>Access client or member production data (and should not try)</li>
         <li>Replace human review for client-facing decisions</li>
         <li>Estimate hours reliably</li>
@@ -1637,18 +1637,18 @@ claude
     <h2>Make it yours</h2>
     <p class="lede">Five minutes of setup that makes the terminal feel like your desk, not a borrowed one.</p>
     <ul>
-        <li><code>/statusline</code> — model, branch, remaining context, cost, always visible.</li>
-        <li><code>/config</code> — theme, and the output styles from the start-here card.</li>
-        <li><code>/terminal-setup</code> — shift+enter for newlines if you are in an IDE terminal or Apple Terminal.</li>
-        <li><code>/vim</code> — vim mode (in current builds it may live under <code>/config</code>).</li>
-        <li><code>/skills</code> — type-to-filter search box. As our skill set grows, this finds <code>/audit</code> or <code>/sail-up</code> without scrolling.</li>
-        <li><code>/doctor</code> — health check for your setup: finds unused skills, MCP servers, and hooks versus their context cost, dedupes stray <code>CLAUDE.md</code> files, and flags slow hooks. It reports first and asks before changing anything. Run it when a session feels heavy.</li>
-        <li>Built-in browser — Claude Code can now open docs and designs itself and read them, instead of you pasting everything in.</li>
-        <li>Spinner verbs — ask Claude to theme its "thinking…" verbs however you like. Yes, really. One teammate runs Star Trek. It changes nothing and somehow changes everything.</li>
+        <li><code>/statusline</code> - model, branch, remaining context, cost, always visible.</li>
+        <li><code>/config</code> - theme, and the output styles from the start-here card.</li>
+        <li><code>/terminal-setup</code> - shift+enter for newlines if you are in an IDE terminal or Apple Terminal.</li>
+        <li><code>/vim</code> - vim mode (in current builds it may live under <code>/config</code>).</li>
+        <li><code>/skills</code> - type-to-filter search box. As our skill set grows, this finds <code>/audit</code> or <code>/sail-up</code> without scrolling.</li>
+        <li><code>/doctor</code> - health check for your setup: finds unused skills, MCP servers, and hooks versus their context cost, dedupes stray <code>CLAUDE.md</code> files, and flags slow hooks. It reports first and asks before changing anything. Run it when a session feels heavy.</li>
+        <li>Built-in browser - Claude Code can now open docs and designs itself and read them, instead of you pasting everything in.</li>
+        <li>Spinner verbs - ask Claude to theme its "thinking…" verbs however you like. Yes, really. One teammate runs Star Trek. It changes nothing and somehow changes everything.</li>
     </ul>
     <div class="callout callout-warn">
         <span class="callout-label warn">CLI specifics drift</span>
-        Exact commands and flags shift between Claude Code releases. When a keystroke or command on this page does not match your build, trust <code>/help</code>, <code>/model</code>, and <code>/doctor</code> over the page — and flag it so we update it.
+        Exact commands and flags shift between Claude Code releases. When a keystroke or command on this page does not match your build, trust <code>/help</code>, <code>/model</code>, and <code>/doctor</code> over the page - and flag it so we update it.
     </div>
     <div class="callout">
         <span class="callout-label tip">Why this card exists</span>
@@ -1659,7 +1659,7 @@ claude
 <article class="card" data-part="limits" data-title="This is a living document">
     <div class="card-kicker">VIII · Limits</div>
     <h2>This is a living document</h2>
-    <p>v0.8, and still evolving. The point of a playbook is that it gets better as the team uses it — most of recent versions came straight from team review. Feedback is welcome from anyone, including leads and VPs; there is no formal review gate.</p>
+    <p>v0.8, and still evolving. The point of a playbook is that it gets better as the team uses it - most of recent versions came straight from team review. Feedback is welcome from anyone, including leads and VPs; there is no formal review gate.</p>
     <div class="callout">
         <span class="callout-label tip">Feedback</span>
         If a rule saved you time, flag it so it gets expanded. If a rule is wrong, contradictory, or useless to your role, flag it so it gets cut or fixed. Fewer rules, sharper rules.
@@ -1671,7 +1671,7 @@ claude
 <article class="card" data-part="models" data-title="Which model, when" data-added="0.8">
     <div class="card-kicker">IX · Models &amp; budget</div>
     <h2>Which model, when</h2>
-    <p>Every serious coding tool lets you pick a model. Picking right is the single biggest lever on both quality and credits — bigger is not always better, smaller is not always cheaper, and <strong>no single vendor wins every job</strong>. Match the ceiling to the risk.</p>
+    <p>Every serious coding tool lets you pick a model. Picking right is the single biggest lever on both quality and credits - bigger is not always better, smaller is not always cheaper, and <strong>no single vendor wins every job</strong>. Match the ceiling to the risk.</p>
     <table>
         <thead><tr><th style="width: 40%;">Work</th><th style="width: 28%;">Model class</th><th>Why</th></tr></thead>
         <tbody>
@@ -1682,7 +1682,7 @@ claude
     </table>
     <div class="callout">
         <span class="callout-label tip">The logic that generalizes</span>
-        Steering cost is real cost. A model that needs three corrections can cost more wall-clock and more tokens than a stronger model that lands once — even when the stronger model's sticker price is higher.
+        Steering cost is real cost. A model that needs three corrections can cost more wall-clock and more tokens than a stronger model that lands once - even when the stronger model's sticker price is higher.
     </div>
     <p><strong>Lineup moves. This card follows.</strong> Trust the tool's model picker over memory. Next card maps current families across providers (July 2026).</p>
 </article>
@@ -1690,12 +1690,12 @@ claude
 <article class="card" data-part="models" data-title="Choosing across providers" data-added="0.8">
     <div class="card-kicker">IX · Models &amp; budget</div>
     <h2>Choosing a model across tools</h2>
-    <p class="lede">Multi-model IDEs and CLIs make it easy to chase a favorite brand. Don't. Pick by job class. Names and prices move monthly — treat this as a map, not a scoreboard.</p>
+    <p class="lede">Multi-model IDEs and CLIs make it easy to chase a favorite brand. Don't. Pick by job class. Names and prices move monthly - treat this as a map, not a scoreboard.</p>
     <table>
         <thead><tr><th style="width: 26%;">Family (July 2026)</th><th style="width: 28%;">Typical tiers</th><th>Where it tends to fit</th></tr></thead>
         <tbody>
             <tr><td><strong>Anthropic Claude</strong></td><td>Opus 5 · Sonnet 5 · Haiku · Fable/Mythos-class where offered</td><td>High-stakes reasoning, long context (Sonnet/Opus at 1M), Claude Code default path. Strong when wrong answers are expensive.</td></tr>
-            <tr><td><strong>OpenAI GPT-5.6</strong></td><td>Sol (highest reasoning) · Terra (balanced default) · Luna (cheap/fast)</td><td>Copilot, Codex CLI, ChatGPT desktop. Match Sol/Terra/Luna to hard / everyday / bulk — same COST logic as effort dials.</td></tr>
+            <tr><td><strong>OpenAI GPT-5.6</strong></td><td>Sol (highest reasoning) · Terra (balanced default) · Luna (cheap/fast)</td><td>Copilot, Codex CLI, ChatGPT desktop. Match Sol/Terra/Luna to hard / everyday / bulk - same COST logic as effort dials.</td></tr>
             <tr><td><strong>xAI Grok</strong></td><td>Grok 4.5</td><td>Often strong on agentic/terminal coding benchmarks at competitive token cost. Available in multi-model IDEs. Verify on <em>our</em> repos before standardizing.</td></tr>
             <tr><td><strong>Google Gemini</strong></td><td>Gemini 3.x Pro · 3.6 Flash</td><td>Multimodal and fast workhorse lanes; good when the task mixes code with docs/images. Coding-agent fit varies by tool integration.</td></tr>
             <tr><td><strong>Cursor Composer</strong></td><td>Composer 2.5 (standard + fast)</td><td>IDE-native agentic edits inside Cursor only. Sensible interactive default there; still subject to human review and DATA rules.</td></tr>
@@ -1703,7 +1703,7 @@ claude
     </table>
     <div class="callout callout-good">
         <span class="callout-label good">How we decide without brand bias</span>
-        (1) Risk of the change. (2) Context size needed. (3) Token cost × expected steering. (4) Which tool already has the harness loaded. If two models are within a few points on public benches, prefer the one already wired to our rules — or A/B on a real slice and keep the winner.
+        (1) Risk of the change. (2) Context size needed. (3) Token cost × expected steering. (4) Which tool already has the harness loaded. If two models are within a few points on public benches, prefer the one already wired to our rules - or A/B on a real slice and keep the winner.
     </div>
     <div class="callout callout-warn">
         <span class="callout-label warn">Do not optimize for the leaderboard alone</span>
@@ -1713,7 +1713,7 @@ claude
 
 <article class="card" data-part="models" data-title="Effort: the dial nobody uses" data-added="0.4">
     <div class="card-kicker">IX · Models &amp; budget</div>
-    <h2>Effort — the dial nobody uses</h2>
+    <h2>Effort - the dial nobody uses</h2>
     <p>Most tools expose a thinking / effort / reasoning dial (Claude Code: low → medium → high → <strong>xhigh</strong> → <strong>max</strong> via <code>/model</code>; Copilot and Codex have similar effort controls; IDE pickers often bundle it with the model). It is a second, quieter lever on burn. Same idea everywhere: spend deep reasoning on hard work only.</p>
     <table>
         <thead><tr><th style="width: 18%;">Effort</th><th>Use for</th></tr></thead>
@@ -1727,10 +1727,10 @@ claude
     </table>
     <div class="callout callout-warn">
         <span class="callout-label warn">Calibrate to our budget, not the defaults</span>
-        Claude Code leans high/xhigh out of the box — Anthropic's own team does not share a team plan. Our guidance: default <strong>high</strong> for real work, <strong>xhigh</strong> for genuinely hard coding and contract work, <strong>max</strong> only for the rare gnarly on-chain problem, and drop to low deliberately for bulk. Never debug money math on low.
+        Claude Code leans high/xhigh out of the box - Anthropic's own team does not share a team plan. Our guidance: default <strong>high</strong> for real work, <strong>xhigh</strong> for genuinely hard coding and contract work, <strong>max</strong> only for the rare gnarly on-chain problem, and drop to low deliberately for bulk. Never debug money math on low.
     </div>
     <div class="callout">
-        <span class="callout-label tip"><code>ultracode</code> — the autopilot</span>
+        <span class="callout-label tip"><code>ultracode</code> - the autopilot</span>
         There is also an <code>ultracode</code> setting that pins effort to xhigh and lets Claude decide on its own when to spin up a multi-step workflow. Powerful for a hard, open-ended task; expensive for everyday work. Treat it like xhigh: a deliberate choice for the hard thing, not the everyday default.
     </div>
 </article>
@@ -1746,9 +1746,9 @@ claude
             <tr><td><code>/compact</code></td><td>Squeezes the history into a summary, keeps the thread, frees context.</td><td><strong>Mid-task</strong> when the session is getting long but you still need what happened.</td></tr>
         </tbody>
     </table>
-    <p><strong>Compact at a natural pause,</strong> not mid-edit. Auto-compact exists as a safety net; do not lean on it during critical work — pick the moment yourself, right after a commit is a good one.</p>
+    <p><strong>Compact at a natural pause,</strong> not mid-edit. Auto-compact exists as a safety net; do not lean on it during critical work - pick the moment yourself, right after a commit is a good one.</p>
     <div class="callout callout-good">
-        <span class="callout-label good">The handoff doc — better than compact for a hard task</span>
+        <span class="callout-label good">The handoff doc - better than compact for a hard task</span>
         When a long task is not done but the session is bloated, do not just compact. Ask Claude to write a <code>HANDOFF.md</code>: what the task is, what was tried, what worked, what did not, what is left. Then <code>/clear</code> and have a fresh session read <em>only</em> that file. You get clean context <em>and</em> the hard-won findings, without dragging the whole messy transcript along.
     </div>
     <div class="callout">
@@ -1762,21 +1762,21 @@ claude
     <h2>COST rules</h2>
     <p class="lede">Six rules. Every one of these is a real credit leak we have already paid for. <strong>Applies across tools and providers.</strong></p>
     <div class="rule"><div class="rule-id ap">COST-01</div><div class="rule-body"><strong>One task per session.</strong> Context bloat is the silent burner. Long mixed sessions cost more per answer and the answers get worse. (Same rule as <code>PROMPT-05</code>, promoted to a money rule.)</div></div>
-    <div class="rule"><div class="rule-id ap">COST-02</div><div class="rule-body"><strong>Match the model to the job.</strong> Bulk renames on the biggest model wastes credits; money-math debugging on the smallest wastes a day. See the tables earlier in this part — including cross-provider options.</div></div>
+    <div class="rule"><div class="rule-id ap">COST-02</div><div class="rule-body"><strong>Match the model to the job.</strong> Bulk renames on the biggest model wastes credits; money-math debugging on the smallest wastes a day. See the tables earlier in this part - including cross-provider options.</div></div>
     <div class="rule"><div class="rule-id ap">COST-03</div><div class="rule-body"><strong>Plan first on anything non-trivial.</strong> A wrong implementation paid for twice costs more than a plan paid for once. Plan mode exists for this (part IV).</div></div>
     <div class="rule"><div class="rule-id ap">COST-04</div><div class="rule-body"><strong>Batch the audits.</strong> 5 to 10 files per <code>/audit</code> run. One audit on a 30-file diff can eat 20% of a session. (See <code>AP-01</code>.)</div></div>
-    <div class="rule"><div class="rule-id ap">COST-05</div><div class="rule-body"><strong>Point, don't spelunk.</strong> Docs URL plus the specific question. Never "go research X." (See <code>AP-02</code> — the 24-hour StoreKit story.)</div></div>
+    <div class="rule"><div class="rule-id ap">COST-05</div><div class="rule-body"><strong>Point, don't spelunk.</strong> Docs URL plus the specific question. Never "go research X." (See <code>AP-02</code> - the 24-hour StoreKit story.)</div></div>
     <div class="rule"><div class="rule-id ap">COST-06</div><div class="rule-body"><strong>Reuse, don't re-derive.</strong> Anything you prompt more than once a day becomes a skill or slash command, checked into the repo. Repeated prompting is repeated spend.</div></div>
     <div class="callout">
         <span class="callout-label tip">More headroom, same discipline</span>
-        Claude Code rate limits were doubled, so you hit caps far less often. That is about <em>quota</em>, not <em>quality</em> — these rules are about cost per answer and the answers staying sharp. A bloated session is still a worse session even when you are nowhere near a limit.
+        Claude Code rate limits were doubled, so you hit caps far less often. That is about <em>quota</em>, not <em>quality</em> - these rules are about cost per answer and the answers staying sharp. A bloated session is still a worse session even when you are nowhere near a limit.
     </div>
 </article>
 
 <!-- ===================== X · FOR LEADS ===================== -->
 <article class="card" data-part="leads" data-title="The rules model: base, role, client" data-added="0.5">
     <div class="card-kicker">X · For leads</div>
-    <h2>The rules model — base, role, client</h2>
+    <h2>The rules model - base, role, client</h2>
     <p>As more teams and clients come onto Claude, one flat <code>CLAUDE.md</code> per repo stops scaling: the same base rules get copy-pasted everywhere, role advice gets buried, and client-specific context has nowhere clean to live. The fix is to think in three layers, not one file.</p>
     <table>
         <thead><tr><th style="width: 20%;">Layer</th><th>Holds</th><th>Lives in</th></tr></thead>
@@ -1792,19 +1792,19 @@ claude
     </div>
     <div class="callout callout-good">
         <span class="callout-label good">The mechanism: <code>.claude/rules/</code></span>
-        Claude Code's <code>.claude/rules/</code> folder makes this layering real instead of conceptual. Rules files there load at session start, or <em>only when a matching file is touched</em> — so a <code>migrations</code> rule can fire just for migration work, and a client rule only in that repo. Put the base layer in shared rules, the role and client layers in their own scoped rules files. <code>CLAUDE.md</code> stays the always-on brain; <code>rules/</code> is the targeted layer.
+        Claude Code's <code>.claude/rules/</code> folder makes this layering real instead of conceptual. Rules files there load at session start, or <em>only when a matching file is touched</em> - so a <code>migrations</code> rule can fire just for migration work, and a client rule only in that repo. Put the base layer in shared rules, the role and client layers in their own scoped rules files. <code>CLAUDE.md</code> stays the always-on brain; <code>rules/</code> is the targeted layer.
     </div>
     <div class="callout">
-        <span class="callout-label tip">Commit them — one source of truth</span>
+        <span class="callout-label tip">Commit them - one source of truth</span>
         These files (<code>CLAUDE.md</code>, <code>.claude/rules/</code>) are git-committed like any code, so the whole team pulls the same context and a rule change goes through review. A rules file living only on one laptop is how two engineers get two different Claudes on the same repo.
     </div>
 </article>
 
-<article class="card" data-part="leads" data-title="Per-client CLAUDE.md — starter template" data-added="0.5">
+<article class="card" data-part="leads" data-title="Per-client CLAUDE.md - starter template" data-added="0.5">
     <div class="card-kicker">X · For leads</div>
-    <h2>Per-client <code>CLAUDE.md</code> — starter template</h2>
+    <h2>Per-client <code>CLAUDE.md</code> - starter template</h2>
     <p>When a new client repo comes online, do not write its harness from a blank page. Run <code>/init</code> to auto-generate a starter <code>CLAUDE.md</code> from the codebase, then shape it to this skeleton and fill the brackets. You have the client layer from the model on the previous card. It pairs with the shared base rules, it does not repeat them.</p>
-    <div class="codewrap"><pre><code># CLAUDE.md — &lt;Client / Project name&gt;
+    <div class="codewrap"><pre><code># CLAUDE.md - &lt;Client / Project name&gt;
 
 ## Stack
 - Frontend: &lt;framework + UI lib + styling + state&gt;
@@ -1828,18 +1828,18 @@ claude
 - /audit clean, tests green, &lt;client-specific gate&gt;</code></pre></div>
     <div class="callout callout-good">
         <span class="callout-label good">Keep it lean</span>
-        The base rules (DATA, <code>/audit</code>, review chain) are not repeated here — they are inherited. This file only holds what is <em>true for this client and nowhere else</em>. A client <code>CLAUDE.md</code> that restates the whole playbook is a maintenance trap.
+        The base rules (DATA, <code>/audit</code>, review chain) are not repeated here - they are inherited. This file only holds what is <em>true for this client and nowhere else</em>. A client <code>CLAUDE.md</code> that restates the whole playbook is a maintenance trap.
     </div>
 </article>
 
 <article class="card" data-part="leads" data-title="Engineering conventions: playbook vs repo" data-added="0.5">
     <div class="card-kicker">X · For leads</div>
-    <h2>Engineering conventions — playbook vs repo</h2>
-    <p>A common request: put our design-system rules, frontend architecture standards, and DB conventions (new tables, columns, indexes, migrations) into the playbook so the team works consistently. Right instinct, but the specifics do not belong on this page — they belong where <code>/audit</code> can enforce them.</p>
+    <h2>Engineering conventions - playbook vs repo</h2>
+    <p>A common request: put our design-system rules, frontend architecture standards, and DB conventions (new tables, columns, indexes, migrations) into the playbook so the team works consistently. Right instinct, but the specifics do not belong on this page - they belong where <code>/audit</code> can enforce them.</p>
     <table>
         <thead><tr><th style="width: 30%;">Goes in the playbook</th><th>Goes in the repo harness</th></tr></thead>
         <tbody>
-            <tr><td>The <em>principle</em>: "match the design system, do not invent CSS classes," "migrations are reviewed by a human."</td><td>The <em>specifics</em>: the exact button taxonomy, the index-naming rule, the migration checklist — as numbered <code>PCG-*</code>/<code>VSG-*</code> rules in <code>audit-rules.md</code>.</td></tr>
+            <tr><td>The <em>principle</em>: "match the design system, do not invent CSS classes," "migrations are reviewed by a human."</td><td>The <em>specifics</em>: the exact button taxonomy, the index-naming rule, the migration checklist - as numbered <code>PCG-*</code>/<code>VSG-*</code> rules in <code>audit-rules.md</code>.</td></tr>
             <tr><td>Stays general so it reads the same for every stack and client.</td><td>Stays per-repo so <code>/audit</code> actually checks it on real diffs.</td></tr>
         </tbody>
     </table>
@@ -1847,7 +1847,7 @@ claude
         <span class="callout-label tip">The rule of thumb</span>
         If a convention can be checked on a diff, it is an <code>audit-rules.md</code> entry, not a playbook paragraph. The playbook tells you the conventions exist and why; the harness enforces them. A standard nobody enforces is a wish.
     </div>
-    <p class="lede">This keeps the playbook general-purpose and the conventions living and testable — a design-system guide that drifts from the code helps no one.</p>
+    <p class="lede">This keeps the playbook general-purpose and the conventions living and testable - a design-system guide that drifts from the code helps no one.</p>
 </article>
 
 <article class="card" data-part="leads" data-title="Measuring the tool→agent line" data-added="0.5">
@@ -1858,7 +1858,7 @@ claude
         <thead><tr><th style="width: 32%;">Signal</th><th>Tool side</th><th>Agent side</th></tr></thead>
         <tbody>
             <tr><td>How work arrives</td><td>Line-by-line, engineer types most of it</td><td>Whole slices drafted, engineer reviews</td></tr>
-            <tr><td>MR return rate</td><td>Flat — <code>/audit</code> not yet a habit</td><td>Dropping toward zero</td></tr>
+            <tr><td>MR return rate</td><td>Flat - <code>/audit</code> not yet a habit</td><td>Dropping toward zero</td></tr>
             <tr><td>Sessions per task</td><td>One long mixed session</td><td>One focused session per slice, <code>/clear</code> between</td></tr>
             <tr><td>Parallelism</td><td>One thing at a time</td><td>Worktrees: two or three slices in the same wall-clock</td></tr>
             <tr><td>Wins wall</td><td>Empty or anecdotal</td><td>Real before/after numbers posted by the team</td></tr>
@@ -1866,11 +1866,11 @@ claude
     </table>
     <div class="callout callout-good">
         <span class="callout-label good">What to actually track</span>
-        Pick two: <strong>MR return rate</strong> (should fall as <code>/audit</code> sticks) and <strong>posted wins with numbers</strong> (should rise). Both are observable from work you already do. If neither moves after a rollout wave, the tooling is installed but the habit has not landed — that is a coaching problem, not a tooling one.
+        Pick two: <strong>MR return rate</strong> (should fall as <code>/audit</code> sticks) and <strong>posted wins with numbers</strong> (should rise). Both are observable from work you already do. If neither moves after a rollout wave, the tooling is installed but the habit has not landed - that is a coaching problem, not a tooling one.
     </div>
     <div class="callout">
         <span class="callout-label tip">For the rollout</span>
-        Pilot with leads and lead engineers first, then expand once the habits (audit-before-commit, one task per session, plan first) are visible in their MRs. Inconsistent code quality across the team usually traces to mixed tools — getting everyone on the same harness is what makes the numbers comparable.
+        Pilot with leads and lead engineers first, then expand once the habits (audit-before-commit, one task per session, plan first) are visible in their MRs. Inconsistent code quality across the team usually traces to mixed tools - getting everyone on the same harness is what makes the numbers comparable.
     </div>
     <div class="callout callout-good">
         <span class="callout-label good">Levers you have as an admin</span>
@@ -1880,7 +1880,7 @@ claude
 
 <article class="card" data-part="leads" data-title="Artifacts: live shareable pages" data-added="0.5">
     <div class="card-kicker">X · For leads</div>
-    <h2>Artifacts — live shareable pages from a session</h2>
+    <h2>Artifacts - live shareable pages from a session</h2>
     <p>Claude Code can now turn a session into a live web page that updates itself as the work runs, shareable by link with your org. It builds the page from the full session context: your codebase, connected tools, and the conversation. For coordinators and leads, this replaces a lot of hand-written status writing.</p>
     <table>
         <thead><tr><th style="width: 34%;">Use it for</th><th>Instead of</th></tr></thead>
@@ -1896,7 +1896,7 @@ claude
     </div>
     <div class="callout">
         <span class="callout-label tip">Now with live data</span>
-        Published artifacts can call MCP connectors each time someone opens them, so a dashboard shows live numbers instead of a snapshot. Each call runs through the viewer's own connections and they approve access first — so the page never carries your credentials.
+        Published artifacts can call MCP connectors each time someone opens them, so a dashboard shows live numbers instead of a snapshot. Each call runs through the viewer's own connections and they approve access first - so the page never carries your credentials.
     </div>
     <div class="callout callout-warn">
         <span class="callout-label warn">Plan-gated</span>
@@ -1926,7 +1926,7 @@ claude
             <div class="cl-ver">v0.7</div>
             <div class="cl-date">July 2026</div>
             <ul>
-                <li>A worked <a href="#slicing-a-big-refactor">slicing example</a> — one feature split into non-overlapping slices, and how to keep slices from stepping on each other.</li>
+                <li>A worked <a href="#slicing-a-big-refactor">slicing example</a> - one feature split into non-overlapping slices, and how to keep slices from stepping on each other.</li>
                 <li>Part IV: <a href="#goal-and-the-agent-view"><code>/goal</code> and the agent view</a> for longer and parallel runs.</li>
                 <li>Part I: a note on what happens if a harness correction is wrong (MR review and the test gate catch it).</li>
                 <li>Claude updates: <code>/goal</code>, the <code>claude agents</code> view, Rewind's "summarize up to here," and live-data Artifacts (pages that call MCP connectors on view).</li>
@@ -1934,13 +1934,13 @@ claude
         </div>
         <div class="cl-entry">
             <div class="cl-ver">v0.6</div>
-            <div class="cl-date">June–July 2026</div>
+            <div class="cl-date">June-July 2026</div>
             <ul>
                 <li>Backend playbook: a <a href="#backend-engineer">money-page QA checklist</a> and a safe-migration prompt template, plus the full DB-migration review scope.</li>
                 <li>Start: a <a href="#one-page-cheat-sheet">one-page cheat sheet</a> to pin or print.</li>
                 <li>Part IV: a <a href="#which-mode-when-a-decision-guide">decision guide</a> for choosing prompting vs plan mode vs subagents vs worktrees vs models, and a focus note on <a href="#parallel-worktrees">parallel worktrees</a> (single-focus for high-stakes work).</li>
-                <li>Part III: a <a href="#backend-prompt-library">backend prompt library</a> — real Laravel shapes (jobs, policies, N+1, refactors) plus debugging prod issues.</li>
-                <li>Part I: an <a href="#everyday-shortcuts">everyday shortcuts</a> card — <code>!</code> bash, <code>@</code> file, <code>#</code> memory, Esc to interrupt, Esc Esc to rewind.</li>
+                <li>Part III: a <a href="#backend-prompt-library">backend prompt library</a> - real Laravel shapes (jobs, policies, N+1, refactors) plus debugging prod issues.</li>
+                <li>Part I: an <a href="#everyday-shortcuts">everyday shortcuts</a> card - <code>!</code> bash, <code>@</code> file, <code>#</code> memory, Esc to interrupt, Esc Esc to rewind.</li>
                 <li>Part IX: the <a href="#compact-vs-clear">HANDOFF.md pattern</a> for carrying hard-won context into a fresh session.</li>
                 <li>Part X: rules files are git-committed so the team shares one source of truth; <code>/init</code> to scaffold a client <code>CLAUDE.md</code>.</li>
                 <li>From a hands-on review pass: a <a href="#harness-status-by-surface">harness-status-by-surface</a> table (VO full, mobile partial, contracts/BlessUP skills-only), a new <a href="#smart-contracts-blessup-engineer">Smart Contracts / BlessUP role</a> with a verify-money-math example, the Wins Wall seeded with the real ACT.X win, <code>max</code> added to the effort card, and hard-coded test counts softened to "the green baseline."</li>
@@ -1952,7 +1952,7 @@ claude
             <div class="cl-date">June 2026</div>
             <ul>
                 <li>From team review. New part <a href="#the-rules-model-base-role-client">X · For leads</a>: the base/role/client rules model, a per-client <code>CLAUDE.md</code> starter template, conventions (playbook vs repo), and measuring the tool→agent line.</li>
-                <li>Part II: <a href="#sharing-logs-stack-traces-safely">sharing logs &amp; stack traces safely</a> — a concrete raw → redacted example on top of the DATA rules.</li>
+                <li>Part II: <a href="#sharing-logs-stack-traces-safely">sharing logs &amp; stack traces safely</a> - a concrete raw → redacted example on top of the DATA rules.</li>
                 <li>Part IV: <a href="#slicing-a-big-refactor">slicing a big refactor</a> into one-task sessions, and <a href="#reviewing-a-claude-drafted-slice">reviewing a Claude-drafted slice</a> efficiently (incl. the 20+ file audit approach).</li>
                 <li>Fixed the rule-count confusion: the 40 playbook rules and the 95+ <code>audit-rules.md</code> rules are now labeled as the separate sets they are.</li>
                 <li>Synced to current Claude Code: the <a href="#the-rules-model-base-role-client"><code>.claude/rules/</code></a> mechanism in the harness and rules model, <a href="#effort-the-dial-nobody-uses"><code>xhigh</code> effort and <code>ultracode</code></a> on the effort card, and <a href="#artifacts-live-shareable-pages">Artifacts</a> for live shareable pages.</li>
@@ -1963,7 +1963,7 @@ claude
             <div class="cl-date">June 2026</div>
             <ul>
                 <li>New part <a href="#which-model-when">IX · Models &amp; budget</a>: which model when, effort levels, <code>/compact</code> vs <code>/clear</code>, and six COST rules.</li>
-                <li>Start here: the <a href="#day-one-five-reps">Day One track</a> — five reps that cross the tool→agent line.</li>
+                <li>Start here: the <a href="#day-one-five-reps">Day One track</a> - five reps that cross the tool→agent line.</li>
                 <li>Part IV: <a href="#plan-mode-pour-energy-into-the-plan">plan mode</a>; worktrees updated to the built-in <code>--worktree</code> flag; <a href="#subagents-throw-more-compute-at-it">subagents</a>.</li>
                 <li>New cards: output styles (<a href="#make-claude-explain-itself">Explanatory / Learning</a>), <a href="#make-it-yours">Make it yours</a>, <a href="#teach-the-harness-back">Teach the harness back</a>, and a PostToolUse format hook.</li>
                 <li>NEW badges and this changelog: cards added since your last visit are now marked.</li>
@@ -2164,7 +2164,7 @@ claude
 
         // rail
         buildRail(partId);
-        railToggleLabel.textContent = p.roman + ' · ' + p.label + ' — ' + card.getAttribute('data-title');
+        railToggleLabel.textContent = p.roman + ' · ' + p.label + ' - ' + card.getAttribute('data-title');
 
         // crumb + counter
         crumb.innerHTML = '<b>' + p.roman + '</b> · ' + p.label;
@@ -2178,7 +2178,7 @@ claude
         next.disabled = (i === cards.length - 1);
         prevBig.disabled = (i === 0);
         nextBig.disabled = (i === cards.length - 1);
-        prevTitle.textContent = i > 0 ? cards[i - 1].getAttribute('data-title') : '—';
+        prevTitle.textContent = i > 0 ? cards[i - 1].getAttribute('data-title') : '-';
         nextTitle.textContent = i < cards.length - 1 ? cards[i + 1].getAttribute('data-title') : 'You’re at the end';
 
         if (!skipHash) {
@@ -2238,7 +2238,7 @@ claude
         [].slice.call(document.querySelectorAll('.tab .newpill, .rail-item .newpill, .card-kicker .newpill')).forEach(function (p) { p.remove(); });
     }
     if (newCount > 0) {
-        ubText.innerHTML = '<strong>' + newCount + ' new ' + (newCount === 1 ? 'card' : 'cards') + '</strong> since your last visit — fresh in v' + SITE_VERSION + '.';
+        ubText.innerHTML = '<strong>' + newCount + ' new ' + (newCount === 1 ? 'card' : 'cards') + '</strong> since your last visit - fresh in v' + SITE_VERSION + '.';
         banner.classList.add('show');
         document.body.classList.add('has-banner');
     }
@@ -2260,7 +2260,7 @@ claude
             if (n === null) return;
             el.textContent = ' · ' + n.toLocaleString() + (n === 1 ? ' visit' : ' visits');
             if (!counted) { try { sessionStorage.setItem('cpb_counted', '1'); } catch (e) {} }
-        }).catch(function () { /* service down — leave the counter blank */ });
+        }).catch(function () { /* service down - leave the counter blank */ });
     })();
 
     // ---- initial card from hash ----
